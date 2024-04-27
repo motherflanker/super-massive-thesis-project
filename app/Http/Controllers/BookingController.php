@@ -23,28 +23,30 @@ class BookingController extends Controller
     public function __construct(BookingService $bookingService) {
       $this->bookingService = $bookingService;
       $this->rules = [
-        'name' => 'required|min:2',
-        'surname' => 'required|min:2',
-        'phone' => 'required|size:11',
+        'name' => 'required|min:2|max:15', 
+        'surname' => 'required|min:2|max:24', 
+        'phone' => 'required|size:11', 
         'email' => 'nullable|email',
-        'passport' => 'required|size:10',
-        'price' => 'required|integer',
-        'destination' => 'required|min:2|max:30',
-        'origin' => 'required|min:2|max:30',
-        'trip_id' => 'required|integer',
-        'departure_DateTime' => 'required|date_format:Y-m-d H:i',
-        'arrival_DateTime' => 'required|date_format:Y-m-d H:i',
+        'passport' => 'required|size:10', 
+        'price' => 'required|integer', 
+        'destination' => 'required|min:2|max:30|nullable', 
+        'origin' => 'required|min:2|max:30|nullable', 
+        'trip_id' => 'required|integer|nullable', 
+        'departure_DateTime' => 'required|nullable',
+        'arrival_DateTime' => 'required|nullable',
       ];
     }
+    
+    //date_format:Y-m-d H:i
 
     public function add(){
       return Inertia::render('BookingsAdd');
     }
 
     public function index(){
-      $booking = DB::table('booking')->orderBy('created_at', 'desc')->paginate(10);
+      $booking = DB::table('bookings')->orderBy('created_at', 'desc')->paginate(10);
 
-      return Inertia::render('Bookings')->with('booking', $booking);
+      return Inertia::render('Bookings')->with('bookings', $booking);
     }
 
     public function view(Booking $booking) {
@@ -53,10 +55,6 @@ class BookingController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-      //im unsure what the fuck that is and what it wants me to do to work
-      //$datetime = Carbon::parse('YYYY-MM-DD')->format('Y-m-d H:i:s');
-      //date_format:Y-m-d\TH:i:s
-
       $data = $request->validate($this->rules);
       $this->bookingService->createBooking($data);
       return Redirect::route('bookings.list');
@@ -65,7 +63,7 @@ class BookingController extends Controller
     public function update(Request $request)
     {
       $rules = $this->rules;
-      $rules['booking_id'] = 'required|exists:booking_id';
+      $rules['booking_id'] = 'required|exists:bookings,booking_id';
       $data = $request->validate($rules);
       $this->bookingService->updateBooking($data);
       return Redirect::route('bookings.list');
@@ -73,7 +71,9 @@ class BookingController extends Controller
 
     public function destroy(Request $request)
     {
-      $data = $request->validate(['booking_id' => 'required']);
+      $data = $request->validate([
+        'booking_id' => 'required'
+      ]);
       Booking::findOrFail($data['booking_id'])->delete();
       return Redirect::route('bookings.list');
     }

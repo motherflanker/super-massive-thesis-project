@@ -10,10 +10,10 @@ import Template from "@/Components/Template"
 
 
 interface Props {
-  booking: IPaginateBooking
+  bookings: IPaginateBooking
 }
 
-const Bookings: React.FC<Props> = ({booking}) => {
+const Bookings: React.FC<Props> = ({bookings}) => {
   const tableColumns = [
     {title: 'ID', dataIndex: 'booking_id', key: 'booking_id'},
     {title: 'Name', dataIndex: 'name', key: 'name'},
@@ -36,7 +36,7 @@ const Bookings: React.FC<Props> = ({booking}) => {
             <EditOutlined/>
           </InertiaLink>
           <Popconfirm 
-            title='Are you sure you want to delete thsi?' 
+            title='Are you sure you want to delete this?' 
             onConfirm={() => deleteBooking(record.booking_id)}
           >
             <DeleteOutlined/>
@@ -46,8 +46,8 @@ const Bookings: React.FC<Props> = ({booking}) => {
     }
   ]
 
-  const deleteBooking = (booking_id: string) => { 
-    Inertia.post(route('bookings.delete', {booking_id}))
+  const deleteBooking = (booking_id: number) => {   
+    Inertia.post(route('bookings.delete', {booking_id})) 
   }
 
   const handleTableDataChange = (
@@ -65,18 +65,18 @@ const Bookings: React.FC<Props> = ({booking}) => {
         <Divider orientation="left">Bookings</Divider>
           <Col>
             <Table 
-              rowKey={'id'} 
-              dataSource={booking.data} 
+              rowKey={'booking_id'} 
+              dataSource={bookings.data} 
               columns={tableColumns}
               onChange={handleTableDataChange}
               pagination={{
-              current: booking.current_page,
-              defaultCurrent: 1,
-              pageSize: booking.per_page,
-              total: booking.total,
-              position: ['bottomLeft'],
-              showSizeChanger: false
-            }}
+                current: bookings.current_page,
+                defaultCurrent: 1,
+                pageSize: bookings.per_page,
+                total: bookings.total,
+                position: ['bottomLeft'],
+                showSizeChanger: false
+              }}
             />
           </Col>
       </div>

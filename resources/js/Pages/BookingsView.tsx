@@ -20,7 +20,7 @@ const BookingsAdd: React.FC<Props> = ({booking}) => {
 
   useEffect(() => {
     form.setFieldsValue({
-      name: booking.name,
+      name: booking.name, 
       surname: booking.surname,
       phone: booking.phone,
       email: booking.email,
@@ -80,13 +80,16 @@ const BookingsAdd: React.FC<Props> = ({booking}) => {
                 <Input />
               </Form.Item>
 
-              <Form.Item
-                label="Phone"
-                name="phone"
-                rules={[{ required: true, message: 'Enter the phone number' }]}
-              >
-                <Input />
-              </Form.Item>
+
+              <Tooltip placement="top" title={'Format: 89873407755'}>
+                <Form.Item
+                  label="Phone"
+                  name="phone"
+                  rules={[{ required: true, message: 'Enter the phone number' }]}
+                >
+                  <Input />
+                </Form.Item>
+              </Tooltip>
 
               <Form.Item
                 label="Email"
@@ -104,20 +107,22 @@ const BookingsAdd: React.FC<Props> = ({booking}) => {
                 <Input />
               </Form.Item>
 
-              <Form.Item
-                label="Price"
-                name="price"
-                rules={[{ required: true, message: 'Enter the price' }]}
-              >
-                <Input />
-              </Form.Item>
+              <Tooltip placement="top" title={'Must be an integer number'}>
+                <Form.Item
+                  label="Price"
+                  name="price"
+                  rules={[{ required: true, message: 'Enter the price' }]}
+                >
+                  <Input />
+                </Form.Item>
+              </Tooltip>
 
               <Form.Item
                 label="Destination"
                 name="destination"
                 rules={[{ required: true, message: 'Enter the destination' }]}
               >
-                <Input />
+                <Input disabled/>
               </Form.Item>
 
               <Form.Item
@@ -125,7 +130,7 @@ const BookingsAdd: React.FC<Props> = ({booking}) => {
                 name="origin"
                 rules={[{ required: true, message: 'Enter the origin' }]}
               >
-                <Input />
+                <Input disabled/>
               </Form.Item>
 
               <Form.Item
@@ -133,28 +138,24 @@ const BookingsAdd: React.FC<Props> = ({booking}) => {
                 name="trip_id"
                 rules={[{ required: true, message: 'Enter the trip ID' }]}
               >
-                <Input />
+                <Input disabled/>
               </Form.Item>
               
-              <Tooltip placement="right" title={text}>
-                <Form.Item
-                  label="Date and Time of departure"
-                  name="departure_DateTime"
-                  rules={[{ required: true, message: 'Enter the date and time' }]}
-                >
-                  <Input />
-                </Form.Item>
-              </Tooltip>
+              <Form.Item
+                label="Date and Time of departure"
+                name="departure_DateTime"
+                rules={[{ required: true, message: 'Enter the date and time' }]}
+              >
+                <Input disabled/>
+              </Form.Item>
 
-              <Tooltip placement="right" title={text}>
-                <Form.Item
-                  label="Date and Time of arrival"
-                  name="arrival_DateTime"
-                  rules={[{ required: true, message: 'Enter the date and time' }]}
-                >
-                  <Input />
-                </Form.Item>
-              </Tooltip>
+              <Form.Item
+                label="Date and Time of arrival"
+                name="arrival_DateTime"
+                rules={[{ required: true, message: 'Enter the date and time' }]}
+              >
+                <Input disabled/>
+              </Form.Item>
 
              
 

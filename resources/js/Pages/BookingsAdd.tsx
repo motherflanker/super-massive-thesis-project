@@ -57,13 +57,15 @@ const BookingsAdd: React.FC = () => {
                 <Input />
               </Form.Item>
 
-              <Form.Item
-                label="Phone"
-                name="phone"
-                rules={[{ required: true, message: 'Enter the phone number' }]}
-              >
-                <Input />
-              </Form.Item>
+              <Tooltip placement="top" title={'Format: 89873407755'}>
+                <Form.Item
+                  label="Phone"
+                  name="phone"
+                  rules={[{ required: true, message: 'Enter the phone number' }]}
+                >
+                  <Input />
+                </Form.Item>
+              </Tooltip>
 
               <Form.Item
                 label="Email"
@@ -81,13 +83,15 @@ const BookingsAdd: React.FC = () => {
                 <Input />
               </Form.Item>
 
-              <Form.Item
-                label="Price"
-                name="price"
-                rules={[{ required: true, message: 'Enter the price' }]}
-              >
-                <Input />
-              </Form.Item>
+              <Tooltip placement="top" title={'Must be an integer number'}>
+                <Form.Item
+                  label="Price"
+                  name="price"
+                  rules={[{ required: true, message: 'Enter the price' }]}
+                >
+                  <Input />
+                </Form.Item>
+              </Tooltip>
 
               <Form.Item
                 label="Destination"
@@ -113,7 +117,7 @@ const BookingsAdd: React.FC = () => {
                 <Input />
               </Form.Item>
               
-              <Tooltip placement="right" title={text}>
+              <Tooltip placement="top" title={text}>
                 <Form.Item
                   label="Date and Time of departure"
                   name="departure_DateTime"
@@ -123,7 +127,7 @@ const BookingsAdd: React.FC = () => {
                 </Form.Item>
               </Tooltip>
 
-              <Tooltip placement="right" title={text}>
+              <Tooltip placement="top" title={text}>
                 <Form.Item
                   label="Date and Time of arrival"
                   name="arrival_DateTime"

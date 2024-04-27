@@ -6,6 +6,7 @@ import {
   BarsOutlined,
   MenuOutlined,
   PlusCircleOutlined,
+  BranchesOutlined
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
@@ -43,7 +44,10 @@ const Template: React.FC<Props> = ({ children }: any) => {
                 <InertiaLink href={route('bookings.list')}>View</InertiaLink>
               </Menu.Item>
               <Menu.Item key="booking" icon={<PlusCircleOutlined />}>
-                <InertiaLink href={route('bookings.add')}>Add new</InertiaLink>
+                <InertiaLink href={route('bookings.add')}>New booking</InertiaLink>
+              </Menu.Item>
+              <Menu.Item key="home" icon={<BranchesOutlined />}>
+                <InertiaLink href={route('home')}>Routes / Trips</InertiaLink>
               </Menu.Item>
             </Menu.SubMenu>
           </Menu>
