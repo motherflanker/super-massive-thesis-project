@@ -1,5 +1,5 @@
 interface IBooking {
-  booking_id: string,
+  booking_id: number,
   name: string,
   surname: string,
   phone: string,
