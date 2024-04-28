@@ -144,7 +144,7 @@ const BookingsAdd: React.FC = () => {
                   <Button type="primary" htmlType="submit">
                     Save
                   </Button>
-                  <InertiaLink href={route('home')}>Back</InertiaLink>
+                  <InertiaLink href={route('bookings.list')}>Back</InertiaLink>
                 </Space>
               </Form.Item>
             </Form>

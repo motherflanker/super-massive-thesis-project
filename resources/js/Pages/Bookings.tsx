@@ -1,10 +1,10 @@
 import IPaginateBooking from "@/types/models/IPaginateBooking"
 import React from "react"
 import { route } from "ziggy-js"
-import { Col, Divider, Space, Table, TablePaginationConfig, Popconfirm } from "antd"
+import { Col, Divider, Space, Table, TablePaginationConfig, Popconfirm, Button } from "antd"
 import { Inertia, Method } from "@inertiajs/inertia"
 import { InertiaLink } from "@inertiajs/inertia-react"
-import {DeleteOutlined, EditOutlined} from '@ant-design/icons'
+import {DeleteOutlined, EditOutlined, PlusCircleOutlined} from '@ant-design/icons'
 import Template from "@/Components/Template"
 
 
@@ -59,10 +59,18 @@ const Bookings: React.FC<Props> = ({bookings}) => {
     Inertia.visit(url, {method: Method.GET})
   }
 
+
   return(
     <Template>
-      <div className="site-layout-background" style={{padding: 14, minHeight: 360}}>
-        <Divider orientation="left">Bookings</Divider>
+      <div className="site-layout-background" style={{padding: 14, minHeight: 360}}>  
+        <div>
+          <Divider orientation="left">
+            Bookings
+            <Button type="primary" style={{marginLeft:'20px'}}>
+              <InertiaLink href={route('bookings.add')}>Add new</InertiaLink>
+            </Button>
+          </Divider>
+        </div>
           <Col>
             <Table 
               rowKey={'booking_id'} 
