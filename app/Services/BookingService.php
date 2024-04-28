@@ -13,9 +13,7 @@ class BookingService{
   public function createBooking($bookingData) {
     try{
       DB::beginTransaction();
-      //$booking_id = IdGenerator::generate(['table' => 'bookings', 'length' => 10, 'prefix' => 'book-']);
       $booking = Booking::create([
-        //'booking_id' => $booking_id,
         'name' => $bookingData['name'],
         'surname' => $bookingData['surname'],
         'phone' => $bookingData['phone'],
@@ -32,6 +30,7 @@ class BookingService{
       // ISSUE: the commit doesn't hit if any of the above queries fail, 
       // which means the problem is probably here
       // its either ID generation problem or whatever OR some query is fucked up
+      // edit: look at the comment in the BookingController
       
       DB::commit();
 
