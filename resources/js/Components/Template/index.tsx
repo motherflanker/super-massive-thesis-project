@@ -52,11 +52,11 @@ const Template: React.FC<Props> = ({ children }: any) => {
               </Menu.Item>
             </Menu.SubMenu>
             <Menu.SubMenu key={'sub2'} icon={<SettingOutlined />} title={'Monitoring'}>
-              <Menu.Item key="bookings/list" icon={<CarOutlined />}>
+              <Menu.Item key="buses/list" icon={<CarOutlined />}>
                 <InertiaLink href={route('buses.list')}>Buses</InertiaLink>
               </Menu.Item>
-              <Menu.Item key="booking" icon={<PlusCircleOutlined />}>
-                <InertiaLink href={route('bookings.add')}>Add car</InertiaLink>
+              <Menu.Item key="bus" icon={<PlusCircleOutlined />}>
+                <InertiaLink href={route('buses.add')}>Add car</InertiaLink>
               </Menu.Item>
             </Menu.SubMenu>
           </Menu>
