@@ -1,7 +1,7 @@
 import IPaginateBus from "@/types/models/IPaginateBus"
 import { route } from "ziggy-js"
 import { InertiaLink } from "@inertiajs/inertia-react"
-import {EditOutlined} from '@ant-design/icons'
+import {EditOutlined, DeleteOutlined} from '@ant-design/icons'
 import { Col, Divider, Space, Table, TablePaginationConfig, Popconfirm, Button, Flex } from "antd"
 import { Inertia, Method } from "@inertiajs/inertia"
 import Template from "@/Components/Template"
@@ -23,14 +23,24 @@ const Buses: React.FC<Props> = ({buses}) => {
       title: 'Actions',
       key: 'bus_id',
       render: (key: any, record: any) => (
-        <Flex justify='start'>
+        <Space size={'middle'}>
           <InertiaLink href={route('buses.view', {bus: record.bus_id})}>
             <EditOutlined/>
           </InertiaLink>
-        </Flex>
+          <Popconfirm 
+            title='Are you sure you want to delete this?' 
+            onConfirm={() => deleteBus(record.bus_id)}
+          >
+            <DeleteOutlined/>
+          </Popconfirm>
+        </Space>
       )
     }
   ]
+
+  const deleteBus = (bus_id: number) => {   
+    Inertia.post(route('buses.delete', {bus_id})) 
+  }
 
   const handleTableDataChange = (
     pagination: TablePaginationConfig,

@@ -62,7 +62,7 @@ const Template: React.FC<Props> = ({ children }: any) => {
           </Menu>
       </Sider>
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }} />
+        <Header style={{ padding: 0, background: colorBgContainer }}>some logo n shit n name n logout thing n whatnot </Header>
         <Content style={{ margin: '0 16px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item></Breadcrumb.Item>

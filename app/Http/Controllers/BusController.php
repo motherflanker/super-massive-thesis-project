@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 
+use App\Models\Bus;
+
 use App\Services\BusService;
 
 use Inertia\Inertia;
