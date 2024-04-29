@@ -16,7 +16,7 @@ const BookingsAdd: React.FC = () => {
     wrapperCol: {offset: 4, span: 16}
   }
   const onFinish = (values: any) => {
-    Inertia.post(route('bookings.save'), values)Игыу
+    Inertia.post(route('bookings.save'), values)
     form.resetFields()
   }
 

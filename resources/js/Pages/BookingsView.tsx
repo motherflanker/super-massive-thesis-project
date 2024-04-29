@@ -15,7 +15,7 @@ interface Props {
   booking: IBooking
 }
 
-const BookingsAdd: React.FC<Props> = ({booking}) => {
+const BookingsView: React.FC<Props> = ({booking}) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -176,4 +176,4 @@ const BookingsAdd: React.FC<Props> = ({booking}) => {
   )
 }
 
-export default BookingsAdd
+export default BookingsView
