@@ -1,22 +1,26 @@
 import Template from "@/Components/Template"
 import { Inertia } from "@inertiajs/inertia"
-import {route} from 'ziggy-js'
-import { InertiaLink } from "@inertiajs/inertia-react"
+import { route } from 'ziggy-js'
+import { InertiaLink, usePage } from "@inertiajs/inertia-react"
 
 import { Button, Col, Divider, Input, Row, Space, Form } from "antd"
+import IBus from "@/types/IBus"
 
 
 
+interface BusProps {
+  bus: IBus
+}
 
-const BusesAdd: React.FC = () => {
+const TechReportsAdd: React.FC<BusProps> = ({bus}) => { debugger
   const [form] = Form.useForm()
 
   const tailLayout = {
-    wrapperCol: {offset: 4, span: 16}
+    wrapperCol: { offset: 4, span: 16 }
   }
 
   const onFinish = (values: any) => {
-    Inertia.post(route('buses.save', values))
+    Inertia.post(route('techreports.save', values))
     form.resetFields()
   }
 
@@ -26,7 +30,7 @@ const BusesAdd: React.FC = () => {
         className="site-layout-background"
         style={{ padding: 24, minHeight: 360 }}
       >
-        <Divider orientation="left">New bus</Divider>
+        <Divider orientation="left">New note</Divider>
         <Row>
           <Col span={24}>
             <Form
@@ -39,33 +43,40 @@ const BusesAdd: React.FC = () => {
               onFinish={onFinish}
             >
               <Form.Item
-                label="Name"
-                name="name"
-                rules={[{ required: true, message: 'Enter the name' }]}
+                label="BusID"
+                name="bus_id"
+                rules={[{ required: true}]}
               >
                 <Input />
               </Form.Item>
 
               <Form.Item
-                label="Plate"
-                name="plate_number"
-                rules={[{ required: true, message: 'Enter the plate number' }]}
+                label="Text"
+                name="text"
+                rules={[{ required: true, message: 'Enter text' }]}
               >
                 <Input />
               </Form.Item>
 
-                <Form.Item
-                  label="Seats"
-                  name="max_seats"
-                  rules={[{ required: true, message: 'Enter the amount of seats' }]}
-                >
-                  <Input />
-                </Form.Item>
+              <Form.Item
+                label="Price"
+                name="price"
+                rules={[{ required: true, message: 'Enter the price' }]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label="isDone"
+                name="isDone"
+                rules={[{ required: true }]}
+              >
+                <Input/>
+              </Form.Item>
 
               <Form.Item {...tailLayout}>
                 <Space size={18}>
                   <Button type="primary" htmlType="submit">
-                    Save
+                    Update
                   </Button>
                   <InertiaLink href={route('buses.list')}>Back</InertiaLink>
                 </Space>
@@ -79,4 +90,4 @@ const BusesAdd: React.FC = () => {
 }
 
 
-export default BusesAdd
+export default TechReportsAdd

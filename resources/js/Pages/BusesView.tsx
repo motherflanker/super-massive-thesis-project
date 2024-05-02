@@ -3,18 +3,23 @@ import IBus from "@/types/IBus"
 import { Inertia } from "@inertiajs/inertia"
 import { useEffect } from "react"
 import { route } from "ziggy-js"
-import { Button, Col, Divider, Form, Input, Row, Space, Popconfirm } from "antd"
-import { InertiaLink } from "@inertiajs/inertia-react"
+import { Button, Col, Divider, Form, Input, Row, Space, Popconfirm, Flex } from "antd"
+import { usePage } from "@inertiajs/react"
 import { DeleteOutlined } from '@ant-design/icons'
+import ITechReport from "@/types/ITechReport"
+import TechReportCard from "@/Components/TechReport/TechReportCard/Index"
+import { InertiaLink } from "@inertiajs/inertia-react"
 
 
-
-
-interface Props {
+interface BusProps {
   bus: IBus
 }
 
-const BusesView: React.FC<Props> = ({bus}) => {
+interface ReportProps {
+  techreports: Array<ITechReport>
+}
+
+const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -25,8 +30,12 @@ const BusesView: React.FC<Props> = ({bus}) => {
     })
   }, [])
 
-  const tailLayout = {
-    wrapperCol: {offset: 4, span: 16}
+  const tailLayout1 = {
+    wrapperCol: { offset: 18, span: 4 }
+  }
+
+  const tailLayout2 = {
+    wrapperCol: { offset: 10, span: 6 }
   }
 
   const onFinish = (values: any) => {
@@ -39,16 +48,19 @@ const BusesView: React.FC<Props> = ({bus}) => {
     <Template>
       <div
         className="site-layout-background"
-        style={{ padding: 24, minHeight: 560 }}
+        style={{ padding: 4, minHeight: 560 }}
       >
         <Divider orientation="left">Edit bus</Divider>
-        <Row>
-          <Col span={24}>
+ 
+        {/* TODO: DO the same shit with forms as i did with cards to have proper adaptation */}
+
+        <div style={{ display: 'flex', flexDirection: 'row', width: '1000px' }}>
+          <Col span={10}>
             <Form
               form={form}
               name="basic"
-              labelCol={{ span: 4 }}
-              wrapperCol={{ span: 8 }}
+              labelCol={{ span: 6 }}
+              wrapperCol={{ span: 24 }}
               initialValues={{ remember: true }}
               autoComplete="off"
               onFinish={onFinish}
@@ -69,24 +81,93 @@ const BusesView: React.FC<Props> = ({bus}) => {
                 <Input />
               </Form.Item>
 
-                <Form.Item
-                  label="Seats"
-                  name="max_seats"
-                  rules={[{ required: true, message: 'Enter the amount of seats' }]}
-                >
-                  <Input />
-                </Form.Item>
+              <Form.Item
+                label="Seats"
+                name="max_seats"
+                rules={[{ required: true, message: 'Enter the amount of seats' }]}
+              >
+                <Input />
+              </Form.Item>
 
-              <Form.Item {...tailLayout}>
-                <Space size={18}>
+              <Form.Item {...tailLayout1}>
+                <Space size={15}>
+                  <InertiaLink href={route('buses.list')}>Back</InertiaLink>
                   <Button type="primary" htmlType="submit">
                     Save
                   </Button>
-                  <InertiaLink href={route('buses.list')}>Back</InertiaLink>
                 </Space>
               </Form.Item>
             </Form>
           </Col>
+          <Col span={24} style={{ marginLeft: '182px' }}>
+            <Form
+              form={form}
+              name="basic"
+              labelCol={{ span: 4 }}
+              wrapperCol={{ span: 8 }}
+              initialValues={{ remember: true }}
+              autoComplete="off"
+              onFinish={onFinish}
+            >
+              <Form.Item
+                label="BusID"
+                name="bus_id"
+                rules={[{ required: true }]}
+              >
+                <Input />
+              </Form.Item>
+
+              <Form.Item
+                label="Text"
+                name="text"
+                rules={[{ required: true, message: 'Enter text' }]}
+              >
+                <Input />
+              </Form.Item>
+
+              <Form.Item
+                label="Price"
+                name="price"
+                rules={[{ required: true, message: 'Enter the price' }]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label="isDone"
+                name="isDone"
+                rules={[{ required: true }]}
+              >
+                <Input />
+              </Form.Item>
+
+              <Form.Item {...tailLayout2}>
+                <Space style={{marginLeft: '25px'}}>
+                  <Button type="primary" htmlType="submit">
+                    Add
+                  </Button>
+                </Space>
+              </Form.Item>
+            </Form>
+          </Col>
+        </div>
+
+        <Row>
+          <Divider orientation="left">Feed</Divider>
+          {
+            <Flex wrap="wrap" gap={'large'}>
+              {
+                techreports.map((item) => {
+                  if (bus.bus_id === item.bus_id) {
+                    return <TechReportCard key={item.report_id} techreport={item} bus={bus} />
+                  }
+                  else {
+                    <div>nothing</div>
+                  }
+                })
+              }
+            </Flex>
+          }
+
         </Row>
       </div>
     </Template>

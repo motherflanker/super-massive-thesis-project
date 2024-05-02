@@ -33,6 +33,7 @@ Route::post('buses/update', [BusController::class, 'update'])->name('buses.updat
 Route::post('buses/delete', [BusController::class, 'destroy'])->name('buses.delete');
 
 
+Route::get('techreports/add', [TechReportController::class, 'add'])->name('techreports.add');
 Route::get('techreports', [TechReportController::class, 'index'])->name('techreports.list');
 Route::post('techreports', [TechReportController::class, 'store'])->name('techreports.save');
 Route::get('techreports/{techreport}', [TechReportController::class, 'view'])->name('techreports.view');

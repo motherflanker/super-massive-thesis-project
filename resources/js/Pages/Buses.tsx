@@ -5,15 +5,20 @@ import {EditOutlined, DeleteOutlined} from '@ant-design/icons'
 import { Col, Divider, Space, Table, TablePaginationConfig, Popconfirm, Button, Flex } from "antd"
 import { Inertia, Method } from "@inertiajs/inertia"
 import Template from "@/Components/Template"
+import ITechReport from "@/types/ITechReport"
 
 
 
-interface Props {
+interface BusProps {
   buses: IPaginateBus
 }
+interface ReportProps {
+  techreports: ITechReport
+}
 
+type Props = BusProps & ReportProps
 
-const Buses: React.FC<Props> = ({buses}) => {
+const Buses: React.FC<Props> = ({buses, techreports}) => {
   const tableColumns = [
     {title: 'ID', dataIndex: 'bus_id', key: 'bus_id'},
     {title: 'Name', dataIndex: 'name', key: 'name'},

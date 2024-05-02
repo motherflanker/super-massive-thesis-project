@@ -7,15 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 
 class Bus extends Model{
-    use HasFactory;
+  use HasFactory;
 
-    protected $table = 'buses';
-    public $timestamps = false;
-    protected $primaryKey = 'bus_id';
+  protected $table = 'buses';
+  public $timestamps = false;
+  protected $primaryKey = 'bus_id';
 
-    protected $fillable = [
-      'name', 
-      'plate_number',
-      'max_seats'
-    ];
+  protected $fillable = [
+    'name', 
+    'plate_number',
+    'max_seats'
+  ];
 }

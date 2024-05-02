@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Bus;
+use App\Models\TechReport;
 
 use App\Services\BusService;
 
@@ -33,12 +34,16 @@ class BusController extends Controller
   }
 
   public function index(){
-    $bus = DB::table('buses')->orderBy('created_at', 'asc')->paginate(10);
-    return Inertia::render('Buses')->with('buses', $bus);
+    $buses = DB::table('buses')->orderBy('created_at', 'asc')->paginate(10);
+    $techreports = DB::table('techreports')->orderBy('created_at', 'asc')->paginate(10);
+    $data = ['buses' => $buses, 'techreports' => $techreports];
+    return Inertia::render('Buses')->with($data);
   }  
 
   public function view(Bus $bus){
-    return Inertia::render('BusesView')->with('bus', $bus);
+    $techreports = DB::table('techreports')->get();
+    $data = ['bus' => $bus, 'techreports' => $techreports];
+    return Inertia::render('BusesView')->with($data);
   }
 
   public function store(Request $request): RedirectResponse{
