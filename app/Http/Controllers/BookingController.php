@@ -32,8 +32,8 @@ class BookingController extends Controller
         'destination' => 'required|min:2|max:30', 
         'origin' => 'required|min:2|max:30', 
         'trip_id' => 'required|integer', 
-        'departure_DateTime' => 'required',
-        'arrival_DateTime' => 'required',
+        'departure_DateTime' => 'required|date_format:Y-m-d H:i',
+        'arrival_DateTime' => 'required|date_format:Y-m-d H:i',
       ];
     }
     
@@ -79,7 +79,7 @@ class BookingController extends Controller
     public function destroy(Request $request)
     {
       $data = $request->validate([
-        'booking_id' => 'required'
+        'booking_id' => 'required|integer'
       ]);
       Booking::findOrFail($data['booking_id'])->delete();
       return Redirect::route('bookings.list');
