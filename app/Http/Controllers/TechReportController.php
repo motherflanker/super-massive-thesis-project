@@ -58,7 +58,7 @@ class TechReportController extends Controller
     $rules['report_id'] = 'required|exists:techreports,report_id';
     $data = $request->validate($rules);
     $this->techReportService->updateTechReport($data);
-    return Redirect::route('buses.view');
+    return Redirect::route('buses.list');
   }
 
   public function destroy(Request $request){

@@ -24,7 +24,16 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
   const [form2] = Form.useForm();
 
   useEffect(() => {
+    form2.setFieldsValue({
+      bus_id: bus.bus_id,
+      isDone: 0
+    })
+  }, []) 
+  debugger
+
+  useEffect(() => {
     form1.setFieldsValue({
+      bus_id: bus.bus_id,
       name: bus.name,
       plate_number: bus.plate_number,
       max_seats: bus.max_seats
@@ -46,7 +55,6 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
   }
 
   const onFinishReport = (values: any) => {
-    debugger
     Inertia.post(route('techreports.save', values))
     form2.resetFields()
   }
@@ -117,7 +125,7 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
               name="bus_id"
               rules={[{ required: true }]}
             >
-              <Input />
+              <Input disabled/>
             </Form.Item>
 
             <Form.Item

@@ -41,7 +41,7 @@ class BusController extends Controller
   }  
 
   public function view(Bus $bus){
-    $techreports = DB::table('techreports')->get();
+    $techreports = DB::table('techreports')->orderBy('created_at', 'desc')->get();
     $data = ['bus' => $bus, 'techreports' => $techreports];
     return Inertia::render('BusesView')->with($data);
   }

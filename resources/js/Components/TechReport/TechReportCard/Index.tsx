@@ -40,7 +40,7 @@ const TechReportCard: React.FC<Props> = ({ techreport, bus }) => {
     setFormLayout(layout);
   };
 
-  const onFinish = (values: any) => {debugger
+  const onFinish = (values: any) => {
     values.report_id = techreport.report_id
     Inertia.post(route('techreports.update'), values)
     form.resetFields()
