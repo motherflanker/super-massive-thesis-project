@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 
 
-class Booking extends Model{
+class Trip extends Model{
   use HasFactory;
 
   protected $table = 'trips';
