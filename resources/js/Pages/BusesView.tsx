@@ -35,13 +35,17 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
   }
 
   const tailLayout2 = {
-    wrapperCol: { offset: 10, span: 6 }
+    wrapperCol: { offset: 20, span: 6 }
   }
 
   const onFinish = (values: any) => {
     values.bus_id = bus.bus_id
     Inertia.post(route('buses.update'), values)
     form.resetFields()
+  }
+
+  const onFinishReport = (values: any) => {
+
   }
 
   return (
@@ -52,11 +56,9 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
       >
         <Divider orientation="left">Edit bus</Divider>
  
-        {/* TODO: DO the same shit with forms as i did with cards to have proper adaptation */}
 
-        <div style={{ display: 'flex', flexDirection: 'row', width: '1000px' }}>
-          <Col span={10}>
-            <Form
+        <Flex wrap="wrap" justify="space-around">
+        <Form
               form={form}
               name="basic"
               labelCol={{ span: 6 }}
@@ -64,6 +66,7 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
               initialValues={{ remember: true }}
               autoComplete="off"
               onFinish={onFinish}
+              style={{width: 400}}
             >
               <Form.Item
                 label="Name"
@@ -90,7 +93,7 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
               </Form.Item>
 
               <Form.Item {...tailLayout1}>
-                <Space size={15}>
+                <Space size={10}>
                   <InertiaLink href={route('buses.list')}>Back</InertiaLink>
                   <Button type="primary" htmlType="submit">
                     Save
@@ -98,16 +101,15 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
                 </Space>
               </Form.Item>
             </Form>
-          </Col>
-          <Col span={24} style={{ marginLeft: '182px' }}>
             <Form
               form={form}
               name="basic"
-              labelCol={{ span: 4 }}
-              wrapperCol={{ span: 8 }}
+              labelCol={{ span: 8 }}
+              wrapperCol={{ span: 24 }}
               initialValues={{ remember: true }}
               autoComplete="off"
-              onFinish={onFinish}
+              onFinish={onFinishReport}
+              style={{width: 500}}
             >
               <Form.Item
                 label="BusID"
@@ -148,8 +150,7 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
                 </Space>
               </Form.Item>
             </Form>
-          </Col>
-        </div>
+        </Flex>
 
         <Row>
           <Divider orientation="left">Feed</Divider>
