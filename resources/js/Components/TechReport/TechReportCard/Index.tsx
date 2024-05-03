@@ -34,11 +34,11 @@ const TechReportCard: React.FC<Props> = ({ techreport, bus }) => {
   }, [])
 
   const formItemLayout =
-    formLayout === 'horizontal' ? { labelCol: { span: 4 }, wrapperCol: { span: 50 } } : null;
+    formLayout === 'horizontal' ? { labelCol: { span: 4 }, wrapperCol: { span: 24 } } : null;
 
-  const onFormLayoutChange = ({ layout }: { layout: LayoutType }) => {
-    setFormLayout(layout);
-  };
+  // const onFormLayoutChange = ({ layout }: { layout: LayoutType }) => {
+  //   setFormLayout(layout);
+  // };
 
   const onFinish = (values: any) => {
     values.report_id = techreport.report_id
@@ -54,7 +54,6 @@ const TechReportCard: React.FC<Props> = ({ techreport, bus }) => {
         layout={formLayout}
         form={form}
         initialValues={{ layout: formLayout }}
-        onValuesChange={onFormLayoutChange}
         onFinish={onFinish}
         style={{ maxWidth: formLayout === 'inline' ? 'none' : 385 }}
       >
@@ -69,7 +68,7 @@ const TechReportCard: React.FC<Props> = ({ techreport, bus }) => {
         </Form.Item>
         <Form.Item>
           <Row justify='space-between'>
-            <Form.Item valuePropName="checked" style={{marginLeft: '50px'}} name='isDone'>
+            <Form.Item valuePropName="checked" style={{marginLeft: '55px'}} name='isDone'>
               <Checkbox />
             </Form.Item >
             <Button type="primary" htmlType="submit">

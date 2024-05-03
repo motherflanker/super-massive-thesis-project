@@ -146,8 +146,9 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
             <Form.Item
               label="isDone"
               name="isDone"
+              rules={[{ required: true }]}
             >
-              <Input />
+              <Input disabled />
             </Form.Item>
 
             <Form.Item {...tailLayout2}>

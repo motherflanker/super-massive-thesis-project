@@ -32,11 +32,10 @@ class TechReportController extends Controller
   }
 
   public function add(Request $request){ //useless
-    //$bus = $request->query('bus');
     return Inertia::render('TechReportsAdd');
   }
 
-  public function view(TechReport $techReport){    //useless shit pay no mind to that
+  public function view(TechReport $techReport){    
     return Inertia::render('')->with('techreport', $techReport);
   }
 
