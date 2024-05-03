@@ -48,7 +48,9 @@ class TripController extends Controller
     }
 
     public function view(Trip $trip) {
-      return Inertia::render('TripsView')->with('trip', $trip);
+      $buses = DB::table('buses')->get();
+      $data = ['buses' => $buses, 'trip' => $trip];
+      return Inertia::render('TripsView')->with($data);
     }
 
     public function store(Request $request): RedirectResponse
