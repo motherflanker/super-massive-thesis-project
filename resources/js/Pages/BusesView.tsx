@@ -20,10 +20,11 @@ interface ReportProps {
 }
 
 const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
-  const [form] = Form.useForm();
+  const [form1] = Form.useForm();
+  const [form2] = Form.useForm();
 
   useEffect(() => {
-    form.setFieldsValue({
+    form1.setFieldsValue({
       name: bus.name,
       plate_number: bus.plate_number,
       max_seats: bus.max_seats
@@ -41,11 +42,13 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
   const onFinish = (values: any) => {
     values.bus_id = bus.bus_id
     Inertia.post(route('buses.update'), values)
-    form.resetFields()
+    form1.resetFields()
   }
 
   const onFinishReport = (values: any) => {
-
+    debugger
+    Inertia.post(route('techreports.save', values))
+    form2.resetFields()
   }
 
   return (
@@ -55,111 +58,107 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
         style={{ padding: 4, minHeight: 560 }}
       >
         <Divider orientation="left">Edit bus</Divider>
- 
-
         <Flex wrap="wrap" justify="space-around">
-        <Form
-              form={form}
-              name="basic"
-              labelCol={{ span: 6 }}
-              wrapperCol={{ span: 24 }}
-              initialValues={{ remember: true }}
-              autoComplete="off"
-              onFinish={onFinish}
-              style={{width: 400}}
+          <Form
+            form={form1}
+            name="basic"
+            labelCol={{ span: 6 }}
+            wrapperCol={{ span: 24 }}
+            initialValues={{ remember: true }}
+            autoComplete="off"
+            onFinish={onFinish}
+            style={{ width: 400 }}
+          >
+            <Form.Item
+              label="Name"
+              name="name"
+              rules={[{ required: true, message: 'Enter the name' }]}
             >
-              <Form.Item
-                label="Name"
-                name="name"
-                rules={[{ required: true, message: 'Enter the name' }]}
-              >
-                <Input />
-              </Form.Item>
+              <Input />
+            </Form.Item>
 
-              <Form.Item
-                label="Plate"
-                name="plate_number"
-                rules={[{ required: true, message: 'Enter the plate number' }]}
-              >
-                <Input />
-              </Form.Item>
-
-              <Form.Item
-                label="Seats"
-                name="max_seats"
-                rules={[{ required: true, message: 'Enter the amount of seats' }]}
-              >
-                <Input />
-              </Form.Item>
-
-              <Form.Item {...tailLayout1}>
-                <Space size={10}>
-                  <InertiaLink href={route('buses.list')}>Back</InertiaLink>
-                  <Button type="primary" htmlType="submit">
-                    Save
-                  </Button>
-                </Space>
-              </Form.Item>
-            </Form>
-            <Form
-              form={form}
-              name="basic"
-              labelCol={{ span: 8 }}
-              wrapperCol={{ span: 24 }}
-              initialValues={{ remember: true }}
-              autoComplete="off"
-              onFinish={onFinishReport}
-              style={{width: 500}}
+            <Form.Item
+              label="Plate"
+              name="plate_number"
+              rules={[{ required: true, message: 'Enter the plate number' }]}
             >
-              <Form.Item
-                label="BusID"
-                name="bus_id"
-                rules={[{ required: true }]}
-              >
-                <Input />
-              </Form.Item>
+              <Input />
+            </Form.Item>
 
-              <Form.Item
-                label="Text"
-                name="text"
-                rules={[{ required: true, message: 'Enter text' }]}
-              >
-                <Input />
-              </Form.Item>
+            <Form.Item
+              label="Seats"
+              name="max_seats"
+              rules={[{ required: true, message: 'Enter the amount of seats' }]}
+            >
+              <Input />
+            </Form.Item>
 
-              <Form.Item
-                label="Price"
-                name="price"
-                rules={[{ required: true, message: 'Enter the price' }]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                label="isDone"
-                name="isDone"
-                rules={[{ required: true }]}
-              >
-                <Input />
-              </Form.Item>
+            <Form.Item {...tailLayout1}>
+              <Space size={10}>
+                <InertiaLink href={route('buses.list')}>Back</InertiaLink>
+                <Button type="primary" htmlType="submit">
+                  Save
+                </Button>
+              </Space>
+            </Form.Item>
+          </Form>
+          <Form
+            form={form2}
+            name="basic"
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 24 }}
+            initialValues={{ remember: true }}
+            autoComplete="off"
+            onFinish={onFinishReport}
+            style={{ width: 500 }}
+          >
+            <Form.Item
+              label="BusID"
+              name="bus_id"
+              rules={[{ required: true }]}
+            >
+              <Input />
+            </Form.Item>
 
-              <Form.Item {...tailLayout2}>
-                <Space style={{marginLeft: '25px'}}>
-                  <Button type="primary" htmlType="submit">
-                    Add
-                  </Button>
-                </Space>
-              </Form.Item>
-            </Form>
+            <Form.Item
+              label="Text"
+              name="text"
+              rules={[{ required: true, message: 'Enter text' }]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              label="Price"
+              name="price"
+              rules={[{ required: true, message: 'Enter the price' }]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              label="isDone"
+              name="isDone"
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item {...tailLayout2}>
+              <Space style={{ marginLeft: '25px' }}>
+                <Button type="primary" htmlType="submit">
+                  Add
+                </Button>
+              </Space>
+            </Form.Item>
+          </Form>
         </Flex>
-
         <Row>
           <Divider orientation="left">Feed</Divider>
           {
             <Flex wrap="wrap" gap={'large'}>
               {
-                techreports.map((item) => {
-                  if (bus.bus_id === item.bus_id) {
-                    return <TechReportCard key={item.report_id} techreport={item} bus={bus} />
+                techreports.map((techreport) => {
+                  if (bus.bus_id === techreport.bus_id) {
+                    return <TechReportCard key={techreport.report_id} techreport={techreport} bus={bus} />
                   }
                   else {
                     <div>nothing</div>

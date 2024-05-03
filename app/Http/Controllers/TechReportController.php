@@ -64,6 +64,6 @@ class TechReportController extends Controller
   public function destroy(Request $request){
     $data = $request->validate(['report_id' => 'required']);
     TechReport::findOrFail($data['report_id'])->delete();
-    return Redirect::route('buses.view');
+    return Redirect::route('buses.list');
   }
 }
