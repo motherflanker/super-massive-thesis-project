@@ -6,6 +6,7 @@ use App\Http\Controllers\BusController;
 use App\Http\Controllers\TechReportController;
 use App\Http\Controllers\TripController;
 use App\Http\Controllers\RouteController;
+use App\Http\Controllers\CityController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 
@@ -57,3 +58,9 @@ Route::get('routes/{route}', [RouteController::class, 'view'])->name('routes.vie
 Route::post('routes/update', [RouteController::class, 'update'])->name('routes.update');
 Route::post('routes/delete', [RouteController::class, 'destroy'])->name('routes.delete');
 
+Route::get('cities', [CityController::class, 'index'])->name('cities.list');
+Route::get('cities/add', [CityController::class, 'add'])->name('cities.add');
+Route::post('cities', [CityController::class, 'store'])->name('cities.save');
+Route::get('cities/{city}', [CityController::class, 'view'])->name('cities.view');
+Route::post('cities/update', [CityController::class, 'update'])->name('cities.update');
+Route::post('cities/delete', [CityController::class, 'destroy'])->name('cities.delete');

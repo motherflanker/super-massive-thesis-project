@@ -145,7 +145,7 @@ const RoutesView: React.FC<Props> = ({ route, buses }) => {
               <Form.Item
                 label="Driver's name"
                 name="name"
-                rules={[{ required: true, message: 'Enter the surname' }]}
+                rules={[{ required: true, message: 'Enter drivers name' }]}
               >
                 <Input  />
               </Form.Item>
@@ -153,7 +153,7 @@ const RoutesView: React.FC<Props> = ({ route, buses }) => {
               <Form.Item
                 label="Driver's surname"
                 name="surname"
-                rules={[{ required: true, message: 'Enter the phone number' }]}
+                rules={[{ required: true, message: 'Enter drivers surname' }]}
               >
                 <Input  />
               </Form.Item>
@@ -161,7 +161,7 @@ const RoutesView: React.FC<Props> = ({ route, buses }) => {
               <Form.Item
                 label="Phone"
                 name="phone"
-                rules={[{ required: true, message: 'Enter the email or dont i guess' }]}
+                rules={[{ required: true, message: 'Enter the phone number' }]}
               >
                 <Input  />
               </Form.Item>
@@ -210,7 +210,7 @@ const RoutesView: React.FC<Props> = ({ route, buses }) => {
               <Form.Item
                 label="Seats"
                 name="max_seats"
-                rules={[{ required: true, message: 'Enter the trip ID' }]}
+                rules={[{ required: true, message: 'Enter the amount of seats' }]}
               >
                 <Input  />
               </Form.Item>
@@ -219,7 +219,7 @@ const RoutesView: React.FC<Props> = ({ route, buses }) => {
                 <Form.Item
                   label="Date and Time of departure"
                   name="departure_DateTime"
-                  rules={[{ required: true, message: 'Enter the date and time' }]}
+                  rules={[{ required: true, message: 'Enter the datetime of departure' }]}
                 >
                   <Input />
                 </Form.Item>
@@ -229,7 +229,7 @@ const RoutesView: React.FC<Props> = ({ route, buses }) => {
                 <Form.Item
                   label="Date and Time of arrival"
                   name="arrival_DateTime"
-                  rules={[{ required: true, message: 'Enter the date and time' }]}
+                  rules={[{ required: true, message: 'Enter the datetime of arrival' }]}
                 >
                   <Input />
                 </Form.Item>
