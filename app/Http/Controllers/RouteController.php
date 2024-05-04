@@ -29,7 +29,8 @@ class RouteController extends Controller
   }
 
   public function add(){
-    return Inertia::render('RoutesAdd');
+    $citylists = DB::table('city-lists')->get();
+    return Inertia::render('RoutesAdd')->with('citylists', $citylists);
   }
 
   public function view(Route $route) {
