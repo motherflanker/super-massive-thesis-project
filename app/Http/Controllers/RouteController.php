@@ -34,7 +34,9 @@ class RouteController extends Controller
   }
 
   public function view(Route $route) {
-    return Inertia::render('RoutesView')->with('route', $route);
+    $buses = DB::table('buses')->get();
+    $data = ['buses' => $buses, 'route' => $route];
+    return Inertia::render('RoutesView')->with($data);
   }
 
   public function store(Request $request): RedirectResponse

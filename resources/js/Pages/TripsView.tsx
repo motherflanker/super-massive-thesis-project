@@ -180,7 +180,7 @@ const TripsView: React.FC<Props> = ({ trip, buses }) => {
                   <Button type="primary" htmlType="submit">
                     Save
                   </Button>
-                  <InertiaLink href={route('bookings.list')}>Back</InertiaLink>
+                  <InertiaLink href={route('trips.list')}>Back</InertiaLink>
                 </Space>
               </Form.Item>
             </Form>

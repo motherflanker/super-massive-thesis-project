@@ -1,7 +1,7 @@
 import IPaginateTrip from "@/types/models/IPaginateBooking"
 import React from "react"
 import { route } from "ziggy-js"
-import { Col, Divider, Space, Table, TablePaginationConfig, Popconfirm, Button } from "antd"
+import { Col, Divider, Space, Table, TablePaginationConfig, Popconfirm, Button, Tooltip } from "antd"
 import { Inertia, Method } from "@inertiajs/inertia"
 import { InertiaLink } from "@inertiajs/inertia-react"
 import { DeleteOutlined, EditOutlined, PlusCircleOutlined } from '@ant-design/icons'
@@ -54,6 +54,8 @@ const TripsRoutes: React.FC<Props> = ({ trips, routes }) => {
     }
   ]
 
+  const addTripTooltip = <span>Add Trip</span>
+
   const RouteTableColumns = [
     { title: 'ID', dataIndex: 'route_id', key: 'route_id' },
     { title: 'Round Trip', dataIndex: 'twoway', key: 'twoway' },
@@ -74,6 +76,11 @@ const TripsRoutes: React.FC<Props> = ({ trips, routes }) => {
           >
             <DeleteOutlined />
           </Popconfirm>
+          <Tooltip placement="top" title={addTripTooltip}>
+            <InertiaLink href={route('routes.view', { route: record.route_id })}>
+              <PlusCircleOutlined />
+            </InertiaLink>
+          </Tooltip>
         </Space>
       )
     }
@@ -129,9 +136,6 @@ const TripsRoutes: React.FC<Props> = ({ trips, routes }) => {
         <div>
           <Divider orientation="left">
             Trips
-            <Button type="primary" style={{ marginLeft: '20px' }}>
-              <InertiaLink href={route('trips.add')}>Add trip</InertiaLink>
-            </Button>
           </Divider>
         </div>
         <Col>
