@@ -40,13 +40,13 @@ class CityListController extends Controller
   }  
 
   public function add(){
-    $citylists = DB::table('city-lists')->get();
-    return Inertia::render('CityListsAdd')->with('citylists', $citylists);
+    $cities = DB::table('cities')->get();
+    return Inertia::render('CityListsAdd')->with('cities', $cities);
   }
 
   public function view(CityList $citylist) {
     $cities = DB::table('cities')->get();
-    $data = ['buses' => $buses, 'citylist' => $citylist];
+    $data = ['cities' => $cities, 'citylist' => $citylist];
     return Inertia::render('CityListsView')->with($data);
   }
 

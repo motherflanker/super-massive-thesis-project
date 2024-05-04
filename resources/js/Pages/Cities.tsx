@@ -19,7 +19,7 @@ interface CityProps {
 
 type Props = CityListProps & CityProps
 
-const Cities: React.FC<Props> = ({citylists, cities}) => {debugger
+const Cities: React.FC<Props> = ({citylists, cities}) => {
   const tableColumns = [
     {title: 'ID', dataIndex: 'city_list_id', key: 'city_list_id'},
     {title: 'Stop №1', dataIndex: 'city_id1', key: 'city_id1'},
@@ -48,7 +48,6 @@ const Cities: React.FC<Props> = ({citylists, cities}) => {debugger
       )
     }
   ]
-debugger
   const deleteCityList = (city_list_id: number) => {    
     Inertia.post(route('citylists.delete', {city_list_id})) 
   }
@@ -57,7 +56,7 @@ debugger
     pagination: TablePaginationConfig,
     filters: unknown,
     sorter: unknown
-  ) => {debugger
+  ) => {
     const url = route('citylists.list') + `?page=${pagination.current}`
     Inertia.visit(url, {method: Method.GET})
   }
