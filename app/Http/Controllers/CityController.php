@@ -25,10 +25,10 @@ class CityController extends Controller
     ];
   }
 
-  public function index(){
-    $cities = DB::table('cities')->get();
-    return Inertia::render('Cities')->with('cities', $cities);
-  }  
+  // public function index(){
+  //   $cities = DB::table('cities')->get();
+  //   return Inertia::render('Cities')->with('cities', $cities);
+  // }  
 
   public function store(Request $request): RedirectResponse
   {

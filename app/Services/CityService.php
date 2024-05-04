@@ -27,7 +27,7 @@ class CityService{
   }
 
   public function updateRoute($cityData){
-    $city = Route::find($cityData['city_id']);
+    $city = City::find($cityData['city_id']);
 
     $city-> name = $cityData['name'];
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\TechReportController;
 use App\Http\Controllers\TripController;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\CityListController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 
@@ -64,3 +65,11 @@ Route::post('cities', [CityController::class, 'store'])->name('cities.save');
 Route::get('cities/{city}', [CityController::class, 'view'])->name('cities.view');
 Route::post('cities/update', [CityController::class, 'update'])->name('cities.update');
 Route::post('cities/delete', [CityController::class, 'destroy'])->name('cities.delete');
+
+
+Route::get('city-lists', [CityListController::class, 'index'])->name('city-lists.list');
+Route::get('city-lists/add', [CityListController::class, 'add'])->name('city-lists.add');
+Route::post('city-lists', [CityListController::class, 'store'])->name('city-lists.save');
+Route::get('city-lists/{city-list}', [CityListController::class, 'view'])->name('city-lists.view');
+Route::post('city-lists/update', [CityListController::class, 'update'])->name('city-lists.update');
+Route::post('city-lists/delete', [CityListController::class, 'destroy'])->name('city-lists.delete');
