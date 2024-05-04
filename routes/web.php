@@ -67,9 +67,9 @@ Route::post('cities/update', [CityController::class, 'update'])->name('cities.up
 Route::post('cities/delete', [CityController::class, 'destroy'])->name('cities.delete');
 
 
-Route::get('city-lists', [CityListController::class, 'index'])->name('city-lists.list');
-Route::get('city-lists/add', [CityListController::class, 'add'])->name('city-lists.add');
-Route::post('city-lists', [CityListController::class, 'store'])->name('city-lists.save');
-Route::get('city-lists/{city-list}', [CityListController::class, 'view'])->name('city-lists.view');
-Route::post('city-lists/update', [CityListController::class, 'update'])->name('city-lists.update');
-Route::post('city-lists/delete', [CityListController::class, 'destroy'])->name('city-lists.delete');
+Route::get('citylists', [CityListController::class, 'index'])->name('citylists.list');
+Route::get('citylists/add', [CityListController::class, 'add'])->name('citylists.add');
+Route::post('citylists', [CityListController::class, 'store'])->name('citylists.save');
+Route::get('citylists/{citylist}', [CityListController::class, 'view'])->name('citylists.view');
+Route::post('citylists/update', [CityListController::class, 'update'])->name('citylists.update');
+Route::post('citylists/delete', [CityListController::class, 'destroy'])->name('citylists.delete');

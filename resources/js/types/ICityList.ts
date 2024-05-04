@@ -1,6 +1,5 @@
 interface ICityList {
   city_list_id: number,
-  route_id: number | null,
   city_id1: number | null,
   city_id2: number | null,
   city_id3: number | null,

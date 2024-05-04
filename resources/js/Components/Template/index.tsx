@@ -9,9 +9,7 @@ import {
   BranchesOutlined,
   CarOutlined
 } from '@ant-design/icons';
-import type { MenuProps } from 'antd';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
-import TextInput from "../../../../vendor/laravel/breeze/stubs/inertia-react-ts/resources/js/Components/TextInput";
 import { route } from 'ziggy-js'
 import { InertiaLink } from '@inertiajs/inertia-react';
 
@@ -48,8 +46,11 @@ const Template: React.FC<Props> = ({ children }: any) => {
               <Menu.Item key="booking" icon={<PlusCircleOutlined />}>
                 <InertiaLink href={route('bookings.add')}>Add booking</InertiaLink>
               </Menu.Item>
-              <Menu.Item key="home" icon={<BranchesOutlined />}>
+              <Menu.Item key="trips/list" icon={<BranchesOutlined />}>
                 <InertiaLink href={route('trips.list')}>Routes / Trips</InertiaLink>
+              </Menu.Item>
+              <Menu.Item key="citylists/list" icon={<EnvironmentOutlined />}>
+                <InertiaLink href={route('citylists.list')}>Cities</InertiaLink>
               </Menu.Item>
             </Menu.SubMenu>
             <Menu.SubMenu key={'sub2'} icon={<SettingOutlined />} title={'Monitoring'}>

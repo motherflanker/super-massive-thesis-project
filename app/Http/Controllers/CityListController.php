@@ -18,7 +18,7 @@ class CityListController extends Controller
   private CityListService $cityListService;
   private $rules = [];
 
-  public function __construct(RouteService $cityListService) {
+  public function __construct(CityListService $cityListService) {
     $this->cityListService = $cityListService;
     $this->rules = [
       'city_id1' => 'nullable|integer',
@@ -34,8 +34,8 @@ class CityListController extends Controller
 
   public function index(){
     $cities = DB::table('cities')->get();
-    $citylists = DB::table('city-lists')->get();
-    $data = ['city-lists' => $citylists, 'cities' =>$cities];
+    $citylists = DB::table('city-lists')->orderBy('created_at', 'desc')->paginate(5);
+    $data = ['citylists' => $citylists, 'cities' => $cities];
     return Inertia::render('Cities')->with($data);
   }  
 
@@ -46,7 +46,7 @@ class CityListController extends Controller
 
   public function view(CityList $citylist) {
     $cities = DB::table('cities')->get();
-    $data = ['buses' => $buses, 'citylists' => $citylist];
+    $data = ['buses' => $buses, 'citylist' => $citylist];
     return Inertia::render('CityListsView')->with($data);
   }
 
