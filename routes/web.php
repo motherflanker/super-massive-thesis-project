@@ -5,6 +5,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BusController;
 use App\Http\Controllers\TechReportController;
 use App\Http\Controllers\TripController;
+use App\Http\Controllers\RouteController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 
@@ -48,3 +49,10 @@ Route::post('trips', [TripController::class, 'store'])->name('trips.save');
 Route::get('trips/{trip}', [TripController::class, 'view'])->name('trips.view');
 Route::post('trips/update', [TripController::class, 'update'])->name('trips.update');
 Route::post('trips/delete', [TripController::class, 'destroy'])->name('trips.delete');
+
+
+Route::get('routes/add', [RouteController::class, 'add'])->name('routes.add');
+Route::post('routes', [RouteController::class, 'store'])->name('routes.save');
+Route::post('routes/update', [RouteController::class, 'update'])->name('routes.update');
+Route::post('routes/delete', [RouteController::class, 'destroy'])->name('routes.delete');
+

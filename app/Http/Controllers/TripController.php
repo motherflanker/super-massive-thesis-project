@@ -43,7 +43,7 @@ class TripController extends Controller
     }
 
     public function index(){
-      $trips = DB::table('trips')->orderBy('created_at', 'desc')->paginate(10);
+      $trips = DB::table('trips')->orderBy('created_at', 'desc')->paginate(5);
       return Inertia::render('Trips')->with('trips', $trips);
     }
 
