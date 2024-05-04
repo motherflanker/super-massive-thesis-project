@@ -44,7 +44,9 @@ class TripController extends Controller
 
     public function index(){
       $trips = DB::table('trips')->orderBy('created_at', 'desc')->paginate(5);
-      return Inertia::render('Trips')->with('trips', $trips);
+      $routes = DB::table('routes')->orderBy('created_at', 'desc')->paginate(5);
+      $data = ['trips' => $trips, 'routes' => $routes];
+      return Inertia::render('TripsRoutes')->with($data);
     }
 
     public function view(Trip $trip) {

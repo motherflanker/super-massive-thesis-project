@@ -32,6 +32,10 @@ class RouteController extends Controller
     return Inertia::render('RoutesAdd');
   }
 
+  public function view(Route $route) {
+    return Inertia::render('RoutesView')->with('route', $route);
+  }
+
   public function store(Request $request): RedirectResponse
   {
     $data = $request->validate($this->rules); 

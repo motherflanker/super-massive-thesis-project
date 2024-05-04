@@ -53,6 +53,7 @@ Route::post('trips/delete', [TripController::class, 'destroy'])->name('trips.del
 
 Route::get('routes/add', [RouteController::class, 'add'])->name('routes.add');
 Route::post('routes', [RouteController::class, 'store'])->name('routes.save');
+Route::get('routes/{route}', [RouteController::class, 'view'])->name('routes.view');
 Route::post('routes/update', [RouteController::class, 'update'])->name('routes.update');
 Route::post('routes/delete', [RouteController::class, 'destroy'])->name('routes.delete');
 

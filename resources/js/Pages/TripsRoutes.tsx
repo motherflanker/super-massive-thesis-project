@@ -6,15 +6,23 @@ import { Inertia, Method } from "@inertiajs/inertia"
 import { InertiaLink } from "@inertiajs/inertia-react"
 import { DeleteOutlined, EditOutlined, PlusCircleOutlined } from '@ant-design/icons'
 import Template from "@/Components/Template"
+import IPaginateRoute from "@/types/models/IPaginateRoute"
 
 
-interface Props {
+interface TripProps {
   trips: IPaginateTrip
 }
 
+interface RouteProps {
+  routes: IPaginateRoute
+}
 
-const Trips: React.FC<Props> = ({ trips }) => {
-  const tableColumns = [
+type Props = TripProps & RouteProps
+
+
+
+const TripsRoutes: React.FC<Props> = ({ trips, routes }) => {
+  const TripTableColumns = [
     { title: 'ID', dataIndex: 'trip_id', key: 'trip_id' },
     { title: 'RouteID', dataIndex: 'route_id', key: 'route_id' },
     { title: "Driver's name", dataIndex: 'name', key: 'name' },
@@ -46,6 +54,35 @@ const Trips: React.FC<Props> = ({ trips }) => {
     }
   ]
 
+  const RouteTableColumns = [
+    { title: 'ID', dataIndex: 'route_id', key: 'route_id' },
+    { title: 'Phone', dataIndex: 'twoway', key: 'twoway' },
+    { title: 'StopsID', dataIndex: 'city_list_id', key: 'city_list_id' },
+    { title: 'Destination', dataIndex: 'destination', key: 'destination' },
+    { title: 'Origin', dataIndex: 'origin', key: 'origin' },
+    {
+      title: 'Actions',
+      key: 'route_id',
+      render: (key: any, record: any) => (
+        <Space size={'middle'}>
+          <InertiaLink href={route('routes.view', { route: record.route_id })}>
+            <EditOutlined />
+          </InertiaLink>
+          <Popconfirm
+            title='Are you sure you want to delete this?'
+            onConfirm={() => deleteRoute(record.route_id)}
+          >
+            <DeleteOutlined />
+          </Popconfirm>
+        </Space>
+      )
+    }
+  ]
+
+  const deleteRoute = (route_id: number) => {
+    Inertia.post(route('routes.delete', { route_id }))
+  }
+
   const deleteTrip = (trip_id: number) => {
     Inertia.post(route('trips.delete', { trip_id }))
   }
@@ -59,10 +96,36 @@ const Trips: React.FC<Props> = ({ trips }) => {
     Inertia.visit(url, { method: Method.GET })
   }
 
+  
 
   return (
     <Template>
       <div className="site-layout-background" style={{ padding: 14, minHeight: 360 }}>
+        <div>
+          <Divider orientation="left">
+            Routes
+            <Button type="primary" style={{ marginLeft: '20px' }}>
+              <InertiaLink href={route('routes.add')}>Add route</InertiaLink>
+            </Button>
+          </Divider>
+        </div>
+        <Col>
+          <Table
+            rowKey={'route_id'}
+            dataSource={routes.data}
+            columns={RouteTableColumns}
+            onChange={handleTableDataChange}
+            pagination={{
+              current: routes.current_page,
+              defaultCurrent: 1,
+              pageSize: routes.per_page,
+              total: routes.total,
+              position: ['bottomLeft'],
+              showSizeChanger: false
+            }}
+          />
+        </Col>
+        <br />
         <div>
           <Divider orientation="left">
             Trips
@@ -75,7 +138,7 @@ const Trips: React.FC<Props> = ({ trips }) => {
           <Table
             rowKey={'trip_id'}
             dataSource={trips.data}
-            columns={tableColumns}
+            columns={TripTableColumns}
             onChange={handleTableDataChange}
             pagination={{
               current: trips.current_page,
@@ -87,9 +150,10 @@ const Trips: React.FC<Props> = ({ trips }) => {
             }}
           />
         </Col>
+
       </div>
     </Template>
   )
 }
 
-export default Trips
+export default TripsRoutes
