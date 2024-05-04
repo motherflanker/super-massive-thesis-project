@@ -31,12 +31,12 @@ class RouteService{
   }
 
   public function updateRoute($routeData){
-    $route = Route::find($routeData['trip_id']);
+    $route = Route::find($routeData['route_id']);
 
-    $trip-> destination = $routeData['destination'];
-    $trip-> origin = $routeData['origin'];
-    $trip-> city_list_id = $routeData['city_list_id'];
-    $trip-> twoway = $routeData['twoway'];
+    $route-> destination = $routeData['destination'];
+    $route-> origin = $routeData['origin'];
+    $route-> city_list_id = $routeData['city_list_id'];
+    $route-> twoway = $routeData['twoway'];
 
     $route->save();
     return $route;  
