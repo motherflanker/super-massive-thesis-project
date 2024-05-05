@@ -27,14 +27,14 @@ class CityListController extends Controller
   }
 
   public function index(){
-    $cities = DB::table('cities')->get();
+    $cities = DB::table('cities')->orderBy('city_id', 'asc')->get();
     $citylists = DB::table('city-lists')->orderBy('created_at', 'desc')->paginate(5);
     $data = ['citylists' => $citylists, 'cities' => $cities];
     return Inertia::render('Cities')->with($data);
   }  
 
   public function add(){
-    $cities = DB::table('cities')->get();
+    $cities = DB::table('cities')->orderBy('city_id', 'asc')->paginate(10);
     return Inertia::render('CityListsAdd')->with('cities', $cities);
   }
 

@@ -18,23 +18,23 @@ class CityController extends Controller
   private CityService $cityService;
   private $rules = [];
 
-  public function __construct(RouteService $routeService) {
-    $this->routeService = $routeService;
+  public function __construct(CityService $cityService) {
+    $this->cityService = $cityService;
     $this->rules = [
       'name' => 'required|min:2|max:30'
     ];
   }
 
-  // public function index(){
-  //   $cities = DB::table('cities')->get();
-  //   return Inertia::render('Cities')->with('cities', $cities);
-  // }  
+  public function index(){
+    $cities = DB::table('cities')->get();
+    return Inertia::render('Nothingness')->with('cities', $cities);
+  }  
 
   public function store(Request $request): RedirectResponse
   {
     $data = $request->validate($this->rules); 
-    $this->routeService->createCity($data);
-    return Redirect::route('cities.list');
+    $this->cityService->createCity($data);
+    return Redirect::route('citylists.list');
   }
 
   public function update(Request $request)
@@ -42,8 +42,8 @@ class CityController extends Controller
     $rules = $this->rules;
     $rules['city_id'] = 'required|exists:cities,city_id';
     $data = $request->validate($rules);
-    $this->routeService->updateCity($data);
-    return Redirect::route('cities.list');
+    $this->cityService->updateCity($data);
+    return Redirect::route('citylists.list');
   }
 
   public function destroy(Request $request)
@@ -52,6 +52,6 @@ class CityController extends Controller
       'city_id' => 'required|integer'
     ]);
     City::findOrFail($data['city_id'])->delete();
-    return Redirect::route('cities.list');
+    return Redirect::route('citylists.list');
   }
 }

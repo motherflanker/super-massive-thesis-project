@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class CityService{
-  public function createRoute($cityData){
+  public function createCity($cityData){
     try{
       DB::beginTransaction();
       $city = City::create([
@@ -26,7 +26,7 @@ class CityService{
     }
   }
 
-  public function updateRoute($cityData){
+  public function updateCity($cityData){
     $city = City::find($cityData['city_id']);
 
     $city-> name = $cityData['name'];
