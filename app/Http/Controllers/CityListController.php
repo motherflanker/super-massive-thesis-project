@@ -20,16 +20,10 @@ class CityListController extends Controller
 
   public function __construct(CityListService $cityListService) {
     $this->cityListService = $cityListService;
-    $this->rules = [
-      'city_id1' => 'nullable|integer',
-      'city_id2' => 'nullable|integer',
-      'city_id3' => 'nullable|integer',
-      'city_id4' => 'nullable|integer',
-      'city_id5' => 'nullable|integer',
-      'city_id6' => 'nullable|integer',
-      'city_id7' => 'nullable|integer',
-      'city_id8' => 'nullable|integer',
-    ];
+    $this->rules = [];
+    for ($i = 1; $i <= 8; $i++) {
+      $this->rules['city_id'.$i] = 'nullable|integer';
+  }
   }
 
   public function index(){

@@ -13,22 +13,21 @@ class CityListService{
   public function createCityList($cityListData){
     try{
       DB::beginTransaction();
-      $citylist = CityList::create([
-        'city_id1' => $cityListData['city_id1'],
-        'city_id2' => $cityListData['city_id2'],
-        'city_id3' => $cityListData['city_id3'],
-        'city_id4' => $cityListData['city_id4'],
-        'city_id5' => $cityListData['city_id5'],
-        'city_id6' => $cityListData['city_id6'],
-        'city_id7' => $cityListData['city_id7'],
-        'city_id8' => $cityListData['city_id8'],
-      ]);
+      $cityList = [];
+
+      for ($i = 1; $i <= 8; $i++) {
+        if (!empty($cityListData['city_id'.$i])) {
+            $cityList['city_id'.$i] = $cityListData['city_id'.$i];
+        }
+      } 
+      $createdCityList = CityList::create($cityList);
       
       DB::commit();
 
-      return $citylist;
+      return $createdCityList;
     }
     catch(Exception $exception){
+      DB::rollBack();
       logger()->error($exception->getMessage());
     }
   }

@@ -31,198 +31,57 @@ const CityListsAdd: React.FC<Props> = ({citylist, cities}) => {debugger
     form.resetFields()
   }
 
+
+
+  const renderSelect = (stopNumber: number) => {
+    return (
+      <Form.Item
+        label={`Stop №${stopNumber}`}
+        name={`city_id${stopNumber}`}
+        rules={[{ required: false }]}
+        initialValue={null}
+      >
+        <Select>
+          {cities.map((city) => (
+            <Select.Option key={city.city_id} value={city.city_id}>
+              {city.name}
+            </Select.Option>
+          ))}
+        </Select>
+      </Form.Item>
+    );
+  };
+
   return (
     <Template>
-      <div
-        className="site-layout-background"
-        style={{ padding: 24, minHeight: 360 }}
-      >
-        <Divider orientation="left">New List</Divider>
-        <Row>
-          <Col span={24}>
-            <Form
-              form={form}
-              name="basic"
-              labelCol={{ span: 4 }}
-              wrapperCol={{ span: 8 }}
-              initialValues={{ remember: true }}
-              autoComplete="off"
-              onFinish={onFinish}
-            >
+    <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
+      <Divider orientation="left">New List</Divider>
+      <Row>
+        <Col span={24}>
+          <Form
+            form={form}
+            name="basic"
+            labelCol={{ span: 4 }}
+            wrapperCol={{ span: 8 }}
+            initialValues={{ remember: true }}
+            autoComplete="off"
+            onFinish={onFinish}
+          >
+            {Array.from({ length: 8 }).map((_, index) => renderSelect(index + 1))}
 
-              <Form.Item
-                label="Stop №1"
-                name="city_id1"
-                rules={[{ required: false }]}
-                initialValue={null}
-              >
-                <Select defaultValue={null}>
-                  {
-                    cities.map((city) => {
-                      return <Select.Option
-                        key={city.city_id}
-                        value={city.city_id}
-                      >
-                        {city.name}
-                      </Select.Option>
-                    })
-                  }
-                </Select>
-              </Form.Item>
-
-              <Form.Item
-                label="Stop №2"
-                name="city_id2"
-                rules={[{ required: false }]}
-                initialValue={null}
-              >
-                <Select defaultValue={null}>
-                  {
-                    cities.map((city) => {
-                      return <Select.Option
-                        key={city.city_id}
-                        value={city.city_id}
-                      >
-                        {city.name}
-                      </Select.Option>
-                    })
-                  }
-                </Select>
-              </Form.Item>
-
-              <Form.Item
-                label="Stop №3"
-                name="city_id3"
-                rules={[{ required: false }]}
-                initialValue={null}
-              >
-                <Select defaultValue={null}>
-                  {
-                    cities.map((city) => {
-                      return <Select.Option
-                        key={city.city_id}
-                        value={city.city_id}
-                      >
-                        {city.name}
-                      </Select.Option>
-                    })
-                  }
-                </Select>
-              </Form.Item>
-
-              <Form.Item
-                label="Stop №4"
-                name="city_id4"
-                rules={[{ required: false }]}
-                initialValue={null}
-              >
-                <Select defaultValue={null}>
-                  {
-                    cities.map((city) => {
-                      return <Select.Option
-                        key={city.city_id}
-                        value={city.city_id}
-                      >
-                        {city.name}
-                      </Select.Option>
-                    })
-                  }
-                </Select>
-              </Form.Item>
-
-              <Form.Item
-                label="Stop №5"
-                name="city_id5"
-                rules={[{ required: false }]}
-                initialValue={null}
-              >
-                <Select defaultValue={null}>
-                  {
-                    cities.map((city) => {
-                      return <Select.Option
-                        key={city.city_id}
-                        value={city.city_id}
-                      >
-                        {city.name}
-                      </Select.Option>
-                    })
-                  }
-                </Select>
-              </Form.Item>
-
-              <Form.Item
-                label="Stop №6"
-                name="city_id6"
-                rules={[{ required: false }]}
-                initialValue={null}
-              >
-                <Select defaultValue={null}>
-                  {
-                    cities.map((city) => {
-                      return <Select.Option
-                        key={city.city_id}
-                        value={city.city_id}
-                      >
-                        {city.name}
-                      </Select.Option>
-                    })
-                  }
-                </Select>
-              </Form.Item>
-
-              <Form.Item
-                label="Stop №7"
-                name="city_id7"
-                rules={[{ required: false }]}
-                initialValue={null}
-              >
-                <Select defaultValue={null}>
-                  {
-                    cities.map((city) => {
-                      return <Select.Option
-                        key={city.city_id}
-                        value={city.city_id}
-                      >
-                        {city.name}
-                      </Select.Option>
-                    })
-                  }
-                </Select>
-              </Form.Item>
-
-              <Form.Item
-                label="Stop №8"
-                name="city_id8"
-                rules={[{ required: false }]}
-                initialValue={null}
-              >
-                <Select defaultValue={null}>
-                  {
-                    cities.map((city) => {
-                      return <Select.Option
-                        key={city.city_id}
-                        value={city.city_id}
-                      >
-                        {city.name}
-                      </Select.Option>
-                    })
-                  }
-                </Select>
-              </Form.Item>
-
-              <Form.Item {...tailLayout}>
-                <Space size={18}>
-                  <Button type="primary" htmlType="submit">
-                    Save
-                  </Button>
-                  <InertiaLink href={route('citylists.list')}>Back</InertiaLink>
-                </Space>
-              </Form.Item>
-            </Form>
-          </Col>
-        </Row>
-      </div>
-    </Template>
+            <Form.Item {...tailLayout}>
+              <Space size={18}>
+                <Button type="primary" htmlType="submit">
+                  Save
+                </Button>
+                <InertiaLink href={route('citylists.list')}>Back</InertiaLink>
+              </Space>
+            </Form.Item>
+          </Form>
+        </Col>
+      </Row>
+    </div>
+  </Template>
   )
 }
 
