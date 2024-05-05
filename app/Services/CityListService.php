@@ -35,16 +35,14 @@ class CityListService{
   public function updateCityList($cityListData){
     $citylist = CityList::find($cityListData['city_list_id']);
 
-    $citylist-> city_id1 = $cityListData['city_id1'];
-    $citylist-> city_id2 = $cityListData['city_id2'];
-    $citylist-> city_id3 = $cityListData['city_id3'];
-    $citylist-> city_id4 = $cityListData['city_id4'];
-    $citylist-> city_id5 = $cityListData['city_id5'];
-    $citylist-> city_id6 = $cityListData['city_id6'];
-    $citylist-> city_id7 = $cityListData['city_id7'];
-    $citylist-> city_id8 = $cityListData['city_id8'];
+    foreach ($cityListData as $key => $value) {
+        if ($key !== 'city_list_id') {
+            $citylist->$key = $value;
+        }
+    }
 
     $citylist->save();
-    return $citylist;  
+    
+    return $citylist;
   }
 }
