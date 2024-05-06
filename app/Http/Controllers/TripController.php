@@ -32,6 +32,7 @@ class TripController extends Controller
         'surname' => 'required|min:2|max:24',
         'phone' => 'required|size:11',
         'max_seats'  => 'required|integer',
+        'isActive' => 'boolean',
         'departure_DateTime' => 'required',
         'arrival_DateTime' => 'required',
       ];

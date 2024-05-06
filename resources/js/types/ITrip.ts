@@ -9,6 +9,7 @@ interface ITrip {
   surname: string,
   phone: string,
   max_seats: number,
+  isActive: boolean,
   departure_DateTime: Date,
   arrival_DateTime: Date,
 }

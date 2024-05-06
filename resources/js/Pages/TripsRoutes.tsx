@@ -35,6 +35,7 @@ const TripsRoutes: React.FC<Props> = ({ trips, routes }) => {
     { title: 'Seats', dataIndex: 'max_seats', key: 'max_seats' },
     { title: 'Depart at', dataIndex: 'departure_DateTime', key: 'departure_DateTime' },
     { title: 'Arrive at', dataIndex: 'arrival_DateTime', key: 'arrival_DateTime' },
+    { title: 'isActive', dataIndex: 'isActive', key: 'isActive' },
     {
       title: 'Actions',
       key: 'trip_id',

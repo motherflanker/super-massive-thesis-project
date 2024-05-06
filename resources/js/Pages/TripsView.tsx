@@ -36,13 +36,14 @@ const TripsView: React.FC<Props> = ({ trip, buses }) => {
       destination: trip.destination,
       origin: trip.origin,
       max_seats: trip.max_seats,
+      isActive: trip.isActive,
       departure_DateTime: trip.departure_DateTime,
       arrival_DateTime: trip.arrival_DateTime
     })
   }, [])
 
 
-  const onFinish = (values: any) => {
+  const onFinish = (values: any) => {debugger
     values.trip_id = trip.trip_id
     Inertia.post(route('trips.update'), values)
     form.resetFields()
@@ -152,6 +153,18 @@ const TripsView: React.FC<Props> = ({ trip, buses }) => {
                 rules={[{ required: true, message: 'Enter the trip ID' }]}
               >
                 <Input disabled />
+              </Form.Item>
+
+              <Form.Item
+                label="isActive"
+                name="isActive"
+                rules={[{ required: false }]}
+                initialValue={trip.isActive}
+              >
+                <Select>
+                  <Select.Option value={1}>{'Yes'}</Select.Option>
+                  <Select.Option value={0}>{'No'}</Select.Option>
+                </Select>
               </Form.Item>
 
               <Tooltip placement="top" title={text}>

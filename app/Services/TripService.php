@@ -24,6 +24,7 @@ class TripService{
         'surname' => $tripData['surname'],
         'phone' => $tripData['phone'],
         'max_seats' => $tripData['max_seats'],
+        'isActive' => $tripData['isActive'],
         'departure_DateTime' => $tripData['departure_DateTime'],
         'arrival_DateTime' => $tripData['arrival_DateTime'],
       ]);
@@ -49,6 +50,7 @@ class TripService{
     $trip-> surname = $tripData['surname'];
     $trip-> phone = $tripData['phone'];
     $trip-> max_seats = $tripData['max_seats'];
+    $trip-> isActive = $tripData['isActive'];
     $trip-> departure_DateTime = $tripData['departure_DateTime'];
     $trip-> arrival_DateTime = $tripData['arrival_DateTime'];
 

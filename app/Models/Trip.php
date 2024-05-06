@@ -24,6 +24,7 @@ class Trip extends Model{
       'surname',
       'phone',
       'max_seats',
+      'isActive',
       'departure_DateTime',
       'arrival_DateTime',
   ];

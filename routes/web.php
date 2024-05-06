@@ -9,6 +9,7 @@ use App\Http\Controllers\RouteController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\CityListController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\CurrentTripsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 
@@ -20,10 +21,10 @@ Route::get('/', function () {
   return Inertia::render('Home');
 })->name('home');
 
-// Route::get('/login', [LoginController::class, 'index'])->name('login');
+// Route::get('/login', [LoginController::class, 'index'])->name('login');       //according to authenticatable its as if im not even sending anything to auth by
 // Route::post('/login', [LoginController::class, 'login'])->name('do.login');
 
-Route::get('bookings', [BookingController::class, 'index'])->name('bookings.list');
+  Route::get('bookings', [BookingController::class, 'index'])->name('bookings.list');
   Route::get('bookings/add', [BookingController::class, 'add'])->name('bookings.add');
   Route::post('bookings', [BookingController::class, 'store'])->name('bookings.save');
   Route::get('bookings/{booking}', [BookingController::class, 'view'])->name('bookings.view');
@@ -75,6 +76,9 @@ Route::get('bookings', [BookingController::class, 'index'])->name('bookings.list
   Route::get('citylists/{citylist}', [CityListController::class, 'view'])->name('citylists.view');
   Route::post('citylists/update', [CityListController::class, 'update'])->name('citylists.update');
   Route::post('citylists/delete', [CityListController::class, 'destroy'])->name('citylists.delete');
+
+
+  Route::get('currenttrips', [CurrentTripsController::class, 'index'])->name('currenttrips.list');
 
 // Route::group(['middleware' => ['auth']], function () {
     
