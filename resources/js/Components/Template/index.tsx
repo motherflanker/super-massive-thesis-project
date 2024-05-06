@@ -7,7 +7,10 @@ import {
   MenuOutlined,
   PlusCircleOutlined,
   BranchesOutlined,
-  CarOutlined
+  CarOutlined,
+  EyeOutlined,
+  DesktopOutlined,
+  LoadingOutlined
 } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import { route } from 'ziggy-js'
@@ -59,6 +62,14 @@ const Template: React.FC<Props> = ({ children }: any) => {
               </Menu.Item>
               <Menu.Item key="bus" icon={<PlusCircleOutlined />}>
                 <InertiaLink href={route('buses.add')}>Add car</InertiaLink>
+              </Menu.Item>
+            </Menu.SubMenu>
+            <Menu.SubMenu key={'sub3'} icon={<DesktopOutlined />} title={'Tracking'}>
+              <Menu.Item key="buses/list" icon={<EyeOutlined />}>
+                <InertiaLink href={route('buses.list')}>Map</InertiaLink>
+              </Menu.Item>
+              <Menu.Item key="bus" icon={<LoadingOutlined />}>
+                <InertiaLink href={route('buses.add')}>Current Trips</InertiaLink>
               </Menu.Item>
             </Menu.SubMenu>
           </Menu>

@@ -111,7 +111,7 @@ const Cities: React.FC<Props> = ({ citylists, cities }) => {
             <Row>
               <Form.Item
               label="City"
-              name="name"
+              name="name  "
               rules={[{ required: true, message: 'Enter the city' }]}
             >
               <Input />
