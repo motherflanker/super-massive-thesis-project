@@ -24,7 +24,6 @@ class RouteController extends Controller
       'destination' => 'required|min:2|max:30',
       'origin' => 'required|min:2|max:30',
       'city_list_id' => 'required|integer',
-      'twoway' => 'required|boolean'
     ];
   }
 

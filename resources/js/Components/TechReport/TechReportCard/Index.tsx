@@ -78,7 +78,7 @@ const TechReportCard: React.FC<Props> = ({ techreport, bus }) => {
                 value: e ? dayjs(e) : "",
               })}
             >
-              <DatePicker 
+              <DatePicker style={{width:264}}
                 format={'YYYY-MM-DD'} onChange={onChange} />
             </Form.Item>
 
@@ -91,7 +91,7 @@ const TechReportCard: React.FC<Props> = ({ techreport, bus }) => {
                 value: e ? dayjs(e) : "",
               })}
             >
-              <DatePicker 
+              <DatePicker style={{width:264}}
                 format={'YYYY-MM-DD'} onChange={onChange}/>
             </Form.Item>
         <Form.Item>

@@ -76,17 +76,6 @@ const RoutesAdd: React.FC<Props> = ({ citylists }) => {debugger
                 </Select>
               </Form.Item>
 
-              <Form.Item
-                label="Round Trip"
-                name='twoway'
-                rules={[{ required: true }]}
-              >
-                <Select>
-                  <Select.Option value={1}>{'Yes'}</Select.Option>
-                  <Select.Option value={0}>{'No'}</Select.Option>
-                </Select>
-              </Form.Item>
-
               <Form.Item {...tailLayout}>
                 <Space size={18}>
                   <Button type="primary" htmlType="submit">

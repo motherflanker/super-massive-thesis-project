@@ -18,6 +18,5 @@ class Route extends Model{
       'destination',
       'origin',
       'city_list_id',
-      'twoway'
   ];
 }

@@ -59,7 +59,6 @@ const TripsRoutes: React.FC<Props> = ({ trips, routes }) => {
 
   const RouteTableColumns = [
     { title: 'ID', dataIndex: 'route_id', key: 'route_id' },
-    { title: 'Round Trip', dataIndex: 'twoway', key: 'twoway' },
     { title: 'StopsID', dataIndex: 'city_list_id', key: 'city_list_id' },
     { title: 'Destination', dataIndex: 'destination', key: 'destination' },
     { title: 'Origin', dataIndex: 'origin', key: 'origin' },

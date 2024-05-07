@@ -18,7 +18,6 @@ class RouteService{
         'destination' => $routeData['destination'],
         'origin' => $routeData['origin'],
         'city_list_id' => $routeData['city_list_id'],
-        'twoway' => $routeData['twoway']
       ]);
       
       DB::commit();
@@ -36,7 +35,6 @@ class RouteService{
     $route-> destination = $routeData['destination'];
     $route-> origin = $routeData['origin'];
     $route-> city_list_id = $routeData['city_list_id'];
-    $route-> twoway = $routeData['twoway'];
 
     $route->save();
     return $route;  

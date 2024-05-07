@@ -32,7 +32,6 @@ const RoutesView: React.FC<Props> = ({ route, buses }) => {
   useEffect(() => {
     form.setFieldsValue({
       city_list_id: route.city_list_id,
-      twoway: route.twoway,
       destination: route.destination,
       origin: route.origin
     })
@@ -97,18 +96,6 @@ const RoutesView: React.FC<Props> = ({ route, buses }) => {
               >
                 <Select>
                   <Select.Option value={route.city_list_id}>{route.city_list_id}</Select.Option>
-                </Select>
-              </Form.Item>
-
-              <Form.Item
-                label="Round Trip"
-                name='twoway'
-                rules={[{ required: true }]}
-                initialValue={route.twoway}
-              >
-                <Select>
-                  <Select.Option value={1}>{'Yes'}</Select.Option>
-                  <Select.Option value={0}>{'No'}</Select.Option>
                 </Select>
               </Form.Item>
 
