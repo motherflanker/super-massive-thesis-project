@@ -27,7 +27,9 @@ class TechReportController extends Controller
       'bus_id' => 'required',
       'text' => 'required|max:99',
       'isDone' => 'nullable|boolean',
-      'price' => 'required|integer'
+      'price' => 'required|integer',
+      'startsAt' => 'required',
+      'endsAt' => 'required',
     ];
   }
 

@@ -17,7 +17,8 @@ class BusService{
       $bus = Bus::create([
         'name' => $busData['name'], 
         'plate_number' => $busData['plate_number'],
-        'max_seats' => $busData['max_seats']
+        'max_seats' => $busData['max_seats'],
+        'status' => $busData['status']
       ]);
 
       DB::commit();
@@ -35,6 +36,7 @@ class BusService{
     $bus-> name = $busData['name'];
     $bus-> plate_number = $busData['plate_number'];
     $bus-> max_seats = $busData['max_seats'];
+    $bus-> status = $busData['status'];
 
     $bus->save();
     return $bus;

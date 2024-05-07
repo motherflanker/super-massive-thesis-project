@@ -16,6 +16,7 @@ class Bus extends Model{
   protected $fillable = [
     'name', 
     'plate_number',
-    'max_seats'
+    'max_seats',
+    'status'
   ];
 }

@@ -3,7 +3,9 @@ interface ITechReport{
   bus_id: number,
   text: string,
   isDone: boolean,
-  price: number
+  price: number,
+  startsAt: Date,
+  endsAt: Date
 }
 
 export default ITechReport

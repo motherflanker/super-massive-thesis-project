@@ -16,6 +16,8 @@ class TechReport extends Model {
     'bus_id',
     'text',
     'isDone',
-    'price'
+    'price',
+    'startsAt',
+    'endsAt'
   ];
 }

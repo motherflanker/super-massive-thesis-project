@@ -3,12 +3,14 @@ import IBus from "@/types/IBus"
 import { Inertia } from "@inertiajs/inertia"
 import { useEffect } from "react"
 import { route } from "ziggy-js"
-import { Button, Col, Divider, Form, Input, Row, Space, Popconfirm, Flex } from "antd"
+import { Button, Col, Divider, Form, Input, Row, Space, Popconfirm, Flex, Select, DatePicker } from "antd"
 import { usePage } from "@inertiajs/react"
 import { DeleteOutlined } from '@ant-design/icons'
 import ITechReport from "@/types/ITechReport"
 import TechReportCard from "@/Components/TechReport/TechReportCard/Index"
 import { InertiaLink } from "@inertiajs/inertia-react"
+import type { DatePickerProps } from 'antd';
+import dayjs from "dayjs"
 
 
 interface BusProps {
@@ -28,15 +30,15 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
       bus_id: bus.bus_id,
       isDone: 0
     })
-  }, []) 
-  debugger
+  }, [])
 
   useEffect(() => {
     form1.setFieldsValue({
       bus_id: bus.bus_id,
       name: bus.name,
       plate_number: bus.plate_number,
-      max_seats: bus.max_seats
+      max_seats: bus.max_seats,
+      status: bus.status
     })
   }, [])
 
@@ -45,7 +47,7 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
   }
 
   const tailLayout2 = {
-    wrapperCol: { offset: 20, span: 6 }
+    wrapperCol: { offset: 19, span: 5 }
   }
 
   const onFinish = (values: any) => {
@@ -58,6 +60,10 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
     Inertia.post(route('techreports.save', values))
     form2.resetFields()
   }
+
+  const onChange: DatePickerProps['onChange'] = (date, dateString) => {
+    console.log(date, dateString);
+  };
 
   return (
     <Template>
@@ -101,6 +107,19 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
               <Input />
             </Form.Item>
 
+            <Form.Item
+              label="Status"
+              name='status'
+              rules={[{ required: true }]}
+            >
+              <Select>
+                <Select.Option value={'available'}>{'available'}</Select.Option>
+                <Select.Option value={'taken'}>{'taken'}</Select.Option>
+                <Select.Option value={'inService'}>{'inService'}</Select.Option>
+                <Select.Option value={'forMaintenance'}>{'forMaintenance'}</Select.Option>
+              </Select>
+            </Form.Item>
+
             <Form.Item {...tailLayout1}>
               <Space size={10}>
                 <InertiaLink href={route('buses.list')}>Back</InertiaLink>
@@ -113,19 +132,19 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
           <Form
             form={form2}
             name="basic"
-            labelCol={{ span: 8 }}
-            wrapperCol={{ span: 24 }}
+            labelCol={{ span: 6 }}
+            wrapperCol={{ span: 18 }}
             initialValues={{ remember: true }}
             autoComplete="off"
             onFinish={onFinishReport}
-            style={{ width: 500 }}
+            style={{ width: 400 }}
           >
             <Form.Item
               label="BusID"
               name="bus_id"
               rules={[{ required: true }]}
             >
-              <Input disabled/>
+              <Input disabled />
             </Form.Item>
 
             <Form.Item
@@ -143,6 +162,37 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
             >
               <Input />
             </Form.Item>
+
+            <Form.Item
+              label="Начало ТО"
+              name="startsAt"
+              rules={[{ required: true, message: 'Enter the date' }]}
+              getValueFromEvent={(e: any) => e?.format("YYYY-MM-DD")}
+              getValueProps={(e: string) => ({
+                value: e ? dayjs(e) : "",
+              })}
+            >
+              <DatePicker 
+                format={'YYYY-MM-DD'} 
+                style={{ minWidth: 285 }} onChange={onChange} 
+                />
+            </Form.Item>
+
+            <Form.Item
+              name="endsAt"
+              label="Конец ТО"
+              rules={[{ required: true, message: 'Enter the date' }]}
+              getValueFromEvent={(e: any) => e?.format("YYYY-MM-DD")}
+              getValueProps={(e: string) => ({
+                value: e ? dayjs(e) : "",
+              })}
+            >
+              <DatePicker 
+                format={'YYYY-MM-DD'} 
+                style={{ minWidth: 285 }} onChange={onChange}
+                 />
+            </Form.Item>
+
             <Form.Item
               label="isDone"
               name="isDone"
@@ -152,8 +202,8 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
             </Form.Item>
 
             <Form.Item {...tailLayout2}>
-              <Space style={{ marginLeft: '25px' }}>
-                <Button type="primary" htmlType="submit">
+              <Space >
+                <Button style={{ width: 82 }} type="primary" htmlType="submit">
                   Add
                 </Button>
               </Space>
@@ -176,7 +226,6 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
               }
             </Flex>
           }
-
         </Row>
       </div>
     </Template>

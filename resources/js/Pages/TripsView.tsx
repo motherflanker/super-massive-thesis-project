@@ -43,7 +43,7 @@ const TripsView: React.FC<Props> = ({ trip, buses }) => {
   }, [])
 
 
-  const onFinish = (values: any) => {debugger
+  const onFinish = (values: any) => {
     values.trip_id = trip.trip_id
     Inertia.post(route('trips.update'), values)
     form.resetFields()

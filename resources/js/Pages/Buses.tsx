@@ -24,6 +24,7 @@ const Buses: React.FC<Props> = ({buses, techreports}) => {
     {title: 'Name', dataIndex: 'name', key: 'name'},
     {title: 'Registration plate', dataIndex: 'plate_number', key: 'plate_number'},
     {title: 'Seats', dataIndex: 'max_seats', key: 'max_seats'},
+    {title: 'Status', dataIndex: 'status', key: 'status'},
     {
       title: 'Actions',
       key: 'bus_id',

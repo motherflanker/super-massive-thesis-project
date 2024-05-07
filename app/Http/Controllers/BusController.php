@@ -25,7 +25,8 @@ class BusController extends Controller
     $this->rules = [
       'name' => 'required', 
       'plate_number' => 'required|min:7|max:9',
-      'max_seats' => 'required|integer|max:99'
+      'max_seats' => 'required|integer|max:99',
+      'status' => 'required|string'
     ];
   }
 

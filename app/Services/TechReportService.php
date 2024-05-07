@@ -18,7 +18,9 @@ class TechReportService {
         'bus_id' => $reportData['bus_id'],
         'text' => $reportData['text'],
         'isDone' => $reportData['isDone'],
-        'price' => $reportData['price']
+        'price' => $reportData['price'],
+        'startsAt' => $reportData['startsAt'],
+        'endsAt' => $reportData['endsAt'],
       ]);
 
       DB::commit();
@@ -37,6 +39,8 @@ class TechReportService {
     $techreport -> text = $reportData['text'];
     $techreport -> isDone = $reportData['isDone'];
     $techreport -> price = $reportData['price'];
+    $techreport -> startsAt = $reportData['startsAt'];
+    $techreport -> endsAt = $reportData['endsAt'];
 
     $techreport->save();
     return $techreport;

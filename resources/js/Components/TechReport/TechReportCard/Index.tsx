@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Flex, Row } from 'antd';
+import { Card, DatePicker, DatePickerProps, Flex, Row } from 'antd';
 import { Button, Form, Input, Radio, Space, Checkbox } from "antd"
 import { Inertia, Method } from '@inertiajs/inertia';
 import { route } from "ziggy-js"
 import ITechReport from '@/types/ITechReport';
 import IBus from '@/types/IBus';
 import Template from '@/Components/Template';
+import dayjs from 'dayjs';
 
 
 
@@ -29,16 +30,18 @@ const TechReportCard: React.FC<Props> = ({ techreport, bus }) => {
       bus_id: bus.bus_id,
       text: techreport.text,
       price: techreport.price,
-      isDone: techreport.isDone
+      isDone: techreport.isDone,
+      startsAt: techreport.startsAt,
+      endsAt: techreport.endsAt
     })
   }, [])
 
-  const formItemLayout =
-    formLayout === 'horizontal' ? { labelCol: { span: 4 }, wrapperCol: { span: 24 } } : null;
+  const onChange: DatePickerProps['onChange'] = (date, dateString) => {
+    console.log(date, dateString);
+  };
 
-  // const onFormLayoutChange = ({ layout }: { layout: LayoutType }) => {
-  //   setFormLayout(layout);
-  // };
+  const formItemLayout =
+    formLayout === 'horizontal' ? { labelCol: { span: 5 }, wrapperCol: { span: 19} } : null;
 
   const onFinish = (values: any) => {
     values.report_id = techreport.report_id
@@ -48,7 +51,7 @@ const TechReportCard: React.FC<Props> = ({ techreport, bus }) => {
  
   return (
 
-    <Card hoverable key={techreport.report_id} bordered={true} style={{ width: 385, height: 250, background: '#f2f2f2' }}>
+    <Card hoverable key={techreport.report_id} bordered={true} style={{ width: 385, height: 350, background: '#f2f2f2' }}>
       <Form
         {...formItemLayout}
         layout={formLayout}
@@ -66,6 +69,31 @@ const TechReportCard: React.FC<Props> = ({ techreport, bus }) => {
         <Form.Item label="Price" name='price'>
           <Input placeholder="Enter price"  />
         </Form.Item>
+        <Form.Item
+              label="Начало"
+              name="startsAt"
+              initialValue={techreport.startsAt}
+              getValueFromEvent={(e: any) => e?.format("YYYY-MM-DD")}
+              getValueProps={(e: string) => ({
+                value: e ? dayjs(e) : "",
+              })}
+            >
+              <DatePicker 
+                format={'YYYY-MM-DD'} onChange={onChange} />
+            </Form.Item>
+
+            <Form.Item
+              name="endsAt"
+              label="Конец"
+              initialValue={techreport.endsAt}
+              getValueFromEvent={(e: any) => e?.format("YYYY-MM-DD")}
+              getValueProps={(e: string) => ({
+                value: e ? dayjs(e) : "",
+              })}
+            >
+              <DatePicker 
+                format={'YYYY-MM-DD'} onChange={onChange}/>
+            </Form.Item>
         <Form.Item>
           <Row justify='space-between'>
             <Form.Item valuePropName="checked" style={{marginLeft: '55px'}} name='isDone'>
