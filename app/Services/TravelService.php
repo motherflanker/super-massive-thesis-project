@@ -16,6 +16,7 @@ class TravelService{
       DB::beginTransaction();
       $travel = Travel::create([
         'trip_id' => $travelData['trip_id'],
+        'tripNumber' => $travelData['tripNumber'],
         'destination' => $travelData['destination'],
         'origin' => $travelData['origin'],
         'name' => $travelData['name'],
@@ -43,6 +44,7 @@ class TravelService{
     $travel = Travel::find($travelData['travel_id']);
 
     $travel-> trip_id = $travelData['trip_id'];
+    $travel-> tripNumber = $travelData['tripNumber'];
     $travel-> destination = $travelData['destination'];
     $travel-> origin = $travelData['origin'];
     $travel-> name = $travelData['name'];

@@ -16,6 +16,7 @@ class Travel extends Model{
 
   protected $fillable = [
     'trip_id'	,
+    'tripNumber',
     'destination'	,
     'origin',	
     'name',	

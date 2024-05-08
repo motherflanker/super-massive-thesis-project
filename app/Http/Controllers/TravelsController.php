@@ -22,6 +22,7 @@ class TravelsController extends Controller
     $this->travelService = $travelService;
     $this->rules = [
       'trip_id' => 'required|integer',
+      'tripNumber' => 'required|integer',
       'destination'	=> 'required|min:2|max:30',
       'origin' => 'required|min:2|max:30',	
       'name' => 'required|min:2|max:15',	
@@ -38,7 +39,7 @@ class TravelsController extends Controller
 
   public function index(){
     $travel = DB::table('travels')->orderBy('created_at', 'desc')->paginate(10);
-    return Inertia::render('Travels')->with('travel', $travel);
+    return Inertia::render('Travels')->with('travels', $travel);
   }  
 
   public function add(){

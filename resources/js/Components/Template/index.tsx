@@ -42,21 +42,24 @@ const Template: React.FC<Props> = ({ children }: any) => {
             <Menu.Item key="home">
               <InertiaLink href={route('home')}>Home</InertiaLink>
             </Menu.Item>
-            <Menu.SubMenu key={'sub1'} icon={<MenuOutlined/>} title={'Bookings'}>
+            <Menu.SubMenu key={'sub1'} icon={<MenuOutlined/>} title={'Бронирование'}>
               <Menu.Item key="bookings/list" icon={<BarsOutlined />}>
-                <InertiaLink href={route('bookings.list')}>View</InertiaLink>
+                <InertiaLink href={route('bookings.list')}>Брони</InertiaLink>
+              </Menu.Item>
+              <Menu.Item key="travels/list" icon={<PlusCircleOutlined />}>
+                <InertiaLink href={route('travels.list')}>Поездки</InertiaLink>
               </Menu.Item>
               <Menu.Item key="booking" icon={<PlusCircleOutlined />}>
                 <InertiaLink href={route('bookings.add')}>Add booking</InertiaLink>
               </Menu.Item>
               <Menu.Item key="trips/list" icon={<BranchesOutlined />}>
-                <InertiaLink href={route('trips.list')}>Routes / Trips</InertiaLink>
+                <InertiaLink href={route('trips.list')}>Маршруты</InertiaLink>
               </Menu.Item>
               <Menu.Item key="citylists/list" icon={<EnvironmentOutlined />}>
-                <InertiaLink href={route('citylists.list')}>Cities</InertiaLink>
+                <InertiaLink href={route('citylists.list')}>Остановки</InertiaLink>
               </Menu.Item>
             </Menu.SubMenu>
-            <Menu.SubMenu key={'sub2'} icon={<SettingOutlined />} title={'Monitoring'}>
+            <Menu.SubMenu key={'sub2'} icon={<SettingOutlined />} title={'Мониторинг'}>
               <Menu.Item key="buses/list" icon={<CarOutlined />}>
                 <InertiaLink href={route('buses.list')}>Buses</InertiaLink>
               </Menu.Item>
@@ -64,7 +67,7 @@ const Template: React.FC<Props> = ({ children }: any) => {
                 <InertiaLink href={route('buses.add')}>Add car</InertiaLink>
               </Menu.Item>
             </Menu.SubMenu>
-            <Menu.SubMenu key={'sub3'} icon={<DesktopOutlined />} title={'Tracking'}>
+            <Menu.SubMenu key={'sub3'} icon={<DesktopOutlined />} title={'Трекинг'}>
               <Menu.Item key="buses/list" icon={<EyeOutlined />}>
                 <InertiaLink href={route('buses.list')}>Map</InertiaLink>
               </Menu.Item>
