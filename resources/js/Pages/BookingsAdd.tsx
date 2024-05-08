@@ -3,14 +3,18 @@ import { InertiaLink } from "@inertiajs/inertia-react"
 
 import React from "react"
 import {route} from 'ziggy-js'
-import { Button, Col, Divider, Form, Input, Row, Space, Tooltip } from "antd"
+import { Button, Col, Divider, Form, Input, Row, Select, Space, Tooltip } from "antd"
 
 import Template from "@/Components/Template"
+import ITravel from "@/types/ITravel"
 
 
+interface Props {
+  travels: Array<ITravel>
+}
 
 
-const BookingsAdd: React.FC = () => {
+const BookingsAdd: React.FC<Props> = ({travels}) => {
   const [form] = Form.useForm();
   const tailLayout = {
     wrapperCol: {offset: 4, span: 16}
@@ -20,7 +24,7 @@ const BookingsAdd: React.FC = () => {
     form.resetFields()
   }
 
-  const text = <span>YYYY-MM-DD HH:MM</span>;
+  const text = <span>ГГГГ-ММ-ДД ЧЧ:ММ</span>;
 
   return(
     <Template>
@@ -28,7 +32,7 @@ const BookingsAdd: React.FC = () => {
         className="site-layout-background"
         style={{ padding: 24, minHeight: 360 }}
       >
-        <Divider orientation="left">New booking</Divider>
+        <Divider orientation="left">Новая бронь</Divider>
         <Row>
           <Col span={24}>
             <Form
@@ -41,98 +45,104 @@ const BookingsAdd: React.FC = () => {
               onFinish={onFinish}
             >
               <Form.Item
-                label="Name"
+                label="Имя"
                 name="name"
-                rules={[{ required: true, message: 'Enter the name' }]}
+                rules={[{ required: true, message: 'Введите имя пассажира' }]}
               >
                 <Input />
               </Form.Item>
 
               <Form.Item
-                label="Surname"
+                label="Фамилия"
                 name="surname"
-                rules={[{ required: true, message: 'Enter the surname' }]}
+                rules={[{ required: true, message: 'Введите фамилию пассажира' }]}
               >
                 <Input />
               </Form.Item>
 
-              <Tooltip placement="top" title={'Format: 89873407755'}>
+              <Tooltip placement="top" title={'Формат: 89873407755'}>
                 <Form.Item
-                  label="Phone"
+                  label="Телефон"
                   name="phone"
-                  rules={[{ required: true, message: 'Enter the phone number' }]}
+                  rules={[{ required: true, message: 'Введите номер телефона пассажира' }]}
                 >
                   <Input />
                 </Form.Item>
               </Tooltip>
 
               <Form.Item
-                label="Email"
+                label="Почта"
                 name="email"
-                rules={[{ required: false, message: 'Enter the email or dont i guess' }]}
+                rules={[{ required: false, message: 'Введите почту пассажира' }]}
               >
                 <Input />
               </Form.Item>
 
               <Form.Item
-                label="Passport"
+                label="Паспорт"
                 name="passport"
-                rules={[{ required: true, message: 'Enter the passport' }]}
+                rules={[{ required: true, message: 'Введите паспортные данные пассажира' }]}
               >
                 <Input />
               </Form.Item>
 
-              <Tooltip placement="top" title={'Must be an integer number'}>
+              <Tooltip placement="top" title={'Целое число*'}>
                 <Form.Item
-                  label="Price"
+                  label="Цена"
                   name="price"
-                  rules={[{ required: true, message: 'Enter the price' }]}
+                  rules={[{ required: true, message: 'Введите цену' }]}
                 >
                   <Input />
                 </Form.Item>
               </Tooltip>
 
               <Form.Item
-                label="Destination"
+                label="Куда"
                 name="destination"
-                rules={[{ required: true, message: 'Enter the destination' }]}
+                rules={[{ required: true, message: 'Введите место прибытия' }]}
               >
-                <Input />
+                <Input disabled/>
               </Form.Item>
 
               <Form.Item
-                label="Origin"
+                label="Откуда"
                 name="origin"
-                rules={[{ required: true, message: 'Enter the origin' }]}
+                rules={[{ required: true, message: 'Введите место отправления' }]}
               >
-                <Input />
+                <Input disabled/>
               </Form.Item>
 
               <Form.Item
-                label="Trip ID"
-                name="trip_id"
-                rules={[{ required: true, message: 'Enter the trip ID' }]}
+                label="ID поездки"
+                name="travel_id"
+                rules={[{ required: true }]}
               >
-                <Input />
+                <Select disabled>
+                  {
+                    travels.map((travel) => {
+                      return <Select.Option key={travel.travel_id} value={travel.travel_id}>{travel.travel_id}</Select.Option>
+                    })
+                  }
+                </Select>
               </Form.Item>
               
               <Tooltip placement="top" title={text}>
                 <Form.Item
-                  label="Date and Time of departure"
+                  label="Время прибытия"
                   name="departure_DateTime"
                   rules={[{ required: true, message: 'Enter the date and time' }]}
                 >
-                  <Input />
+                  <Input disabled/>
                 </Form.Item>
               </Tooltip>
 
               <Tooltip placement="top" title={text}>
                 <Form.Item
-                  label="Date and Time of arrival"
+                  label="Время отправления"
                   name="arrival_DateTime"
                   rules={[{ required: true, message: 'Enter the date and time' }]}
                 >
-                  <Input />
+                  <Input disabled/>
                 </Form.Item>
               </Tooltip>
 
@@ -141,9 +151,9 @@ const BookingsAdd: React.FC = () => {
               <Form.Item {...tailLayout}>
                 <Space size={18}>
                   <Button type="primary" htmlType="submit">
-                    Save
+                    Сохранить
                   </Button>
-                  <InertiaLink href={route('bookings.list')}>Back</InertiaLink>
+                  <InertiaLink href={route('bookings.list')}>Назад</InertiaLink>
                 </Space>
               </Form.Item>
             </Form>

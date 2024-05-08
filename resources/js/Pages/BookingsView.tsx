@@ -1,26 +1,34 @@
 import { Inertia } from "@inertiajs/inertia"
 import { InertiaLink } from "@inertiajs/inertia-react"
 
-import React, { useEffect } from "react"
-import {route} from 'ziggy-js'
-import { Button, Col, Divider, Form, Input, Row, Space, Tooltip } from "antd"
+import React, { useEffect, useState } from "react"
+import { route } from 'ziggy-js'
+import { Button, Col, Divider, Form, Input, Row, Select, Space, Tooltip } from "antd"
 
 import Template from "@/Components/Template"
 
 
 import IBooking from "@/types/IBooking"
+import ITravel from "@/types/ITravel"
 
 
-interface Props {
+interface BookingsProps {
   booking: IBooking
 }
 
-const BookingsView: React.FC<Props> = ({booking}) => {
+interface TravelsProps {
+  travels: Array<ITravel>
+}
+
+type Props = TravelsProps & BookingsProps
+
+const BookingsView: React.FC<Props> = ({ booking, travels }) => {
+  debugger
   const [form] = Form.useForm();
 
   useEffect(() => {
     form.setFieldsValue({
-      name: booking.name, 
+      name: booking.name,
       surname: booking.surname,
       phone: booking.phone,
       email: booking.email,
@@ -28,31 +36,33 @@ const BookingsView: React.FC<Props> = ({booking}) => {
       price: booking.price,
       destination: booking.destination,
       origin: booking.origin,
-      trip_id: booking.trip_id,
+      travel_id: booking.travel_id,
       departure_DateTime: booking.departure_DateTime,
       arrival_DateTime: booking.arrival_DateTime
     })
   }, [])
 
+
   const tailLayout = {
-    wrapperCol: {offset: 4, span: 16}
+    wrapperCol: { offset: 4, span: 16 }
   }
 
   const onFinish = (values: any) => {
+    debugger
     values.booking_id = booking.booking_id
     Inertia.post(route('bookings.update'), values)
     form.resetFields()
   }
 
-  const text = <span>YYYY-MM-DD HH:MM</span>;
+  const text = <span>ГГГГ-ММ-ДД ЧЧ:ММ</span>;
 
-  return(
+  return (
     <Template>
       <div
         className="site-layout-background"
         style={{ padding: 24, minHeight: 360 }}
       >
-        <Divider orientation="left">Edit Booking</Divider>
+        <Divider orientation="left">Редактировать бронь</Divider>
         <Row>
           <Col span={24}>
             <Form
@@ -65,113 +75,124 @@ const BookingsView: React.FC<Props> = ({booking}) => {
               onFinish={onFinish}
             >
               <Form.Item
-                label="Name"
+                label="Имя"
                 name="name"
-                rules={[{ required: true, message: 'Enter the name' }]}
+                rules={[{ required: true, message: 'Введите имя пассажира' }]}
               >
                 <Input />
               </Form.Item>
 
               <Form.Item
-                label="Surname"
+                label="Фамилия"
                 name="surname"
-                rules={[{ required: true, message: 'Enter the surname' }]}
+                rules={[{ required: true, message: 'Введите фамилию пассажира' }]}
               >
                 <Input />
               </Form.Item>
 
 
-              <Tooltip placement="top" title={'Format: 89873407755'}>
+              <Tooltip placement="top" title={'Формат: 89873407755'}>
                 <Form.Item
-                  label="Phone"
+                  label="Телефон"
                   name="phone"
-                  rules={[{ required: true, message: 'Enter the phone number' }]}
+                  rules={[{ required: true, message: 'Введите номер телефона пассажира' }]}
                 >
                   <Input />
                 </Form.Item>
               </Tooltip>
 
               <Form.Item
-                label="Email"
+                label="Почта"
                 name="email"
-                rules={[{ required: false, message: 'Enter the email or dont i guess' }]}
+                rules={[{ required: false, message: 'Введите почту пассажира' }]}
               >
                 <Input />
               </Form.Item>
 
               <Form.Item
-                label="Passport"
+                label="Паспорт"
                 name="passport"
-                rules={[{ required: true, message: 'Enter the passport' }]}
+                rules={[{ required: true, message: 'Введите паспортные данные пассажира' }]}
               >
                 <Input />
               </Form.Item>
 
-              <Tooltip placement="top" title={'Must be an integer number'}>
+              <Tooltip placement="top" title={'Целое число*'}>
                 <Form.Item
-                  label="Price"
+                  label="Цена"
                   name="price"
-                  rules={[{ required: true, message: 'Enter the price' }]}
+                  rules={[{ required: true, message: 'Введите цену' }]}
                 >
                   <Input />
                 </Form.Item>
               </Tooltip>
 
               <Form.Item
-                label="Destination"
+                label="Куда"
                 name="destination"
-                rules={[{ required: true, message: 'Enter the destination' }]}
+                rules={[{ required: true, message: 'Введите место прибытия' }]}
               >
-                <Input disabled/>
+                <Input disabled />
               </Form.Item>
 
               <Form.Item
-                label="Origin"
+                label="Откуда"
                 name="origin"
-                rules={[{ required: true, message: 'Enter the origin' }]}
+                rules={[{ required: true, message: 'Введите место отправления' }]}
               >
-                <Input disabled/>
+                <Input disabled />
               </Form.Item>
 
               <Form.Item
-                label="Trip ID"
-                name="trip_id"
-                rules={[{ required: true, message: 'Enter the trip ID' }]}
+                label="ID поездки"
+                name="travel_id"
+                rules={[{ required: true }]}
+                initialValue={booking.travel_id}
               >
-                <Input disabled/>
-              </Form.Item>
-              
-              <Form.Item
-                label="Date and Time of departure"
-                name="departure_DateTime"
-                rules={[{ required: true, message: 'Enter the date and time' }]}
-              >
-                <Input disabled/>
-              </Form.Item>
-
-              <Form.Item
-                label="Date and Time of arrival"
-                name="arrival_DateTime"
-                rules={[{ required: true, message: 'Enter the date and time' }]}
-              >
-                <Input disabled/>
+                <Select disabled>
+                  {
+                    travels.map((travel) => {
+                      return <Select.Option key={travel.travel_id} value={travel.travel_id}>{travel.travel_id}</Select.Option>
+                    })
+                  }
+                </Select>
               </Form.Item>
 
-             
+              <Tooltip placement="top" title={text}>
+                <Form.Item
+                  label="Время прибытия"
+                  name="departure_DateTime"
+                  rules={[{ required: true, message: 'Enter the date and time' }]}
+                >
+                  <Input disabled />
+                </Form.Item>
+              </Tooltip>
+
+              <Tooltip placement="top" title={text}>
+                <Form.Item
+                  label="Время отправления"
+                  name="arrival_DateTime"
+                  rules={[{ required: true, message: 'Enter the date and time' }]}
+                >
+                  <Input disabled />
+                </Form.Item>
+              </Tooltip>
+
+
 
               <Form.Item {...tailLayout}>
                 <Space size={18}>
                   <Button type="primary" htmlType="submit">
-                    Save
+                    Сохранить
                   </Button>
-                  <InertiaLink href={route('bookings.list')}>Back</InertiaLink>
+                  <InertiaLink href={route('bookings.list')}>Назад</InertiaLink>
                 </Space>
               </Form.Item>
             </Form>
           </Col>
         </Row>
       </div>
-      
+
     </Template>
   )
 }

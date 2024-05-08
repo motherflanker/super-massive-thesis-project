@@ -22,7 +22,7 @@ class Booking extends Model{
         'price',
         'destination',
         'origin',
-        'trip_id',
+        'travel_id',
         'departure_DateTime',
         'arrival_DateTime',
     ];

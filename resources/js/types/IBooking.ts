@@ -8,7 +8,7 @@ interface IBooking {
   price: number,
   destination: string,
   origin: string,
-  trip_id: number,
+  travel_id: number,
   departure_DateTime: Date,
   arrival_DateTime: Date,
 }

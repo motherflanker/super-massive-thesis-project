@@ -22,7 +22,7 @@ class BookingService{
         'price' => $bookingData['price'],
         'destination' => $bookingData['destination'],
         'origin' => $bookingData['origin'],
-        'trip_id' => $bookingData['trip_id'],
+        'travel_id' => $bookingData['travel_id'],
         'departure_DateTime' => $bookingData['departure_DateTime'],
         'arrival_DateTime' => $bookingData['arrival_DateTime'],
       ]);
@@ -52,7 +52,7 @@ class BookingService{
     $booking-> price = $bookingData['price'];
     $booking-> destination = $bookingData['destination'];
     $booking-> origin = $bookingData['origin'];
-    $booking-> trip_id = $bookingData['trip_id'];
+    $booking-> travel_id = $bookingData['travel_id'];
     $booking-> departure_DateTime = $bookingData['departure_DateTime'];
     $booking-> arrival_DateTime = $bookingData['arrival_DateTime'];
 

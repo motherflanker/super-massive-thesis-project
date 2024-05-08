@@ -31,16 +31,17 @@ class BookingController extends Controller
         'price' => 'required|integer', 
         'destination' => 'required|min:2|max:30', 
         'origin' => 'required|min:2|max:30', 
-        'trip_id' => 'required|integer', 
-        'departure_DateTime' => 'required|date_format:Y-m-d H:i',
-        'arrival_DateTime' => 'required|date_format:Y-m-d H:i',
+        'travel_id' => 'required|integer', 
+        'departure_DateTime' => 'required',
+        'arrival_DateTime' => 'required',
       ];
     }
     
     //date_format:Y-m-d H:i
 
     public function add(){
-      return Inertia::render('BookingsAdd');
+      $travels = DB::table('travels')->get();
+      return Inertia::render('BookingsAdd')->with('travels', $travels);
     }
 
     public function index(){
@@ -50,7 +51,9 @@ class BookingController extends Controller
     }
 
     public function view(Booking $booking) {
-      return Inertia::render('BookingsView')->with('booking', $booking);
+      $travels = DB::table('travels')->get();
+      $data = ['travels' => $travels, 'booking' => $booking];
+      return Inertia::render('BookingsView')->with($data);
     }
 
     public function store(Request $request): RedirectResponse

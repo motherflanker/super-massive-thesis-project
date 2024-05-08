@@ -16,19 +16,19 @@ interface Props {
 const Bookings: React.FC<Props> = ({bookings}) => {
   const tableColumns = [
     {title: 'ID', dataIndex: 'booking_id', key: 'booking_id'},
-    {title: 'Name', dataIndex: 'name', key: 'name'},
-    {title: 'Surname', dataIndex: 'surname', key: 'surname'},
-    {title: 'Phone', dataIndex: 'phone', key: 'phone'},
-    {title: 'Email', dataIndex: 'email', key: 'email'},
-    {title: 'Passport', dataIndex: 'passport', key: 'passport'},
-    {title: 'Price', dataIndex: 'price', key: 'price'},
-    {title: 'Destination', dataIndex: 'destination', key: 'destination'},
-    {title: 'Origin', dataIndex: 'origin', key: 'origin'},
-    {title: 'Trip ID', dataIndex: 'trip_id', key: 'trip_id'},
-    {title: 'Depart at', dataIndex: 'departure_DateTime', key: 'departure_DateTime'},
-    {title: 'Arrive at', dataIndex: 'arrival_DateTime', key: 'arrival_DateTime'},
+    {title: 'Имя', dataIndex: 'name', key: 'name'},
+    {title: 'Фамилия', dataIndex: 'surname', key: 'surname'},
+    {title: 'Телефон', dataIndex: 'phone', key: 'phone'},
+    {title: 'Почта', dataIndex: 'email', key: 'email'},
+    {title: 'Паспорт', dataIndex: 'passport', key: 'passport'},
+    {title: 'Цена', dataIndex: 'price', key: 'price'},
+    {title: 'Откуда', dataIndex: 'origin', key: 'origin'},
+    {title: 'Куда', dataIndex: 'destination', key: 'destination'},
+    {title: 'ID поездки', dataIndex: 'travel_id', key: 'travel_id'},
+    {title: 'Время отправления', dataIndex: 'departure_DateTime', key: 'departure_DateTime'},
+    {title: 'Время прибытия', dataIndex: 'arrival_DateTime', key: 'arrival_DateTime'},
     {
-      title: 'Actions',
+      title: '',
       key: 'booking_id',
       render: (key: any, record: any)=>(
         <Space size={'middle'}>
@@ -36,7 +36,7 @@ const Bookings: React.FC<Props> = ({bookings}) => {
             <EditOutlined/>
           </InertiaLink>
           <Popconfirm 
-            title='Are you sure you want to delete this?' 
+            title='Вы уверены, что хотите удалить бронь?' 
             onConfirm={() => deleteBooking(record.booking_id)}
           >
             <DeleteOutlined/>
@@ -65,9 +65,9 @@ const Bookings: React.FC<Props> = ({bookings}) => {
       <div className="site-layout-background" style={{padding: 14, minHeight: 360}}>  
         <div>
           <Divider orientation="left">
-            Bookings
+            Брони
             <Button type="primary" style={{marginLeft:'20px'}}>
-              <InertiaLink href={route('bookings.add')}>Add new</InertiaLink>
+              <InertiaLink href={route('bookings.add')}>Добавить</InertiaLink>
             </Button>
           </Divider>
         </div>
