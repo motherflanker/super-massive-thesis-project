@@ -23,21 +23,15 @@ type Props = TripProps & RouteProps
 
 const TripsRoutes: React.FC<Props> = ({ trips, routes }) => {
   const TripTableColumns = [
-    { title: 'ID', dataIndex: 'trip_id', key: 'trip_id' },
-    { title: 'RouteID', dataIndex: 'route_id', key: 'route_id' },
-    { title: "Driver's name", dataIndex: 'name', key: 'name' },
-    { title: "Driver's surname", dataIndex: 'surname', key: 'surname' },
-    { title: 'Phone', dataIndex: 'phone', key: 'phone' },
-    { title: 'StopsID', dataIndex: 'city_list_id', key: 'city_list_id' },
-    { title: 'BusID', dataIndex: 'bus_id', key: 'bus_id' },
-    { title: 'Destination', dataIndex: 'destination', key: 'destination' },
-    { title: 'Origin', dataIndex: 'origin', key: 'origin' },
-    { title: 'Seats', dataIndex: 'max_seats', key: 'max_seats' },
-    { title: 'Depart at', dataIndex: 'departure_DateTime', key: 'departure_DateTime' },
-    { title: 'Arrive at', dataIndex: 'arrival_DateTime', key: 'arrival_DateTime' },
-    { title: 'isActive', dataIndex: 'isActive', key: 'isActive' },
+    { title: 'ID рейса', dataIndex: 'trip_id', key: 'trip_id' },
+    { title: 'Номер рейса', dataIndex: 'tripNumber', key: 'tripNumber' },
+    { title: 'ID маршрута', dataIndex: 'route_id', key: 'route_id' },
+    { title: 'Список остановок', dataIndex: 'city_list_id', key: 'city_list_id' },
+    { title: 'Откуда', dataIndex: 'origin', key: 'origin' },
+    { title: 'Куда', dataIndex: 'destination', key: 'destination' },
+    { title: 'Статус', dataIndex: 'status', key: 'status' },
     {
-      title: 'Actions',
+      title: '',
       key: 'trip_id',
       render: (key: any, record: any) => (
         <Space size={'middle'}>
@@ -45,7 +39,7 @@ const TripsRoutes: React.FC<Props> = ({ trips, routes }) => {
             <EditOutlined />
           </InertiaLink>
           <Popconfirm
-            title='Are you sure you want to delete this?'
+            title='Вы уверены, что хотите удалить рейс?'
             onConfirm={() => deleteTrip(record.trip_id)}
           >
             <DeleteOutlined />
@@ -55,15 +49,15 @@ const TripsRoutes: React.FC<Props> = ({ trips, routes }) => {
     }
   ]
 
-  const addTripTooltip = <span>Add Trip</span>
+  const addTripTooltip = <span>Добавить рейс</span>
 
   const RouteTableColumns = [
     { title: 'ID', dataIndex: 'route_id', key: 'route_id' },
-    { title: 'StopsID', dataIndex: 'city_list_id', key: 'city_list_id' },
-    { title: 'Destination', dataIndex: 'destination', key: 'destination' },
-    { title: 'Origin', dataIndex: 'origin', key: 'origin' },
+    { title: 'Список остановок', dataIndex: 'city_list_id', key: 'city_list_id' },
+    { title: 'Откуда', dataIndex: 'origin', key: 'origin' },
+    { title: 'Куда', dataIndex: 'destination', key: 'destination' },
     {
-      title: 'Actions',
+      title: '',
       key: 'route_id',
       render: (key: any, record: any) => (
         <Space size={'middle'}>
@@ -71,7 +65,7 @@ const TripsRoutes: React.FC<Props> = ({ trips, routes }) => {
             <EditOutlined />
           </InertiaLink>
           <Popconfirm
-            title='Are you sure you want to delete this?'
+            title='Вы уверены, что хотите удалить маршрут?'
             onConfirm={() => deleteRoute(record.route_id)}
           >
             <DeleteOutlined />
@@ -110,9 +104,9 @@ const TripsRoutes: React.FC<Props> = ({ trips, routes }) => {
       <div className="site-layout-background" style={{ padding: 14, minHeight: 360 }}>
         <div>
           <Divider orientation="left">
-            Routes
+            Маршруты
             <Button type="primary" style={{ marginLeft: '20px' }}>
-              <InertiaLink href={route('routes.add')}>Add route</InertiaLink>
+              <InertiaLink href={route('routes.add')}>Добавить маршрут</InertiaLink>
             </Button>
           </Divider>
         </div>
@@ -135,7 +129,7 @@ const TripsRoutes: React.FC<Props> = ({ trips, routes }) => {
         <br />
         <div>
           <Divider orientation="left">
-            Trips
+            Рейсы
           </Divider>
         </div>
         <Col>

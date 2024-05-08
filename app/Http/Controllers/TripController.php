@@ -45,8 +45,8 @@ class TripController extends Controller
     }
 
     public function view(Trip $trip) {
-      $buses = DB::table('buses')->get();
-      $data = ['buses' => $buses, 'trip' => $trip];
+      $citylists = DB::table('city-lists')->get();
+      $data = ['citylists' => $citylists, 'trip' => $trip];
       return Inertia::render('TripsView')->with($data);
     }
 

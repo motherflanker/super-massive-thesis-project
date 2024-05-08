@@ -15,18 +15,14 @@ interface RouteProps {
   route: IRoute
 }
 
-interface BusesProps {
-  buses: Array<IBus>
-}
-
-type Props = RouteProps & BusesProps
+type Props = RouteProps
 
 const updateRoute = route('routes.update');
 const backButtonRoute = route('trips.list');
 const backroute = route('trips.list')
 const createTripRoute = route('trips.save')
 
-const RoutesView: React.FC<Props> = ({ route, buses }) => {
+const RoutesView: React.FC<Props> = ({ route }) => {
   const [form] = Form.useForm()
 
   useEffect(() => {
@@ -52,7 +48,7 @@ const RoutesView: React.FC<Props> = ({ route, buses }) => {
     form.resetFields()
   }
 
-  const text = <span>YYYY-MM-DD HH:MM</span>;
+  const text = <span>ГГГГ-ММ-ДД ЧЧ:ММ</span>;
 
   return (
     <Template>
@@ -60,7 +56,7 @@ const RoutesView: React.FC<Props> = ({ route, buses }) => {
         className="site-layout-background"
         style={{ padding: 24, minHeight: 360 }}
       >
-        <Divider orientation="left">Edit Route</Divider>
+        <Divider orientation="left">Редактировать маршрут</Divider>
         <Row>
           <Col span={24}>
             <Form
@@ -73,23 +69,23 @@ const RoutesView: React.FC<Props> = ({ route, buses }) => {
               onFinish={onFinish}
             >
               <Form.Item
-                label="Origin"
+                label="Откуда"
                 name="origin"
-                rules={[{ required: true, message: 'Enter the origin' }]}
+                rules={[{ required: true, message: 'Введите пункт отправления' }]}
               >
                 <Input />
               </Form.Item>
 
               <Form.Item
-                label="Destination"
+                label="Куда"
                 name="destination"
-                rules={[{ required: true, message: 'Enter the destination' }]}
+                rules={[{ required: true, message: 'Введите пункт прибытия' }]}
               >
                 <Input />
               </Form.Item>
 
               <Form.Item
-                label="StopsID"
+                label="Список остановок"
                 name='city_list_id'
                 rules={[{ required: true }]}
                 initialValue={route.city_list_id}
@@ -104,12 +100,12 @@ const RoutesView: React.FC<Props> = ({ route, buses }) => {
                   <Button type="primary" htmlType="submit">
                     Save
                   </Button>
-                  <InertiaLink href={backButtonRoute}>Back</InertiaLink>
+                  <InertiaLink href={backButtonRoute}>Назад</InertiaLink>
                 </Space>
               </Form.Item>
             </Form>
           </Col>
-          <Divider orientation="left">Add trip</Divider>
+          <Divider orientation="left">Добавить рейс</Divider>
           <Col span={24}>
             <Form
               form={form}
@@ -121,7 +117,7 @@ const RoutesView: React.FC<Props> = ({ route, buses }) => {
               onFinish={onCreateTrip}
             >
               <Form.Item
-                label="Route ID"
+                label="ID маршрута"
                 name="route_id"
                 rules={[{ required: true }]}
                 initialValue={route.route_id}
@@ -130,31 +126,15 @@ const RoutesView: React.FC<Props> = ({ route, buses }) => {
               </Form.Item>
 
               <Form.Item
-                label="Driver's name"
-                name="name"
-                rules={[{ required: true, message: 'Enter drivers name' }]}
+                label="Номер рейса"
+                name="tripNumber"
+                rules={[{ required: true }]}
               >
-                <Input  />
+                <Input />
               </Form.Item>
 
               <Form.Item
-                label="Driver's surname"
-                name="surname"
-                rules={[{ required: true, message: 'Enter drivers surname' }]}
-              >
-                <Input  />
-              </Form.Item>
-
-              <Form.Item
-                label="Phone"
-                name="phone"
-                rules={[{ required: true, message: 'Enter the phone number' }]}
-              >
-                <Input  />
-              </Form.Item>
-
-              <Form.Item
-                label="StopsID"
+                label="Список остановок"
                 name='city_list_id'
                 rules={[{ required: true }]}
                 initialValue={route.city_list_id}
@@ -165,68 +145,36 @@ const RoutesView: React.FC<Props> = ({ route, buses }) => {
               </Form.Item>
 
               <Form.Item
-                label="BusID"
-                name="bus_id"
+                label="Куда"
+                name="destination"
+                rules={[{ required: true, message: 'Введите пункт прибытия' }]}
+              >
+                <Input disabled />
+              </Form.Item>
+
+              <Form.Item
+                label="Откуда"
+                name="origin"
+                rules={[{ required: true, message: 'Введите пункт отправления' }]}
+              >
+                <Input disabled />
+              </Form.Item>
+
+              <Form.Item
+                label="Статус"
+                name='status'
                 rules={[{ required: true }]}
               >
                 <Select>
-                  {
-                    buses.map((bus) => {
-                      return <Select.Option key={bus.bus_id} value={bus.bus_id}>{bus.bus_id}</Select.Option>
-                    })
-                  }
+                  <Select.Option value={'active'}>{'active'}</Select.Option>
+                  <Select.Option value={'inactive'}>{'inactive'}</Select.Option>
                 </Select>
               </Form.Item>
-
-              <Form.Item
-                label="Destination"
-                name="destination"
-                rules={[{ required: true, message: 'Enter the destination' }]}
-              >
-                <Input disabled />
-              </Form.Item>
-
-              <Form.Item
-                label="Origin"
-                name="origin"
-                rules={[{ required: true, message: 'Enter the origin' }]}
-              >
-                <Input disabled />
-              </Form.Item>
-
-              <Form.Item
-                label="Seats"
-                name="max_seats"
-                rules={[{ required: true, message: 'Enter the amount of seats' }]}
-              >
-                <Input  />
-              </Form.Item>
-
-              <Tooltip placement="top" title={text}>
-                <Form.Item
-                  label="Date and Time of departure"
-                  name="departure_DateTime"
-                  rules={[{ required: true, message: 'Enter the datetime of departure' }]}
-                >
-                  <Input />
-                </Form.Item>
-              </Tooltip>
-
-              <Tooltip placement="top" title={text}>
-                <Form.Item
-                  label="Date and Time of arrival"
-                  name="arrival_DateTime"
-                  rules={[{ required: true, message: 'Enter the datetime of arrival' }]}
-                >
-                  <Input />
-                </Form.Item>
-              </Tooltip>
-
 
               <Form.Item {...tailLayout}>
                 <Space size={18}>
                   <Button type="primary" htmlType="submit">
-                    Save
+                    Сохранить
                   </Button>
                   <InertiaLink href={backroute}>Back</InertiaLink>
                 </Space>
