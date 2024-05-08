@@ -24,17 +24,11 @@ class TripController extends Controller
       $this->tripService = $tripService;
       $this->rules = [
         'route_id' => 'required|integer',
-        'bus_id' => 'required|integer',
         'destination' => 'required|min:2|max:30',
         'origin' => 'required|min:2|max:30',
         'city_list_id' => 'required|integer',
-        'name' => 'required|min:2|max:15',
-        'surname' => 'required|min:2|max:24',
-        'phone' => 'required|size:11',
-        'max_seats'  => 'required|integer',
-        'isActive' => 'boolean',
-        'departure_DateTime' => 'required',
-        'arrival_DateTime' => 'required',
+        'tripNumber' => 'required|integer',
+        'status' => 'required|string'
       ];
     }
     //date_format:Y-m-d H:i

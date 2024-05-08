@@ -16,16 +16,10 @@ class Trip extends Model{
 
   protected $fillable = [
       'route_id',
-      'bus_id',
+      'tripNumber',
       'destination',
       'origin',
       'city_list_id',
-      'name',
-      'surname',
-      'phone',
-      'max_seats',
-      'isActive',
-      'departure_DateTime',
-      'arrival_DateTime',
+      'status'
   ];
 }
