@@ -32,8 +32,8 @@ class TravelsController extends Controller
       'max_seats' => 'required|integer',	
       'departure_DateTime' => 'required',	
       'arrival_DateTime' => 'required',	
-      'status' => 'required|string',	
-      'type' => 'required|string',
+      'status' => 'required',	
+      'type' => 'required',
     ];
   }
 
@@ -43,7 +43,10 @@ class TravelsController extends Controller
   }  
 
   public function add(){
-    return Inertia::render('TravelsAdd');
+    $trips = DB::table('trips')->get();
+    $buses = DB::table('buses')->get();
+    $data = ['trips' => $trips, 'buses' => $buses];
+    return Inertia::render('TravelsAdd')->with($data);
   }
 
   public function view(Travel $travel) {

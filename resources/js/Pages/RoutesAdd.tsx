@@ -11,7 +11,7 @@ interface Props {
   citylists: Array<ICityList>
 }
 
-const RoutesAdd: React.FC<Props> = ({ citylists }) => {debugger
+const RoutesAdd: React.FC<Props> = ({ citylists }) => {
   const [form] = Form.useForm()
 
   const tailLayout = {

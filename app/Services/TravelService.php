@@ -35,7 +35,6 @@ class TravelService{
       return $travel;
     }
     catch(Exception $exception){
-      DB::rollBack();
       logger()->error($exception->getMessage());
     }
   }
