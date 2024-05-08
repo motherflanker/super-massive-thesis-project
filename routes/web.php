@@ -10,6 +10,7 @@ use App\Http\Controllers\CityController;
 use App\Http\Controllers\CityListController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CurrentTripsController;
+use App\Http\Controllers\TravelsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 
@@ -76,6 +77,14 @@ Route::get('/', function () {
   Route::get('citylists/{citylist}', [CityListController::class, 'view'])->name('citylists.view');
   Route::post('citylists/update', [CityListController::class, 'update'])->name('citylists.update');
   Route::post('citylists/delete', [CityListController::class, 'destroy'])->name('citylists.delete');
+
+
+  Route::get('travels', [TravelsController::class, 'index'])->name('travels.list');
+  Route::get('travels/add', [TravelsController::class, 'add'])->name('travels.add');
+  Route::post('travels', [TravelsController::class, 'store'])->name('travels.save');
+  Route::get('travels/{travel}', [TravelsController::class, 'view'])->name('travels.view');
+  Route::post('travels/update', [TravelsController::class, 'update'])->name('travels.update');
+  Route::post('travels/delete', [TravelsController::class, 'destroy'])->name('travels.delete');
 
 
   Route::get('currenttrips', [CurrentTripsController::class, 'index'])->name('currenttrips.list');
