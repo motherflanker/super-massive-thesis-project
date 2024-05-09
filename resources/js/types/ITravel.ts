@@ -1,6 +1,7 @@
 interface ITravel {
   travel_id: number,
   trip_id: number,
+  tripNumber: number,
   destination: string,
   origin: string,
   name: string,
