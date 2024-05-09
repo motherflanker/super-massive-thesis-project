@@ -3,7 +3,7 @@ import { Inertia } from "@inertiajs/inertia"
 import { route } from 'ziggy-js'
 import { InertiaLink } from "@inertiajs/inertia-react"
 
-import { Button, Col, Divider, Input, Row, Space, Form, Select, Tooltip } from "antd"
+import { Button, Col, Divider, Input, Row, Space, Form, Select, Tooltip, InputNumber } from "antd"
 import ITrip from "@/types/ITrip"
 import IBus from "@/types/IBus"
 
@@ -156,14 +156,13 @@ const TravelsAdd: React.FC<Props> = ({ trips, buses }) => {
                 name='max_seats'
                 rules={[{ required: true }]}
               >
-                {/* <Select>
+                 <Select>
                   {buses.map((bus) => (
                     <Select.Option key={bus.bus_id} value={bus.max_seats}>
                       {`${bus.bus_id} - ${bus.max_seats}`}
                     </Select.Option>
                   ))}
-                </Select> */}
-                <Input />
+                </Select> 
               </Form.Item>
 
               <Tooltip placement="top" title={text}>

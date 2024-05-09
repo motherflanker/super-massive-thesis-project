@@ -30,12 +30,14 @@ class TravelsController extends Controller
       'phone' => 'required|size:11',	
       'bus_id' => 'required|integer',	
       'max_seats' => 'required|integer',	
-      'departure_DateTime' => 'required',	
-      'arrival_DateTime' => 'required',	
-      'status' => 'required',	
-      'type' => 'required',
+      'departure_DateTime' => 'required|date_format:Y-m-d H:i',	
+      'arrival_DateTime' => 'required|date_format:Y-m-d H:i',	
+      'status' => 'required|string',	
+      'type' => 'required|string',
     ];
   }
+  
+  //date_format:Y-m-d H:i
 
   public function index(){
     $travel = DB::table('travels')->orderBy('created_at', 'desc')->paginate(10);
