@@ -29,6 +29,7 @@ class TravelsController extends Controller
       'surname' => 'required|min:2|max:24',	
       'phone' => 'required|size:11',	
       'bus_id' => 'required|integer',	
+      'plate_number' => 'required|min:7|max:9',	
       'max_seats' => 'required|integer',	
       'departure_DateTime' => 'required|date_format:Y-m-d H:i',	
       'arrival_DateTime' => 'required|date_format:Y-m-d H:i',	

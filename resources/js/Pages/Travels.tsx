@@ -6,14 +6,22 @@ import { InertiaLink } from "@inertiajs/inertia-react"
 import {DeleteOutlined, EditOutlined, PlusCircleOutlined} from '@ant-design/icons'
 import Template from "@/Components/Template"
 import IPaginateTravel from "@/types/models/IPaginateTravel"
+import IBus from "@/types/IBus"
+import { title } from "process"
 
 
 
-interface Props {
+interface TravelProps {
   travels: IPaginateTravel
 }
 
-const Travels: React.FC<Props> = ({travels}) => {debugger
+interface BusProps {
+  buses: Array<IBus>
+}
+
+type Props = BusProps & TravelProps
+
+const Travels: React.FC<Props> = ({travels, buses}) => {
   const tableColumns = [
     {title: 'ID', dataIndex: 'travel_id', key: 'travel_id'},
     {title: 'Номер рейса', dataIndex: 'tripNumber', key: 'tripNumber'},
@@ -22,7 +30,7 @@ const Travels: React.FC<Props> = ({travels}) => {debugger
     {title: 'Имя водителя', dataIndex: 'name', key: 'name'},
     {title: 'Фамилия водителя', dataIndex: 'surname', key: 'surname'},
     {title: 'Тел.номер водителя', dataIndex: 'phone', key: 'phone'},
-    {title: 'ID автобуса', dataIndex: 'bus_id', key: 'bus_id'},
+    {title: 'Номер автобуса', dataIndex: 'plate_number', key: 'plate_number'},
     {title: 'Места', dataIndex: 'max_seats', key: 'max_seats'},
     {title: 'Статус', dataIndex: 'status', key: 'status'},
     {title: 'Тип поездки', dataIndex: 'type', key: 'type'},

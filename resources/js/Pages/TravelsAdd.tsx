@@ -25,7 +25,7 @@ const TravelsAdd: React.FC<Props> = ({ trips, buses }) => {
     wrapperCol: { offset: 4, span: 16 }
   }
 
-  const onFinish = (values: any) => {debugger
+  const onFinish = (values: any) => {
     Inertia.post(route('travels.save', values))
     form.resetFields()
   }
@@ -138,7 +138,7 @@ const TravelsAdd: React.FC<Props> = ({ trips, buses }) => {
               </Form.Item>
 
               <Form.Item
-                label="Автобус"
+                label="ID автобуса"
                 name='bus_id'
                 rules={[{ required: true }]}
               >
@@ -146,6 +146,20 @@ const TravelsAdd: React.FC<Props> = ({ trips, buses }) => {
                   {buses.map((bus) => (
                     <Select.Option key={bus.bus_id} value={bus.bus_id}>
                       {`${bus.name} - ${bus.bus_id}`}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
+
+              <Form.Item
+                label="Номер автобуса"
+                name='plate_number'
+                rules={[{ required: true }]}
+              >
+                <Select>
+                  {buses.map((bus) => (
+                    <Select.Option key={bus.bus_id} value={bus.plate_number}>
+                      {`${bus.plate_number} - ${bus.bus_id}`}
                     </Select.Option>
                   ))}
                 </Select>

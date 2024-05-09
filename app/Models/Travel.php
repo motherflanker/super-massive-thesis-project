@@ -23,6 +23,7 @@ class Travel extends Model{
     'surname',	
     'phone',	
     'bus_id',	
+    'plate_number',
     'max_seats',	
     'departure_DateTime',	
     'arrival_DateTime',	

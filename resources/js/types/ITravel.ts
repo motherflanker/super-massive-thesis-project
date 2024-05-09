@@ -7,6 +7,7 @@ interface ITravel {
   surname: string,
   phone: string,
   bus_id: number,
+  plate_number: string,
   max_seats: number,
   status: string,
   type: string,

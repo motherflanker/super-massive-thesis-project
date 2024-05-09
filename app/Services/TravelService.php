@@ -23,6 +23,7 @@ class TravelService{
         'surname'=> $travelData['surname'],
         'phone' => $travelData['phone'],
         'bus_id' => $travelData['bus_id'],
+        'plate_number' => $travelData['plate_number'],
         'max_seats' => $travelData['max_seats'],
         'departure_DateTime' => $travelData['departure_DateTime'],
         'arrival_DateTime' => $travelData['arrival_DateTime'],
@@ -50,6 +51,7 @@ class TravelService{
     $travel-> surname = $travelData['surname'];
     $travel-> phone = $travelData['phone'];
     $travel-> bus_id = $travelData['bus_id'];
+    $travel-> plate_number = $travelData['plate_number'];
     $travel-> max_seats = $travelData['max_seats'];
     $travel-> departure_DateTime = $travelData['departure_DateTime'];
     $travel-> arrival_DateTime = $travelData['arrival_DateTime'];
