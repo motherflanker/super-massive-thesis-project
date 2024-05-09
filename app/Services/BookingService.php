@@ -23,14 +23,12 @@ class BookingService{
         'destination' => $bookingData['destination'],
         'origin' => $bookingData['origin'],
         'travel_id' => $bookingData['travel_id'],
+        'tripNumber' => $bookingData['tripNumber'],
+        'plate_number' => $bookingData['plate_number'],
         'departure_DateTime' => $bookingData['departure_DateTime'],
         'arrival_DateTime' => $bookingData['arrival_DateTime'],
+        'type' => $bookingData['type'],
       ]);
-
-      // ISSUE: the commit doesn't hit if any of the above queries fail, 
-      // which means the problem is probably here
-      // its either ID generation problem or whatever OR some query is fucked up
-      // edit: look at the comment in the BookingController
       
       DB::commit();
 
@@ -53,8 +51,11 @@ class BookingService{
     $booking-> destination = $bookingData['destination'];
     $booking-> origin = $bookingData['origin'];
     $booking-> travel_id = $bookingData['travel_id'];
+    $booking-> tripNumber = $bookingData['tripNumber'];
+    $booking-> plate_number = $bookingData['plate_number'];
     $booking-> departure_DateTime = $bookingData['departure_DateTime'];
     $booking-> arrival_DateTime = $bookingData['arrival_DateTime'];
+    $booking-> type = $bookingData['type'];
 
     $booking->save();
     return $booking;  

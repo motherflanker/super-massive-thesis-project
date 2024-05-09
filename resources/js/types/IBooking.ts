@@ -11,6 +11,9 @@ interface IBooking {
   travel_id: number,
   departure_DateTime: Date,
   arrival_DateTime: Date,
+  tripNumber: number,
+  plate_number: string,
+  type: string
 }
 
 export default IBooking

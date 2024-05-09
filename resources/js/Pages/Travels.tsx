@@ -1,6 +1,6 @@
 import React from "react"
 import { route } from "ziggy-js"
-import { Col, Divider, Space, Table, TablePaginationConfig, Popconfirm, Button } from "antd"
+import { Col, Divider, Space, Table, TablePaginationConfig, Popconfirm, Button, Tooltip } from "antd"
 import { Inertia, Method } from "@inertiajs/inertia"
 import { InertiaLink } from "@inertiajs/inertia-react"
 import {DeleteOutlined, EditOutlined, PlusCircleOutlined} from '@ant-design/icons'
@@ -15,13 +15,12 @@ interface TravelProps {
   travels: IPaginateTravel
 }
 
-interface BusProps {
-  buses: Array<IBus>
-}
+type Props = TravelProps
 
-type Props = BusProps & TravelProps
+const addBookingTooltip = <span>Добавить бронь к этой поездке</span>
 
-const Travels: React.FC<Props> = ({travels, buses}) => {
+const Travels: React.FC<Props> = ({travels}) => {
+  
   const tableColumns = [
     {title: 'ID', dataIndex: 'travel_id', key: 'travel_id'},
     {title: 'Номер рейса', dataIndex: 'tripNumber', key: 'tripNumber'},
@@ -50,10 +49,16 @@ const Travels: React.FC<Props> = ({travels, buses}) => {
           >
             <DeleteOutlined/>
           </Popconfirm>
+          <Tooltip placement="top" title={addBookingTooltip}>
+            <InertiaLink href={route('travels.view', { travel: record.travel_id })}>
+              <PlusCircleOutlined />
+            </InertiaLink>
+          </Tooltip>
         </Space>
       )
     }
   ]
+  
 
   const deleteTravel = (travel_id: number) => {   
     Inertia.post(route('travels.delete', {travel_id})) 

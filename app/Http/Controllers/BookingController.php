@@ -32,8 +32,11 @@ class BookingController extends Controller
         'destination' => 'required|min:2|max:30', 
         'origin' => 'required|min:2|max:30', 
         'travel_id' => 'required|integer', 
-        'departure_DateTime' => 'required',
-        'arrival_DateTime' => 'required',
+        'tripNumber' => 'required|integer',
+        'plate_number'  => 'required|min:7|max:9',
+        'departure_DateTime' => 'required|date_format:Y-m-d H:i:s',
+        'arrival_DateTime' => 'required|date_format:Y-m-d H:i:s',
+        'type' => 'required|string',
       ];
     }
     
@@ -58,7 +61,7 @@ class BookingController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-      $data = $request; //->validate($this->rules); 
+      $data = $request->validate($this->rules); 
 
       // for whatever reason the validation doesn't work on store method,
       // but everything else works just fine, so i left it as is for now

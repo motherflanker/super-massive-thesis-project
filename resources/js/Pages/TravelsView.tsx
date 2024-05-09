@@ -3,7 +3,7 @@ import { InertiaLink } from "@inertiajs/inertia-react"
 
 import React, { useEffect } from "react"
 import { route } from 'ziggy-js'
-import { Button, Col, Divider, Form, Input, Row, Select, Space, Tooltip } from "antd"
+import { Button, Col, Divider, Form, Input, InputNumber, Row, Select, Space, Tooltip } from "antd"
 
 import Template from "@/Components/Template"
 
@@ -24,6 +24,7 @@ type Props = TravelProps & BusProps
 
 const TravelsView: React.FC<Props> = ({ travel, buses }) => {debugger
   const [form] = Form.useForm()
+  const [form2] = Form.useForm()
 
   useEffect(() => {
     form.setFieldsValue({
@@ -44,10 +45,28 @@ const TravelsView: React.FC<Props> = ({ travel, buses }) => {debugger
     })
   }, [])
 
+  useEffect(() => {
+    form2.setFieldsValue({
+      travel_id: travel.trip_id,
+      tripNumber: travel.tripNumber,
+      destination: travel.destination,
+      origin: travel.origin,
+      plate_number: travel.plate_number,
+      departure_DateTime: travel.departure_DateTime,
+      arrival_DateTime: travel.arrival_DateTime,
+      type: travel.type
+    })
+  }, [])
 
-  const onFinish = (values: any) => {debugger
+
+  const onFinish = (values: any) => {
     values.travel_id = travel.travel_id
     Inertia.post(route('travels.update'), values)
+    form.resetFields()
+  }
+
+  const onCreateBooking = (values: any) => {debugger
+    Inertia.post(route('bookings.save'), values)
     form.resetFields()
   }
 
@@ -63,6 +82,149 @@ const TravelsView: React.FC<Props> = ({ travel, buses }) => {debugger
         className="site-layout-background"
         style={{ padding: 24, minHeight: 360 }}
       >
+        <Divider orientation="left">Создать бронь</Divider>
+        <Row>
+          <Col span={24}>
+            <Form
+              form={form2}
+              name="basic"
+              labelCol={{ span: 4 }}
+              wrapperCol={{ span: 8 }}
+              initialValues={{ remember: true }}
+              autoComplete="off"
+              onFinish={onCreateBooking}
+            >
+              <Form.Item
+                label="ID поездки"
+                name='travel_id'
+                rules={[{ required: true }]}
+              >
+                <Input disabled/>
+              </Form.Item>
+
+              <Form.Item
+                label="Номер рейса"
+                name='tripNumber'
+                rules={[{ required: true }]}
+              >
+                <Input disabled/>
+              </Form.Item>
+
+              <Form.Item
+                label="Номер автобуса"
+                name='plate_number'
+                rules={[{ required: true }]}
+              >
+                <Input disabled/>
+              </Form.Item>
+
+              <Form.Item
+                label="Откуда"
+                name='origin'
+                rules={[{ required: true, message: 'Введите пункт отправления' }]}
+              >
+                <Input disabled/>
+              </Form.Item>
+
+              <Form.Item
+                label="Куда"
+                name='destination'
+                rules={[{ required: true, message: 'Введите пункт назначения' }]}
+              >
+                <Input disabled/>
+              </Form.Item>
+
+              <Form.Item
+                label="Имя"
+                name="name"
+                rules={[{ required: true, message: 'Введите имя клиента' }]}
+              >
+                <Input />
+              </Form.Item>
+
+              <Form.Item
+                label="Фамилия"
+                name="surname"
+                rules={[{ required: true, message: 'Введите фамилию клиента' }]}
+              >
+                <Input />
+              </Form.Item>
+
+              <Form.Item
+                label="Номер телефона"
+                name="phone"
+                rules={[{ required: true, message: 'Введите номер телефона клиента' }]}
+              >
+                <Input />
+              </Form.Item>
+
+              <Form.Item
+                label="Почта"
+                name="email"
+                rules={[{ required: false, message: 'Введите почту клиента' }]}
+                initialValue={null}
+              >
+                <Input />
+              </Form.Item>
+
+              <Form.Item
+                label="Паспорт"
+                name="passport"
+                rules={[{ required: true, message: 'Введите паспорт клиента' }]}
+              >
+                <Input />
+              </Form.Item>
+
+              <Form.Item
+                label="Цена"
+                name="price"
+                rules={[{ required: true, message: 'Введите цену' }]}
+              >
+                <InputNumber />
+              </Form.Item>
+
+              <Tooltip placement="top" title={text}>
+                <Form.Item
+                  label="Время отправления"
+                  name="departure_DateTime"
+                  rules={[{ required: true, message: 'Введите время отправления' }]}
+                >
+                  <Input disabled/>
+                </Form.Item>
+              </Tooltip>
+
+              <Tooltip placement="top" title={text}>
+                <Form.Item
+                  label="Время прибытия"
+                  name="arrival_DateTime"
+                  rules={[{ required: true, message: 'Введите время прибытия' }]}
+                >
+                  <Input disabled/>
+                </Form.Item>
+              </Tooltip>
+
+              <Form.Item
+                label="Тип поездки"
+                name="type"
+                rules={[{ required: true, message: 'Введите тип поездки' }]}
+              >
+                <Select disabled>
+                  <Select.Option value={'в один конец'}>{'в один конец'}</Select.Option>
+                  <Select.Option value={'круговой рейс'}>{'круговой рейс'}</Select.Option>
+                </Select>
+              </Form.Item>
+
+              <Form.Item {...tailLayout}>
+                <Space size={18}>
+                  <Button type="primary" htmlType="submit">
+                    Сохранить
+                  </Button>
+                  <InertiaLink href={route('bookings.list')}>Назад</InertiaLink>
+                </Space>
+              </Form.Item>
+            </Form>
+          </Col>
+        </Row>
         <Divider orientation="left">Редактировать поездку</Divider>
         <Row>
           <Col span={24}>

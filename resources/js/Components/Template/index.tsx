@@ -49,9 +49,6 @@ const Template: React.FC<Props> = ({ children }: any) => {
               <Menu.Item key="travels/list" icon={<PlusCircleOutlined />}>
                 <InertiaLink href={route('travels.list')}>Поездки</InertiaLink>
               </Menu.Item>
-              <Menu.Item key="booking" icon={<PlusCircleOutlined />}>
-                <InertiaLink href={route('bookings.add')}>Add booking</InertiaLink>
-              </Menu.Item>
               <Menu.Item key="trips/list" icon={<BranchesOutlined />}>
                 <InertiaLink href={route('trips.list')}>Маршруты</InertiaLink>
               </Menu.Item>

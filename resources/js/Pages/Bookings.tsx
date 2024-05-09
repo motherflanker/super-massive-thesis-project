@@ -1,7 +1,7 @@
 import IPaginateBooking from "@/types/models/IPaginateBooking"
 import React from "react"
 import { route } from "ziggy-js"
-import { Col, Divider, Space, Table, TablePaginationConfig, Popconfirm, Button } from "antd"
+import { Col, Divider, Space, Table, TablePaginationConfig, Popconfirm, Button, Tooltip } from "antd"
 import { Inertia, Method } from "@inertiajs/inertia"
 import { InertiaLink } from "@inertiajs/inertia-react"
 import {DeleteOutlined, EditOutlined, PlusCircleOutlined} from '@ant-design/icons'
@@ -16,6 +16,7 @@ interface Props {
 const Bookings: React.FC<Props> = ({bookings}) => {
   const tableColumns = [
     {title: 'ID', dataIndex: 'booking_id', key: 'booking_id'},
+    {title: 'Номер рейса', dataIndex: 'tripNumber', key: 'tripNumber'},
     {title: 'Имя', dataIndex: 'name', key: 'name'},
     {title: 'Фамилия', dataIndex: 'surname', key: 'surname'},
     {title: 'Телефон', dataIndex: 'phone', key: 'phone'},
@@ -25,8 +26,10 @@ const Bookings: React.FC<Props> = ({bookings}) => {
     {title: 'Откуда', dataIndex: 'origin', key: 'origin'},
     {title: 'Куда', dataIndex: 'destination', key: 'destination'},
     {title: 'ID поездки', dataIndex: 'travel_id', key: 'travel_id'},
+    {title: 'Номер автобуса', dataIndex: 'plate_number', key: 'plate_number'},
     {title: 'Время отправления', dataIndex: 'departure_DateTime', key: 'departure_DateTime'},
     {title: 'Время прибытия', dataIndex: 'arrival_DateTime', key: 'arrival_DateTime'},
+    {title: 'Тип рейса', dataIndex: 'type', key: 'type'},
     {
       title: '',
       key: 'booking_id',
@@ -67,7 +70,11 @@ const Bookings: React.FC<Props> = ({bookings}) => {
           <Divider orientation="left">
             Брони
             <Button type="primary" style={{marginLeft:'20px'}}>
-              <InertiaLink href={route('bookings.add')}>Добавить</InertiaLink>
+              <InertiaLink href={route('travels.list')}>
+                <Tooltip title={'Со страницы поездок'}>
+                  <span>Добавить</span>
+                </Tooltip>
+              </InertiaLink>
             </Button>
           </Divider>
         </div>
