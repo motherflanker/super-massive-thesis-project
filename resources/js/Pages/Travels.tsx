@@ -39,7 +39,7 @@ const Travels: React.FC<Props> = ({travels}) => {
       title: '',
       key: 'travel_id',
       render: (key: any, record: any)=>(
-        <Space size={'middle'}>
+        <Space size={'small'}>
           <InertiaLink href={route('travels.view', {travel: record.travel_id})}>
             <EditOutlined/>
           </InertiaLink>

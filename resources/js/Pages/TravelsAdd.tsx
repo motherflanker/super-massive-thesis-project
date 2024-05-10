@@ -25,7 +25,7 @@ const TravelsAdd: React.FC<Props> = ({ trips, buses }) => {
     wrapperCol: { offset: 4, span: 16 }
   }
 
-  const onFinish = (values: any) => {
+  const onFinish = (values: any) => {debugger
     Inertia.post(route('travels.save', values))
     form.resetFields()
   }

@@ -36,9 +36,12 @@ const BookingsView: React.FC<Props> = ({ booking, travels }) => {
       price: booking.price,
       destination: booking.destination,
       origin: booking.origin,
+      tripNumber: booking.tripNumber,
+      plate_number: booking.plate_number,
       travel_id: booking.travel_id,
       departure_DateTime: booking.departure_DateTime,
-      arrival_DateTime: booking.arrival_DateTime
+      arrival_DateTime: booking.arrival_DateTime,
+      type: booking.type
     })
   }, [])
 
@@ -128,6 +131,22 @@ const BookingsView: React.FC<Props> = ({ booking, travels }) => {
               </Tooltip>
 
               <Form.Item
+                  label="Номер рейса"
+                  name="tripNumber"
+                  rules={[{ required: true}]}
+                >
+                  <Input disabled/>
+                </Form.Item>
+
+                <Form.Item
+                  label="Номер автобуса"
+                  name="plate_number"
+                  rules={[{ required: true }]}
+                >
+                  <Input disabled/>
+                </Form.Item>
+
+              <Form.Item
                 label="Куда"
                 name="destination"
                 rules={[{ required: true, message: 'Введите место прибытия' }]}
@@ -141,21 +160,6 @@ const BookingsView: React.FC<Props> = ({ booking, travels }) => {
                 rules={[{ required: true, message: 'Введите место отправления' }]}
               >
                 <Input disabled />
-              </Form.Item>
-
-              <Form.Item
-                label="ID поездки"
-                name="travel_id"
-                rules={[{ required: true }]}
-                initialValue={booking.travel_id}
-              >
-                <Select disabled>
-                  {
-                    travels.map((travel) => {
-                      return <Select.Option key={travel.travel_id} value={travel.travel_id}>{travel.travel_id}</Select.Option>
-                    })
-                  }
-                </Select>
               </Form.Item>
 
               <Tooltip placement="top" title={text}>
@@ -177,6 +181,22 @@ const BookingsView: React.FC<Props> = ({ booking, travels }) => {
                   <Input disabled />
                 </Form.Item>
               </Tooltip>
+
+              <Form.Item
+                  label="Тип рейса"
+                  name="type"
+                  rules={[{ required: true }]}
+                >
+                  <Input disabled/>
+                </Form.Item>
+
+                <Form.Item
+                  label="ID поездки"
+                  name="travel_id"
+                  rules={[{ required: true }]}
+                >
+                  <Input disabled/>
+                </Form.Item>
 
 
 

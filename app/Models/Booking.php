@@ -23,7 +23,7 @@ class Booking extends Model{
         'destination',
         'origin',
         'travel_id',
-        'tripNumber,',
+        'tripNumber',
         'departure_DateTime',
         'arrival_DateTime',
         'type',

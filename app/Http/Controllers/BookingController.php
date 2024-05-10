@@ -26,7 +26,7 @@ class BookingController extends Controller
         'name' => 'required|min:2|max:15', 
         'surname' => 'required|min:2|max:24', 
         'phone' => 'required|size:11', 
-        'email' => 'nullable|email',
+        'email' => 'email|nullable',
         'passport' => 'required|size:10', 
         'price' => 'required|integer', 
         'destination' => 'required|min:2|max:30', 
@@ -62,13 +62,6 @@ class BookingController extends Controller
     public function store(Request $request): RedirectResponse
     {
       $data = $request->validate($this->rules); 
-
-      // for whatever reason the validation doesn't work on store method,
-      // but everything else works just fine, so i left it as is for now
-      // cuz its a waste of time at the moment and if i can't fix it here,
-      // i'll just have frontend regular expression validations on the form itself
-      // so that it has the validation at all
-      
       $this->bookingService->createBooking($data);
       return Redirect::route('bookings.list');
     }

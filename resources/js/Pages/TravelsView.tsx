@@ -47,7 +47,7 @@ const TravelsView: React.FC<Props> = ({ travel, buses }) => {debugger
 
   useEffect(() => {
     form2.setFieldsValue({
-      travel_id: travel.trip_id,
+      travel_id: travel.travel_id,
       tripNumber: travel.tripNumber,
       destination: travel.destination,
       origin: travel.origin,
@@ -161,7 +161,7 @@ const TravelsView: React.FC<Props> = ({ travel, buses }) => {debugger
               <Form.Item
                 label="Почта"
                 name="email"
-                rules={[{ required: false, message: 'Введите почту клиента' }]}
+                rules={[{ required: false }]}
                 initialValue={null}
               >
                 <Input />
