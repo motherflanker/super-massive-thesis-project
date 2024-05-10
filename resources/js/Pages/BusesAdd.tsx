@@ -3,7 +3,7 @@ import { Inertia } from "@inertiajs/inertia"
 import {route} from 'ziggy-js'
 import { InertiaLink } from "@inertiajs/inertia-react"
 
-import { Button, Col, Divider, Input, Row, Space, Form } from "antd"
+import { Button, Col, Divider, Input, Row, Space, Form, Select } from "antd"
 
 
 
@@ -15,7 +15,7 @@ const BusesAdd: React.FC = () => {
     wrapperCol: {offset: 4, span: 16}
   }
 
-  const onFinish = (values: any) => {
+  const onFinish = (values: any) => {debugger
     Inertia.post(route('buses.save', values))
     form.resetFields()
   }
@@ -26,7 +26,7 @@ const BusesAdd: React.FC = () => {
         className="site-layout-background"
         style={{ padding: 24, minHeight: 360 }}
       >
-        <Divider orientation="left">New bus</Divider>
+        <Divider orientation="left">Новый автобус</Divider>
         <Row>
           <Col span={24}>
             <Form
@@ -39,35 +39,48 @@ const BusesAdd: React.FC = () => {
               onFinish={onFinish}
             >
               <Form.Item
-                label="Name"
+                label="Название"
                 name="name"
-                rules={[{ required: true, message: 'Enter the name' }]}
+                rules={[{ required: true, message: 'Введите название' }]}
               >
                 <Input />
               </Form.Item>
 
               <Form.Item
-                label="Plate"
+                label="Номер"
                 name="plate_number"
-                rules={[{ required: true, message: 'Enter the plate number' }]}
+                rules={[{ required: true, message: 'Введите номер' }]}
               >
                 <Input />
               </Form.Item>
 
                 <Form.Item
-                  label="Seats"
+                  label="Кол-во мест"
                   name="max_seats"
-                  rules={[{ required: true, message: 'Enter the amount of seats' }]}
+                  rules={[{ required: true, message: 'Введите количество мест' }]}
                 >
                   <Input />
                 </Form.Item>
 
+                <Form.Item
+                label="Статус"
+                name='status'
+                rules={[{ required: true }]}
+              >
+                <Select>
+                  <Select.Option value={'available'}>{'available'}</Select.Option>
+                  <Select.Option value={'taken'}>{'taken'}</Select.Option>
+                  <Select.Option value={'inService'}>{'inService'}</Select.Option>
+                  <Select.Option value={'forMaintenance'}>{'forMaintenance'}</Select.Option>
+                </Select>
+              </Form.Item>
+
               <Form.Item {...tailLayout}>
                 <Space size={18}>
                   <Button type="primary" htmlType="submit">
-                    Save
+                    Сохранить
                   </Button>
-                  <InertiaLink href={route('buses.list')}>Back</InertiaLink>
+                  <InertiaLink href={route('buses.list')}>Назад</InertiaLink>
                 </Space>
               </Form.Item>
             </Form>

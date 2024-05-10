@@ -25,7 +25,6 @@ const Bookings: React.FC<Props> = ({bookings}) => {
     {title: 'Цена', dataIndex: 'price', key: 'price'},
     {title: 'Откуда', dataIndex: 'origin', key: 'origin'},
     {title: 'Куда', dataIndex: 'destination', key: 'destination'},
-    //{title: 'ID поездки', dataIndex: 'travel_id', key: 'travel_id'},
     {title: 'Номер автобуса', dataIndex: 'plate_number', key: 'plate_number'},
     {title: 'Время отправления', dataIndex: 'departure_DateTime', key: 'departure_DateTime'},
     {title: 'Время прибытия', dataIndex: 'arrival_DateTime', key: 'arrival_DateTime'},
