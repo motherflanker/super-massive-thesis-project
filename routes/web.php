@@ -9,7 +9,7 @@ use App\Http\Controllers\RouteController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\CityListController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\CurrentTripsController;
+use App\Http\Controllers\CurrentTravelsController;
 use App\Http\Controllers\TravelsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -87,7 +87,7 @@ Route::get('/', function () {
   Route::post('travels/delete', [TravelsController::class, 'destroy'])->name('travels.delete');
 
 
-  Route::get('currenttrips', [CurrentTripsController::class, 'index'])->name('currenttrips.list');
+  Route::get('currenttrips', [CurrentTravelsController::class, 'index'])->name('currenttrips.list');
 
 // Route::group(['middleware' => ['auth']], function () {
     

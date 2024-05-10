@@ -6,29 +6,30 @@ import { Inertia, Method } from "@inertiajs/inertia"
 import { InertiaLink } from "@inertiajs/inertia-react"
 import { DeleteOutlined, EditOutlined, PlusCircleOutlined } from '@ant-design/icons'
 import Template from "@/Components/Template"
+import IPaginateTravel from "@/types/models/IPaginateTravel"
 
 
 
 interface Props {
-  trips: IPaginateTrip
+  travels: IPaginateTravel
 }
 
 
-const TripsRoutes: React.FC<Props> = ({ trips}) => {
+const CurrentTrips: React.FC<Props> = ({travels}) => {
   const TripTableColumns = [
-    { title: 'ID', dataIndex: 'trip_id', key: 'trip_id' },
-    { title: 'RouteID', dataIndex: 'route_id', key: 'route_id' },
-    { title: "Driver's name", dataIndex: 'name', key: 'name' },
-    { title: "Driver's surname", dataIndex: 'surname', key: 'surname' },
-    { title: 'Phone', dataIndex: 'phone', key: 'phone' },
-    { title: 'StopsID', dataIndex: 'city_list_id', key: 'city_list_id' },
-    { title: 'BusID', dataIndex: 'bus_id', key: 'bus_id' },
-    { title: 'Destination', dataIndex: 'destination', key: 'destination' },
-    { title: 'Origin', dataIndex: 'origin', key: 'origin' },
-    { title: 'Seats', dataIndex: 'max_seats', key: 'max_seats' },
-    { title: 'Depart at', dataIndex: 'departure_DateTime', key: 'departure_DateTime' },
-    { title: 'Arrive at', dataIndex: 'arrival_DateTime', key: 'arrival_DateTime' },
-    { title: 'isActive', dataIndex: 'isActive', key: 'isActive' },
+    {title: 'ID', dataIndex: 'travel_id', key: 'travel_id'},
+    {title: 'Номер рейса', dataIndex: 'tripNumber', key: 'tripNumber'},
+    {title: 'Откуда', dataIndex: 'origin', key: 'origin'},
+    {title: 'Куда', dataIndex: 'destination', key: 'destination'},
+    {title: 'Имя водителя', dataIndex: 'name', key: 'name'},
+    {title: 'Фамилия водителя', dataIndex: 'surname', key: 'surname'},
+    {title: 'Тел.номер водителя', dataIndex: 'phone', key: 'phone'},
+    {title: 'Номер автобуса', dataIndex: 'plate_number', key: 'plate_number'},
+    {title: 'Места', dataIndex: 'max_seats', key: 'max_seats'},
+    {title: 'Статус', dataIndex: 'status', key: 'status'},
+    {title: 'Тип поездки', dataIndex: 'type', key: 'type'},
+    {title: 'Время отправления', dataIndex: 'departure_DateTime', key: 'departure_DateTime'},
+    {title: 'Время прибытия', dataIndex: 'arrival_DateTime', key: 'arrival_DateTime'},
   ]
 
   const handleTableDataChange = (
@@ -45,20 +46,20 @@ const TripsRoutes: React.FC<Props> = ({ trips}) => {
       <div className="site-layout-background" style={{ padding: 14, minHeight: 360 }}>
         <div>
           <Divider orientation="left">
-            Active Trips
+            Активные поездки
           </Divider>
         </div>
         <Col>
           <Table
             rowKey={'trip_id'}
-            dataSource={trips.data}
+            dataSource={travels.data}
             columns={TripTableColumns}
             onChange={handleTableDataChange}
             pagination={{
-              current: trips.current_page,
+              current: travels.current_page,
               defaultCurrent: 1,
-              pageSize: trips.per_page,
-              total: trips.total,
+              pageSize: travels.per_page,
+              total: travels.total,
               position: ['bottomLeft'],
               showSizeChanger: false
             }}
@@ -69,4 +70,4 @@ const TripsRoutes: React.FC<Props> = ({ trips}) => {
   )
 }
 
-export default TripsRoutes
+export default CurrentTrips
