@@ -58,18 +58,18 @@ const Template: React.FC<Props> = ({ children }: any) => {
             </Menu.SubMenu>
             <Menu.SubMenu key={'sub2'} icon={<SettingOutlined />} title={'Мониторинг'}>
               <Menu.Item key="buses/list" icon={<CarOutlined />}>
-                <InertiaLink href={route('buses.list')}>Buses</InertiaLink>
+                <InertiaLink href={route('buses.list')}>Автопарк</InertiaLink>
               </Menu.Item>
               <Menu.Item key="bus" icon={<PlusCircleOutlined />}>
-                <InertiaLink href={route('buses.add')}>Add car</InertiaLink>
+                <InertiaLink href={route('buses.add')}>Добавить авто</InertiaLink>
               </Menu.Item>
             </Menu.SubMenu>
             <Menu.SubMenu key={'sub3'} icon={<DesktopOutlined />} title={'Трекинг'}>
               <Menu.Item key="buses/list" icon={<EyeOutlined />}>
-                <InertiaLink href={route('buses.list')}>Map</InertiaLink>
+                <InertiaLink href={route('buses.list')}>Карта</InertiaLink>
               </Menu.Item>
               <Menu.Item key="currenttrips/list" icon={<LoadingOutlined />}>
-                <InertiaLink href={route('currenttrips.list')}>Current Trips</InertiaLink>
+                <InertiaLink href={route('currenttrips.list')}>Активные</InertiaLink>
               </Menu.Item>
             </Menu.SubMenu>
           </Menu>

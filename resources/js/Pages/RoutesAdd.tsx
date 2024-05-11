@@ -29,7 +29,7 @@ const RoutesAdd: React.FC<Props> = ({ citylists }) => {
         className="site-layout-background"
         style={{ padding: 24, minHeight: 360 }}
       >
-        <Divider orientation="left">New route</Divider>
+        <Divider orientation="left">Новый маршрут</Divider>
         <Row>
           <Col span={24}>
             <Form
@@ -42,23 +42,23 @@ const RoutesAdd: React.FC<Props> = ({ citylists }) => {
               onFinish={onFinish}
             >
               <Form.Item
-                label="Origin"
+                label="Откуда"
                 name="origin"
-                rules={[{ required: true, message: 'Enter the origin' }]}
+                rules={[{ required: true, message: 'Введите пункт отправления' }]}
               >
                 <Input />
               </Form.Item>
 
               <Form.Item
-                label="Destination"
+                label="Куда"
                 name="destination"
-                rules={[{ required: true, message: 'Enter the plate destination' }]}
+                rules={[{ required: true, message: 'Введите пункт назначения' }]}
               >
                 <Input />
               </Form.Item>
 
               <Form.Item
-                label="Stops List"
+                label="Список остановок"
                 name="city_list_id"
                 rules={[{ required: true }]}
               >
@@ -79,9 +79,9 @@ const RoutesAdd: React.FC<Props> = ({ citylists }) => {
               <Form.Item {...tailLayout}>
                 <Space size={18}>
                   <Button type="primary" htmlType="submit">
-                    Save
+                    Сохранить
                   </Button>
-                  <InertiaLink href={route('trips.list')}>Back</InertiaLink>
+                  <InertiaLink href={route('trips.list')}>Назад</InertiaLink>
                 </Space>
               </Form.Item>
             </Form>
