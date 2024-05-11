@@ -10,11 +10,14 @@ import {
   CarOutlined,
   EyeOutlined,
   DesktopOutlined,
-  LoadingOutlined
+  LoadingOutlined,
+  PieChartOutlined,
+  AreaChartOutlined
 } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Breadcrumb, Button, Flex, Layout, Menu, theme } from 'antd';
 import { route } from 'ziggy-js'
 import { InertiaLink } from '@inertiajs/inertia-react';
+import logo from '../../../source/logo.png'
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -72,10 +75,32 @@ const Template: React.FC<Props> = ({ children }: any) => {
                 <InertiaLink href={route('currenttrips.list')}>Активные</InertiaLink>
               </Menu.Item>
             </Menu.SubMenu>
+            <Menu.SubMenu key={'sub4'} icon={<AreaChartOutlined />} title={'Статистика'}>
+              <Menu.Item key="buses/list">
+                <InertiaLink href={route('buses.list')}>По автопарку</InertiaLink>
+              </Menu.Item>
+              <Menu.Item key="buses/list">
+                <InertiaLink href={route('buses.list')}>пункт 1</InertiaLink>
+              </Menu.Item>
+              <Menu.Item key="buses/list">
+                <InertiaLink href={route('buses.list')}>пункт 2</InertiaLink>
+              </Menu.Item>
+              <Menu.Item key="buses/list">
+                <InertiaLink href={route('buses.list')}>пункт 3</InertiaLink>
+              </Menu.Item>
+              <Menu.Item key="buses/list">
+                <InertiaLink href={route('buses.list')}>пункт 4</InertiaLink>
+              </Menu.Item>
+            </Menu.SubMenu>
           </Menu>
       </Sider>
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }}>some logo n all </Header>
+        <Header style={{ padding: 0, background: colorBgContainer }}>
+        <Flex justify='space-between'>
+          <div style={{ margin: '-24px 24px'}}><img src={logo} style={{width: 110, height: 110}}/></div>
+          <Button type='primary' style={{ margin: '12px 24px'}}>Log out</Button>
+        </Flex>
+        </Header>
         <Content style={{ margin: '0 16px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item></Breadcrumb.Item>
