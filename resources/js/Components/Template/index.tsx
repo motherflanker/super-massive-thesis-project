@@ -43,7 +43,7 @@ const Template: React.FC<Props> = ({ children }: any) => {
         <div className="demo-logo-vertical" />
           <Menu theme="dark" defaultSelectedKeys={currentRoute} mode="inline" selectedKeys={currentRoute}>
             <Menu.Item key="home">
-              <InertiaLink href={route('home')}>Home</InertiaLink>
+              <InertiaLink href={route('home')}>Главная</InertiaLink>
             </Menu.Item>
             <Menu.SubMenu key={'sub1'} icon={<MenuOutlined/>} title={'Бронирование'}>
               <Menu.Item key="bookings/list" icon={<BarsOutlined />}>
@@ -98,7 +98,7 @@ const Template: React.FC<Props> = ({ children }: any) => {
         <Header style={{ padding: 0, background: colorBgContainer }}>
         <Flex justify='space-between'>
           <div style={{ margin: '-24px 24px'}}><img src={logo} style={{width: 110, height: 110}}/></div>
-          <Button type='primary' style={{ margin: '12px 24px'}}>Log out</Button>
+          <Button type='primary' style={{ margin: '12px 24px'}}>Выйти</Button>
         </Flex>
         </Header>
         <Content style={{ margin: '0 16px' }}>

@@ -3,7 +3,9 @@ interface IBus {
   name: string,
   plate_number: string,
   max_seats: number,
-  status: string
+  status: string,
+  latitude: number,
+  longitude: number
 }
 
 export default IBus

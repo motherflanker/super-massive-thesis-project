@@ -30,6 +30,14 @@ class BusService{
     }
   }
 
+  public function updateLocation($bus_id, $latitude, $longitude){
+    $bus = Bus::findOrFail($bus_id);
+    $bus->update([
+      'latitude' => $latitude,
+      'longitude' => $longitude
+    ]);
+  }
+
   public function updateBus($busData){
     $bus = Bus::find($busData['bus_id']);
 

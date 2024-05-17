@@ -17,6 +17,8 @@ class Bus extends Model{
     'name', 
     'plate_number',
     'max_seats',
-    'status'
+    'status',
+    'latitude',
+    'longitude'
   ];
 }

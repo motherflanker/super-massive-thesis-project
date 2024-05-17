@@ -36,19 +36,19 @@ const Buses: React.FC<Props> = ({ buses, techreports }) => {
       title: 'Статус', dataIndex: 'status', key: 'status',
       filters: [
         {
-          text: 'available',
+          text: 'Свободен',
           value: 'available',
         },
         {
-          text: 'taken',
+          text: 'Занят',
           value: 'taken',
         },
         {
-          text: 'forMaintenance',
+          text: 'Подлежит ТО',
           value: 'forMaintenance',
         },
         {
-          text: 'inService',
+          text: 'В сервисе',
           value: 'inService',
         },
       ],

@@ -30,6 +30,21 @@ class BusController extends Controller
     ];
   }
 
+  public function map()
+    {
+        $buses = Bus::all();
+        return Inertia::render('Map', ['buses' => $buses]);
+    }
+
+  public function updateLocation(Request $request, $bus_id){
+    $bus = Bus::findOrFail($bus_id);
+    $bus -> update([
+      'latitude' => $request->latitude,
+      'longitude' => $request->longitude
+    ]);
+    return response()->json(['message' => 'location updated']);
+  }
+
   public function add(){
     return Inertia::render('BusesAdd');
   }
