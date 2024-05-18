@@ -1,49 +1,141 @@
 import { route } from "ziggy-js"
 import { InertiaLink } from "@inertiajs/inertia-react"
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
-import { Col, Divider, Space, Table, TablePaginationConfig, Popconfirm, Button, Flex, Form, Input, Row } from "antd"
+import { EditOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons'
+import { Col, Divider, Space, Table, TablePaginationConfig, Popconfirm, Button, Flex, Form, Input, Row, InputRef } from "antd"
 import { Inertia, Method } from "@inertiajs/inertia"
 import Template from "@/Components/Template"
 import IPaginateCityList from "@/types/models/IPaginateCityList"
 import ICity from "@/types/ICity"
 import IPaginateCity from "@/types/models/IPaginateCity"
 import CityCard from "@/Components/CityCard"
+import IStops from "@/types/IStops"
+import IPaginateStop from "@/types/models/IPaginateStop"
+import { useRef, useState } from "react"
+import { ColumnType, FilterDropdownProps } from "antd/es/table/interface"
+import Highlighter from "react-highlight-words"
 
 
-
-interface CityListProps {
-  citylists: IPaginateCityList
-}
 
 interface CityProps {
-  cities: Array<ICity>
+  cities: IPaginateCity
 }
 
-type Props = CityListProps & CityProps
+interface StopsProps {
+  stops: IPaginateStop
+}
 
-const Cities: React.FC<Props> = ({ citylists, cities }) => {
+type Props = CityProps & StopsProps
+
+const Cities: React.FC<Props> = ({ cities, stops }) => {
   const [form] = Form.useForm()
-  const tableColumns1 = [
-    { title: 'ID', dataIndex: 'city_list_id', key: 'city_list_id' },
-    { title: 'Stop №1', dataIndex: 'city_id1', key: 'city_id1' },
-    { title: 'Stop №2', dataIndex: 'city_id2', key: 'city_id2' },
-    { title: 'Stop №3', dataIndex: 'city_id3', key: 'city_id3' },
-    { title: 'Stop №4', dataIndex: 'city_id4', key: 'city_id4' },
-    { title: 'Stop №5', dataIndex: 'city_id5', key: 'city_id5' },
-    { title: 'Stop №6', dataIndex: 'city_id6', key: 'city_id6' },
-    { title: 'Stop №7', dataIndex: 'city_id7', key: 'city_id7' },
-    { title: 'Stop №8', dataIndex: 'city_id8', key: 'city_id8' },
+
+  const [searchText, setSearchText] = useState('');
+  const [searchedColumn, setSearchedColumn] = useState('');
+  const searchInput = useRef<InputRef>(null);
+
+  const handleSearch = (
+    selectedKeys: string[],
+    confirm: FilterDropdownProps['confirm'],
+    dataIndex: any,
+  ) => {
+    confirm();
+    setSearchText(selectedKeys[0]);
+    setSearchedColumn(dataIndex);
+  };
+
+  const handleReset = (clearFilters: () => void) => {
+    clearFilters();
+    setSearchText('');
+  };
+
+
+  const getColumnSearchProps = (dataIndex: any): ColumnType<any> => ({
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
+      <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
+        <Input
+          ref={searchInput}
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+          onPressEnter={() => handleSearch(selectedKeys as string[], confirm, dataIndex)}
+          style={{ marginBottom: 8, display: 'block' }}
+        />
+        <Space>
+          <Button
+            type="primary"
+            onClick={() => handleSearch(selectedKeys as string[], confirm, dataIndex)}
+            icon={<SearchOutlined />}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Найти
+          </Button>
+          <Button
+            onClick={() => clearFilters && handleReset(clearFilters)}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Сбросить
+          </Button>
+          <Button
+            type="link"
+            size="small"
+            onClick={() => {
+              confirm({ closeDropdown: false });
+              setSearchText((selectedKeys as string[])[0]);
+              setSearchedColumn(dataIndex);
+            }}
+          >
+            Назад
+          </Button>
+        </Space>
+      </div>
+    ),
+    filterIcon: (filtered: boolean) => (
+      <SearchOutlined style={{ color: filtered ? '#1677ff' : undefined }} />
+    ),
+    onFilter: (value, record) =>
+      record[dataIndex]
+        .toString()
+        .toLowerCase()
+        .includes((value as string).toLowerCase()),
+    onFilterDropdownOpenChange: (visible) => {
+      if (visible) {
+        setTimeout(() => searchInput.current?.select(), 100);
+      }
+    },
+    render: (text) =>
+      searchedColumn === dataIndex ? (
+        <Highlighter
+          highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text ? text.toString() : ''}
+        />
+      ) : (
+        text
+      ),
+  });
+
+  const tableColumns = [
+    { title: 'ID', dataIndex: 'city_id', key: 'city_id',
+      sorter: (a: any, b: any) => a.city_id - b.city_id },
+    { title: 'Название', dataIndex: 'name', key: 'name',
+      onFilter: (value: any, record: any) => record.name.indexOf(value as string) === 0,
+      sorter: (a: any, b: any) => a.name.localeCompare(b.name),
+      ...getColumnSearchProps('name'), 
+    },
     {
-      title: 'Actions',
-      key: 'city_list_id',
+      title: '',
+      key: 'city_id',
       render: (key: any, record: any) => (
         <Space size={'middle'}>
-          <InertiaLink href={route('citylists.view', { citylist: record.city_list_id })}>
+          <InertiaLink href={route('cities.view', { city: record.city_id })}>
             <EditOutlined />
           </InertiaLink>
           <Popconfirm
-            title='Are you sure you want to delete this?'
-            onConfirm={() => deleteCityList(record.city_list_id)}
+            title='Вы уверены, что хотите удалить запить?'
+            onConfirm={() => deleteCity(record.city_id)}
           >
             <DeleteOutlined />
           </Popconfirm>
@@ -51,8 +143,20 @@ const Cities: React.FC<Props> = ({ citylists, cities }) => {
       )
     }
   ]
-  const deleteCityList = (city_list_id: number) => {
-    Inertia.post(route('citylists.delete', { city_list_id }))
+
+  const StopsTableColumns = [
+    { title: 'ID', dataIndex: 'stops_id', key: 'stops_id',
+    sorter: (a: any, b: any) => a.stops_id - b.stops_id },
+    { title: 'ID города', dataIndex: 'city_id', key: 'city_id',
+    sorter: (a: any, b: any) => a.city_id - b.city_id },
+    { title: 'Название', dataIndex: 'name', key: 'name',
+      onFilter: (value: any, record: any) => record.name.indexOf(value as string) === 0,
+      sorter: (a: any, b: any) => a.name.localeCompare(b.name),
+      ...getColumnSearchProps('name'),  },
+  ]
+
+  const deleteCity = (city_id: number) => {
+    Inertia.post(route('cities.delete', { city_id }))
   }
 
   const handleTableDataChange = (
@@ -60,11 +164,13 @@ const Cities: React.FC<Props> = ({ citylists, cities }) => {
     filters: unknown,
     sorter: unknown
   ) => {
-    const url = route('citylists.list') + `?page=${pagination.current}`
-    Inertia.visit(url, { method: Method.GET })
+    if(pagination.current !== cities.current_page) {
+      const url = route('cities.list') + `?page=${pagination.current}`
+      Inertia.visit(url, { method: Method.GET })
+    }
   }
 
-  const onCityAdd = (values: any) => {debugger
+  const onCityAdd = (values: any) => {
     Inertia.post(route('cities.save', values))
     form.resetFields()
   }
@@ -76,30 +182,9 @@ const Cities: React.FC<Props> = ({ citylists, cities }) => {
       <div className="site-layout-background" style={{ padding: 14, minHeight: 360 }}>
         <div>
           <Divider orientation="left" >
-            City Lists
-            <Button type="primary" style={{ marginLeft: '20px' }}>
-              <InertiaLink href={route('citylists.add')}>Add new</InertiaLink>
-            </Button>
+            Населенные пункты
           </Divider>
-        </div>
-        <Col>
-          <Table
-            rowKey={'city_list_id'}
-            dataSource={citylists.data}
-            columns={tableColumns1}
-            onChange={handleTableDataChange}
-            pagination={{
-              current: citylists.current_page,
-              defaultCurrent: 1,
-              pageSize: citylists.per_page,
-              total: citylists.total,
-              position: ['bottomLeft'],
-              showSizeChanger: false
-            }}
-          />
-        </Col>
-        <Divider orientation="left">Cities</Divider>
-        <Flex justify='flex-end' wrap="wrap" style={{marginRight: 19}}>
+          <Flex justify='flex-end' wrap="wrap" style={{marginRight: 19}}>
           <Form form={form}
             name="basic"
             labelCol={{ span: 6 }}
@@ -110,36 +195,61 @@ const Cities: React.FC<Props> = ({ citylists, cities }) => {
           >
             <Row>
               <Form.Item
-              label="City"
-              name="name  "
-              rules={[{ required: true, message: 'Enter the city' }]}
+              label="Город"
+              name="name"
+              rules={[{ required: true, message: 'Введите название' }]}
             >
               <Input />
             </Form.Item>
             <Form.Item>
               <Flex>
                 <Button type="primary" htmlType="submit">
-                  Add
+                  Добавить
                 </Button>
               </Flex>
             </Form.Item>
             </Row>
           </Form>
         </Flex>
-        {
-          <Flex wrap="wrap" gap={'large'}>
-            {
-              cities.map((city) => {
-                if (city.city_id === city.city_id) {
-                  return <CityCard key={city.city_id} city={city} />
-                }
-                else {
-                  <div>Ooops, there's nothing</div>
-                }
-              })
-            }
-          </Flex>
-        }
+        </div>
+        <Col>
+          <Table
+            rowKey={'city_id'}
+            dataSource={cities.data}
+            columns={tableColumns}
+            onChange={handleTableDataChange}
+            pagination={{
+              current: cities.current_page,
+              defaultCurrent: 1,
+              pageSize: cities.per_page,
+              total: cities.total,
+              position: ['bottomLeft'],
+              showSizeChanger: false
+            }}
+          />
+        </Col>
+        <div>
+          <Divider orientation="left">
+            Остановки
+          </Divider>
+        </div>
+        <Col>
+          <Table
+            rowKey={'stops_id'}
+            dataSource={stops.data}
+            columns={StopsTableColumns}
+            size="large"
+            onChange={handleTableDataChange}
+            pagination={{
+              current: stops.current_page,
+              defaultCurrent: 1,
+              pageSize: stops.per_page,
+              total: stops.total,
+              position: ['bottomLeft'],
+              showSizeChanger: false
+            }}
+          />
+        </Col>
       </div>
     </Template>
   )

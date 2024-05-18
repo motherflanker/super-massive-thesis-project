@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
+use App\Models\St;
 
 use App\Services\CityService;
 
@@ -26,15 +27,24 @@ class CityController extends Controller
   }
 
   public function index(){
-    $cities = DB::table('cities')->get();
-    return Inertia::render('Nothingness')->with('cities', $cities);
+    $stops = DB::table('stops')->paginate(5);
+    $cities = DB::table('cities')->paginate(5);
+    $data = ['stops' => $stops, 'cities' => $cities];
+    return Inertia::render('Cities')->with($data);
   }  
+
+  public function view(City $city) {
+    $stops = DB::table('stops')->get();
+    $data = ['stops' => $stops, 'city' => $city];
+    return Inertia::render('CityView')->with($data);
+  }
+
 
   public function store(Request $request): RedirectResponse
   {
     $data = $request->validate($this->rules); 
     $this->cityService->createCity($data);
-    return Redirect::route('citylists.list');
+    return Redirect::route('cities.list');
   }
 
   public function update(Request $request)
@@ -43,7 +53,7 @@ class CityController extends Controller
     $rules['city_id'] = 'required|exists:cities,city_id';
     $data = $request->validate($rules);
     $this->cityService->updateCity($data);
-    return Redirect::route('citylists.list');
+    return Redirect::route('cities.list');
   }
 
   public function destroy(Request $request)
@@ -52,6 +62,6 @@ class CityController extends Controller
       'city_id' => 'required|integer'
     ]);
     City::findOrFail($data['city_id'])->delete();
-    return Redirect::route('citylists.list');
+    return Redirect::route('cities.list');
   }
 }

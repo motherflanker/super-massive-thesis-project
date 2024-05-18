@@ -27,7 +27,7 @@ const CityCard: React.FC<Props> = ({ city }) => {
   const formItemLayout =
     formLayout === 'horizontal' ? { labelCol: { span: 5 }, wrapperCol: { span: 18 } } : null;
 
-  const onFinish = (values: any) => {debugger
+  const onFinish = (values: any) => {
     values.city_id = city.city_id
     Inertia.post(route('cities.update'), values)
     form.resetFields()

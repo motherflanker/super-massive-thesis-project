@@ -129,7 +129,7 @@ const TripsRoutes: React.FC<Props> = ({ trips, routes }) => {
       title: 'ID маршрута', dataIndex: 'route_id', key: 'route_id',
       sorter: (a: any, b: any) => a.route_id - b.route_id
     },
-    { title: 'Список остановок', dataIndex: 'city_list_id', key: 'city_list_id' },
+    // { title: 'Список остановок', dataIndex: 'city_list_id', key: 'city_list_id' },
     {
       title: 'Откуда', dataIndex: 'origin', key: 'origin',
       onFilter: (value: any, record: any) => record.origin.indexOf(value as string) === 0,
@@ -181,7 +181,7 @@ const TripsRoutes: React.FC<Props> = ({ trips, routes }) => {
       title: 'ID', dataIndex: 'route_id', key: 'route_id',
       sorter: (a: any, b: any) => a.route_id - b.route_id
     },
-    { title: 'Список остановок', dataIndex: 'city_list_id', key: 'city_list_id' },
+    // { title: 'Список остановок', dataIndex: 'city_list_id', key: 'city_list_id' },
     {
       title: 'Откуда', dataIndex: 'origin', key: 'origin',
       onFilter: (value: any, record: any) => record.origin.indexOf(value as string) === 0,
