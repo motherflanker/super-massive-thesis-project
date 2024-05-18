@@ -68,15 +68,15 @@ const Template: React.FC<Props> = ({ children }: any) => {
               </Menu.Item>
             </Menu.SubMenu>
             <Menu.SubMenu key={'sub3'} icon={<DesktopOutlined />} title={'Трекинг'}>
-              <Menu.Item key="buses/list" icon={<EyeOutlined />}>
-                <InertiaLink href={route('buses.list')}>Карта</InertiaLink>
-              </Menu.Item>
+              {/* <Menu.Item key="map" icon={<EyeOutlined />}>
+                <InertiaLink href={route('map')}>Карта</InertiaLink>
+              </Menu.Item> */}
               <Menu.Item key="currenttrips/list" icon={<LoadingOutlined />}>
                 <InertiaLink href={route('currenttrips.list')}>Активные</InertiaLink>
               </Menu.Item>
             </Menu.SubMenu>
-            <Menu.SubMenu key={'sub4'} icon={<AreaChartOutlined />} title={'Статистика'}>
-              <Menu.Item key="buses/list">
+            <Menu.SubMenu key={'sub4'} icon={<AreaChartOutlined />} title={'Отчеты'}>
+              {/* <Menu.Item key="buses/list">
                 <InertiaLink href={route('buses.list')}>По автопарку</InertiaLink>
               </Menu.Item>
               <Menu.Item key="buses/list">
@@ -90,7 +90,7 @@ const Template: React.FC<Props> = ({ children }: any) => {
               </Menu.Item>
               <Menu.Item key="buses/list">
                 <InertiaLink href={route('buses.list')}>пункт 4</InertiaLink>
-              </Menu.Item>
+              </Menu.Item> */}
             </Menu.SubMenu>
           </Menu>
       </Sider>
