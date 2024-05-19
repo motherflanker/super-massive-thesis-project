@@ -26,9 +26,13 @@ class CityController extends Controller
     ];
   }
 
-  public function index(){
-    $stops = DB::table('stops')->paginate(5);
-    $cities = DB::table('cities')->paginate(5);
+  public function index(Request $request){
+    $stopsPage = $request->input('stops_page', 1);
+    $citiesPage = $request->input('cities_page', 1);
+
+    $stops = DB::table('stops')->paginate(5, ['*'], 'stops_page', $stopsPage);
+    $cities = DB::table('cities')->paginate(10 , ['*'], 'cities_page', $citiesPage);
+
     $data = ['stops' => $stops, 'cities' => $cities];
     return Inertia::render('Cities')->with($data);
   }  

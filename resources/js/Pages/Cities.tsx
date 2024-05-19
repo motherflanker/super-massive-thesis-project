@@ -33,6 +33,18 @@ const Cities: React.FC<Props> = ({ cities, stops }) => {
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef<InputRef>(null);
 
+  const [citiesPagination, setCitiesPagination] = useState({
+    current: cities.current_page,
+    pageSize: cities.per_page,
+    total: cities.total
+  })
+
+  const [stopsPagination, setStopsPagination] = useState({
+    current: stops.current_page,
+    pageSize: stops.per_page,
+    total: stops.total
+  })
+
   const handleSearch = (
     selectedKeys: string[],
     confirm: FilterDropdownProps['confirm'],
@@ -118,12 +130,15 @@ const Cities: React.FC<Props> = ({ cities, stops }) => {
   });
 
   const tableColumns = [
-    { title: 'ID', dataIndex: 'city_id', key: 'city_id',
-      sorter: (a: any, b: any) => a.city_id - b.city_id },
-    { title: 'Название', dataIndex: 'name', key: 'name',
+    {
+      title: 'ID', dataIndex: 'city_id', key: 'city_id',
+      sorter: (a: any, b: any) => a.city_id - b.city_id
+    },
+    {
+      title: 'Название', dataIndex: 'name', key: 'name',
       onFilter: (value: any, record: any) => record.name.indexOf(value as string) === 0,
       sorter: (a: any, b: any) => a.name.localeCompare(b.name),
-      ...getColumnSearchProps('name'), 
+      ...getColumnSearchProps('name'),
     },
     {
       title: '',
@@ -144,29 +159,67 @@ const Cities: React.FC<Props> = ({ cities, stops }) => {
     }
   ]
 
-  const StopsTableColumns = [
-    { title: 'ID', dataIndex: 'stops_id', key: 'stops_id',
-    sorter: (a: any, b: any) => a.stops_id - b.stops_id },
-    { title: 'ID города', dataIndex: 'city_id', key: 'city_id',
-    sorter: (a: any, b: any) => a.city_id - b.city_id },
-    { title: 'Название', dataIndex: 'name', key: 'name',
+  const stopsTableColumns = [
+    {
+      title: 'ID', dataIndex: 'stops_id', key: 'stops_id',
+      sorter: (a: any, b: any) => a.stops_id - b.stops_id
+    },
+    {
+      title: 'ID города', dataIndex: 'city_id', key: 'city_id',
+      sorter: (a: any, b: any) => a.city_id - b.city_id
+    },
+    {
+      title: 'Название', dataIndex: 'name', key: 'name',
       onFilter: (value: any, record: any) => record.name.indexOf(value as string) === 0,
       sorter: (a: any, b: any) => a.name.localeCompare(b.name),
-      ...getColumnSearchProps('name'),  },
+      ...getColumnSearchProps('name'),
+    },
   ]
 
   const deleteCity = (city_id: number) => {
     Inertia.post(route('cities.delete', { city_id }))
   }
 
-  const handleTableDataChange = (
-    pagination: TablePaginationConfig,
-    filters: unknown,
-    sorter: unknown
+
+  const handleCitiesTableDataChange = (
+    paginatation: TablePaginationConfig,
+    filters: any,
+    sorter: any
   ) => {
-    if(pagination.current !== cities.current_page) {
-      const url = route('cities.list') + `?page=${pagination.current}`
-      Inertia.visit(url, { method: Method.GET })
+    const query = {
+      cities_page: paginatation.current,
+      stops_page: stops.current_page,
+      ...filters,
+      sortField: sorter.field,
+      sortOrder: sorter.order
+    }
+    if (paginatation.current !== cities.current_page) {
+      Inertia.visit(route('cities.list'), {
+        method: Method.GET,
+        data: query,
+        preserveState: true
+      })
+    }
+  }
+
+  const handleStopsTableDataChange = (
+    pagination: TablePaginationConfig,
+    filters: any,
+    sorter: any
+  ) => {
+    const query = {
+      cities_page: cities.current_page,
+      stops_page: pagination.current,
+      ...filters,
+      sortField: sorter.field,
+      sortOrder: sorter.order,
+    };
+    if (pagination.current !== stops.current_page) {
+      Inertia.visit(route('cities.index'), {
+        method: Method.GET,
+        data: query,
+        preserveState: true,
+      })
     }
   }
 
@@ -184,40 +237,40 @@ const Cities: React.FC<Props> = ({ cities, stops }) => {
           <Divider orientation="left" >
             Населенные пункты
           </Divider>
-          <Flex justify='flex-end' wrap="wrap" style={{marginRight: 19}}>
-          <Form form={form}
-            name="basic"
-            labelCol={{ span: 6 }}
-            wrapperCol={{ span: 16 }}
-            initialValues={{ remember: true }}
-            autoComplete="off"
-            onFinish={onCityAdd}
-          >
-            <Row>
-              <Form.Item
-              label="Город"
-              name="name"
-              rules={[{ required: true, message: 'Введите название' }]}
+          <Flex justify='flex-end' wrap="wrap" style={{ marginRight: 19 }}>
+            <Form form={form}
+              name="basic"
+              labelCol={{ span: 6 }}
+              wrapperCol={{ span: 16 }}
+              initialValues={{ remember: true }}
+              autoComplete="off"
+              onFinish={onCityAdd}
             >
-              <Input />
-            </Form.Item>
-            <Form.Item>
-              <Flex>
-                <Button type="primary" htmlType="submit">
-                  Добавить
-                </Button>
-              </Flex>
-            </Form.Item>
-            </Row>
-          </Form>
-        </Flex>
+              <Row>
+                <Form.Item
+                  label="Город"
+                  name="name"
+                  rules={[{ required: true, message: 'Введите название' }]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item>
+                  <Flex>
+                    <Button type="primary" htmlType="submit">
+                      Добавить
+                    </Button>
+                  </Flex>
+                </Form.Item>
+              </Row>
+            </Form>
+          </Flex>
         </div>
         <Col>
           <Table
             rowKey={'city_id'}
             dataSource={cities.data}
             columns={tableColumns}
-            onChange={handleTableDataChange}
+            onChange={handleCitiesTableDataChange}
             pagination={{
               current: cities.current_page,
               defaultCurrent: 1,
@@ -237,9 +290,9 @@ const Cities: React.FC<Props> = ({ cities, stops }) => {
           <Table
             rowKey={'stops_id'}
             dataSource={stops.data}
-            columns={StopsTableColumns}
+            columns={stopsTableColumns}
             size="large"
-            onChange={handleTableDataChange}
+            onChange={handleStopsTableDataChange}
             pagination={{
               current: stops.current_page,
               defaultCurrent: 1,
