@@ -1,16 +1,8 @@
 import Template from "@/Components/Template"
-import IBus from "@/types/IBus"
 import { Inertia } from "@inertiajs/inertia"
 import { useEffect } from "react"
 import { route } from "ziggy-js"
-import { Button, Col, Divider, Form, Input, Row, Space, Popconfirm, Flex, Select, DatePicker } from "antd"
-import { usePage } from "@inertiajs/react"
-import { DeleteOutlined } from '@ant-design/icons'
-import ITechReport from "@/types/ITechReport"
-import TechReportCard from "@/Components/TechReport/TechReportCard/Index"
-import { InertiaLink } from "@inertiajs/inertia-react"
-import type { DatePickerProps } from 'antd';
-import dayjs from "dayjs"
+import { Button, Divider, Form, Input, Space, Flex  } from "antd"
 import ICity from "@/types/ICity"
 import IStops from "@/types/IStops"
 
@@ -23,7 +15,7 @@ interface StopsProps {
   stops: Array<IStops>
 }
 
-const CityView: React.FC<CityProps & StopsProps> = ({ city, stops }) => {
+const CityView: React.FC<CityProps & StopsProps> = ({ city, stops }) => { debugger
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -34,7 +26,7 @@ const CityView: React.FC<CityProps & StopsProps> = ({ city, stops }) => {
   }, [])
 
   const tailLayout1 = {
-    wrapperCol: { offset: 18, span: 4 }
+    wrapperCol: { offset: 14, span: 2 }
   }
 
   const onFinish = (values: any) => {
@@ -51,16 +43,16 @@ const CityView: React.FC<CityProps & StopsProps> = ({ city, stops }) => {
         style={{ padding: 4, minHeight: 560 }}
       >
         <Divider orientation="left">Редактировать населенный пункт</Divider>
-        <Flex wrap="wrap" justify="space-around">
+        <Flex wrap="wrap">
           <Form
             form={form}
             name="basic"
-            labelCol={{ span: 6 }}
-            wrapperCol={{ span: 24 }}
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 12 }}
             initialValues={{ remember: true }}
             autoComplete="off"
             onFinish={onFinish}
-            style={{ width: 400 }}
+            style={{ width: 400, marginTop: 20 }}
           >
             <Form.Item
               label="ID"
@@ -81,7 +73,7 @@ const CityView: React.FC<CityProps & StopsProps> = ({ city, stops }) => {
 
             <Form.Item {...tailLayout1}>
               <Space >
-                <Button style={{ width: 82 }} type="primary" htmlType="submit">
+                <Button style={{width: 99}} type="primary" htmlType="submit">
                   Обновить
                 </Button>
               </Space>

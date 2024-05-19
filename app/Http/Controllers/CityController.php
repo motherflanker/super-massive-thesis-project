@@ -37,7 +37,8 @@ class CityController extends Controller
     return Inertia::render('Cities')->with($data);
   }  
 
-  public function view(City $city) {
+  public function view(City $city)
+  {
     $stops = DB::table('stops')->get();
     $data = ['stops' => $stops, 'city' => $city];
     return Inertia::render('CityView')->with($data);
