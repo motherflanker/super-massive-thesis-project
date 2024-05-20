@@ -93,6 +93,7 @@ Route::get('/', function () {
 
   Route::post('stopsroutes/update', [StopsRoutesController::class, 'update'])->name('stopsroutes.update');
   Route::post('stopsroutes', [StopsRoutesController::class, 'store'])->name('stopsroutes.save');
+  Route::get('stopsroutes/add', [StopsRoutesController::class, 'add'])->name('stopsroutes.add');
 
   
   Route::get('currenttrips', [CurrentTravelsController::class, 'index'])->name('currenttrips.list');

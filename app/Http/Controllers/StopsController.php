@@ -37,9 +37,7 @@ class StopsController extends Controller
   {
     $rules = $this->rules;
     $rules['stop_id'] = 'required|exists:stops,stop_id';
-    \Log::info('Update Stop Request Data:', $request->all());
     $data = $request->validate($rules);
-    \Log::info('Validated Stop Data:', $data);
     $this->stopService->updateStop($data);
     return Redirect::route('cities.list');
   }

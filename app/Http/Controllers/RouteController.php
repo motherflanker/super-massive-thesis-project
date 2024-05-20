@@ -32,7 +32,7 @@ class RouteController extends Controller
   }
 
   public function view(Route $route, Request $request) {
-    $stopsRoutes = DB::table('routesStops') 
+    $stopsRoutes = DB::table('routesstops') 
         ->where('route_id', $route->route_id)
         ->get();
 

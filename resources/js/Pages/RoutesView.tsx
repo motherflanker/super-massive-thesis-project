@@ -3,7 +3,7 @@ import { InertiaLink } from "@inertiajs/inertia-react"
 
 import React, { useEffect, useState } from "react"
 import { route } from 'ziggy-js'
-import { Button, Col, Divider, Form, Input, Row, Select, Space, Tooltip } from "antd"
+import { Button, Col, Divider, Flex, Form, Input, Row, Select, Space, Tooltip } from "antd"
 
 import Template from "@/Components/Template"
 import IRoute from "@/types/IRoute"
@@ -37,6 +37,7 @@ const backroute = route('trips.list')
 const createTripRoute = route('trips.save')
 
 const RoutesView: React.FC<Props> = ({ route1, routesStops }) => {
+  debugger
   const [form] = Form.useForm()
   const [form2] = Form.useForm()
 
@@ -107,7 +108,7 @@ const RoutesView: React.FC<Props> = ({ route1, routesStops }) => {
       editable: true,
     },
     {
-      title: 'Время в пути (в мин.)',
+      title: 'Время в пути до остановки(в мин.)',
       dataIndex: 'time',
       width: '35%',
       editable: true,
@@ -139,13 +140,20 @@ const RoutesView: React.FC<Props> = ({ route1, routesStops }) => {
             </Button>
           </span>
         ) : (
-          <Button
-            disabled={editingKey !== ''}
-            onClick={() => edit(record)}
-            type="link"
-          >
-            Изменить
-          </Button>
+          <Flex>
+            <Button
+              disabled={editingKey !== ''}
+              onClick={() => edit(record)}
+              type="link"
+            >
+              Изменить
+            </Button>
+            <Button type="link" 
+              disabled={editingKey !== ''}
+              onClick={() => edit(record)}>
+              <InertiaLink href={route('stopsroutes.add')}>Добавить</InertiaLink>
+            </Button>
+          </Flex>
         );
       },
     },
@@ -242,7 +250,7 @@ const RoutesView: React.FC<Props> = ({ route1, routesStops }) => {
           </Col>
 
           <Divider orientation="left">Остановки маршрута</Divider>
-          <div style={{marginTop: 10, marginLeft: 70}}>
+          <div style={{ marginTop: 10, marginLeft: 70 }}>
             <Form form={form2} component={false} >
               <Table
                 size="large"
