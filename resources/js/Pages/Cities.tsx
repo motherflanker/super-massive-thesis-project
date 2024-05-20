@@ -33,18 +33,6 @@ const Cities: React.FC<Props> = ({ cities, stops }) => {
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef<InputRef>(null);
 
-  const [citiesPagination, setCitiesPagination] = useState({
-    current: cities.current_page,
-    pageSize: cities.per_page,
-    total: cities.total
-  })
-
-  const [stopsPagination, setStopsPagination] = useState({
-    current: stops.current_page,
-    pageSize: stops.per_page,
-    total: stops.total
-  })
-
   const handleSearch = (
     selectedKeys: string[],
     confirm: FilterDropdownProps['confirm'],

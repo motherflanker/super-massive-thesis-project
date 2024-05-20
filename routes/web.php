@@ -88,7 +88,9 @@ Route::get('/', function () {
   Route::post('travels/delete', [TravelsController::class, 'destroy'])->name('travels.delete');
 
   Route::post('stops/update', [StopsController::class, 'update'])->name('stops.update');
+  Route::post('stops', [StopsController::class, 'store'])->name('stops.save');
 
+  
   Route::get('currenttrips', [CurrentTravelsController::class, 'index'])->name('currenttrips.list');
 
   Route::put('buses/{id}/location', [BusController::class, 'updateLocation']);

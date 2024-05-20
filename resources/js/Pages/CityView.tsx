@@ -2,7 +2,7 @@ import Template from "@/Components/Template"
 import { Inertia } from "@inertiajs/inertia"
 import { useEffect, useState } from "react"
 import { route } from "ziggy-js"
-import { Button, Divider, Form, Input, Space, Flex, Table } from "antd"
+import { Button, Divider, Form, Input, Space, Flex, Table, Row } from "antd"
 import ICity from "@/types/ICity"
 import IStops from "@/types/IStops"
 import { EditableCell } from "@/Components/EditableCell"
@@ -38,7 +38,7 @@ const CityView: React.FC<CityProps & StopsProps> = ({ city, stops }) => {
     setEditingKey('');
   };
 
-  const save = async (key: React.Key) => {debugger
+  const save = async (key: React.Key) => {
     try {
       const row = (await form2.validateFields()) as DataType;
       const newData = [...dataSource];
@@ -64,8 +64,8 @@ const CityView: React.FC<CityProps & StopsProps> = ({ city, stops }) => {
       console.log('Validate Failed:', errInfo);
     }
   };
-  //created additional id field which created the type mismatch problem, look into that and itll be fixed
-  const update = async (payload: { stop_id: number, name: string, city_id: number }) => {debugger
+
+  const update = async (payload: { stop_id: number, name: string, city_id: number }) => {
     Inertia.post(route('stops.update', { stop_id: payload.stop_id }), payload, {
       onSuccess: () => {
         console.log('Update successful');
@@ -147,6 +147,7 @@ const CityView: React.FC<CityProps & StopsProps> = ({ city, stops }) => {
 
   const [form] = Form.useForm();
   const [form2] = Form.useForm();
+  const [form3] = Form.useForm();
 
   useEffect(() => {
     form.setFieldsValue({
@@ -163,6 +164,11 @@ const CityView: React.FC<CityProps & StopsProps> = ({ city, stops }) => {
     values.city_id = city.city_id
     Inertia.post(route('cities.update'), values)
     form.resetFields()
+  }
+
+  const onStopAdd = (values: any) => {
+    Inertia.post(route('stops.save', values))
+    form3.resetFields()
   }
 
 
@@ -211,6 +217,42 @@ const CityView: React.FC<CityProps & StopsProps> = ({ city, stops }) => {
           </Form>
         </Flex>
         <Divider orientation="left">Остановки</Divider>
+        <Flex justify='flex-end' wrap="wrap" style={{ marginRight: 19 }}>
+            <Form form={form3}
+              name="basic"
+              labelCol={{ span: 8 }}
+              wrapperCol={{ span: 15 }}
+              initialValues={{ remember: true }}
+              autoComplete="off"
+              onFinish={onStopAdd}
+            >
+              <Row>
+                <Form.Item
+                  hidden
+                  label="ID города"
+                  name="city_id"
+                  initialValue={city.city_id}
+                  rules={[{ required: true, message: 'Введите остановку' }]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  label="Остановка"
+                  name="name"
+                  rules={[{ required: true, message: 'Введите остановку' }]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item>
+                  <Flex>
+                    <Button type="primary" htmlType="submit">
+                      Добавить
+                    </Button>
+                  </Flex>
+                </Form.Item>
+              </Row>
+            </Form>
+          </Flex>
         <Form form={form2} component={false}>
           <Table
             size="middle"
