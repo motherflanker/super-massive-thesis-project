@@ -12,7 +12,7 @@ class Stop extends Model{
 
   protected $table = 'stops';
   public $timestamps = false;
-  protected $primaryKey = 'stops_id';
+  protected $primaryKey = 'stop_id';
 
   protected $fillable = [
     'name',

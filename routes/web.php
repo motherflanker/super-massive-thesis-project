@@ -11,6 +11,7 @@ use App\Http\Controllers\CityListController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CurrentTravelsController;
 use App\Http\Controllers\TravelsController;
+use App\Http\Controllers\StopsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 
@@ -86,11 +87,18 @@ Route::get('/', function () {
   Route::post('travels/update', [TravelsController::class, 'update'])->name('travels.update');
   Route::post('travels/delete', [TravelsController::class, 'destroy'])->name('travels.delete');
 
+  Route::post('stops/update', [StopsController::class, 'update'])->name('stops.update');
 
   Route::get('currenttrips', [CurrentTravelsController::class, 'index'])->name('currenttrips.list');
 
   Route::put('buses/{id}/location', [BusController::class, 'updateLocation']);
   Route::get('map', [BusController:: class, 'map'])-> name('map');
+
+
+  // Route::get('/test-stop', function() {
+  //   $stop = \App\Models\Stop::find(1);
+  //   dd($stop);
+  // });
 
 // Route::group(['middleware' => ['auth']], function () {
     

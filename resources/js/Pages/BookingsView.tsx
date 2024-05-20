@@ -51,7 +51,6 @@ const BookingsView: React.FC<Props> = ({ booking, travels }) => {
   }
 
   const onFinish = (values: any) => {
-    debugger
     values.booking_id = booking.booking_id
     Inertia.post(route('bookings.update'), values)
     form.resetFields()

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
-use App\Models\St;
+use App\Models\Stop;
 
 use App\Services\CityService;
 
