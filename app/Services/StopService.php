@@ -28,11 +28,9 @@ class StopService{
   }
 
   public function updateStop($stopData){
-    \Log::info('Updating Stop Data:', $stopData);
 
     $stopData['stop_id'] = (int) $stopData['stop_id'];
 
-    \DB::enableQueryLog();
     $stop = Stop::find($stopData['stop_id']);
     
 

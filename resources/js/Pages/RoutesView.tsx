@@ -1,40 +1,186 @@
 import { Inertia } from "@inertiajs/inertia"
 import { InertiaLink } from "@inertiajs/inertia-react"
 
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { route } from 'ziggy-js'
 import { Button, Col, Divider, Form, Input, Row, Select, Space, Tooltip } from "antd"
 
 import Template from "@/Components/Template"
 import IRoute from "@/types/IRoute"
 import IBus from "@/types/IBus"
+import Table, { ColumnType } from "antd/es/table"
+import IStopsRoutes from "@/types/IStopsRoutes"
+import { EditableCell } from "@/Components/EditableCell"
 
 
 
 interface RouteProps {
-  route: IRoute
+  route1: IRoute
 }
 
-type Props = RouteProps
+interface DataType extends IStopsRoutes {
+  key: React.Key;
+}
+interface StopsProps {
+  routesStops: Array<DataType>
+}
+
+interface EditableColumnType extends ColumnType<DataType> {
+  editable?: boolean;
+}
+
+type Props = RouteProps & StopsProps
 
 const updateRoute = route('routes.update');
 const backButtonRoute = route('trips.list');
 const backroute = route('trips.list')
 const createTripRoute = route('trips.save')
 
-const RoutesView: React.FC<Props> = ({ route }) => {
+const RoutesView: React.FC<Props> = ({ route1, routesStops }) => {
   const [form] = Form.useForm()
+  const [form2] = Form.useForm()
+
+  const [dataSource, setDataSource] = useState<DataType[]>(routesStops.map(routeStop => ({ ...routeStop, key: routeStop.rs_id })))
+
+  const [editingKey, setEditingKey] = useState<string | null>('');
+
+  const isEditing = (record: DataType) => record.key === editingKey;
+
+  const edit = (record: Partial<DataType> & { key: React.Key }) => {
+    form2.setFieldsValue({ ...record });
+    setEditingKey(record.key as string);
+  };
+  const cancel = () => {
+    setEditingKey('');
+  };
+
+  const save = async (key: React.Key) => {
+    try {
+      const row = (await form2.validateFields()) as DataType;
+      const newData = [...dataSource];
+      const index = newData.findIndex((item) => key === item.key);
+
+      if (index > -1) {
+        const item = newData[index];
+        const updatedRow = { ...item, ...row };
+        newData.splice(index, 1, updatedRow);
+        setDataSource(newData);
+        setEditingKey('');
+        update({
+          rs_id: updatedRow.rs_id,
+          stops_id: updatedRow.stops_id,
+          time: updatedRow.time,
+          route_id: updatedRow.route_id,
+        });
+      } else {
+        newData.push(row);
+        setDataSource(newData);
+        setEditingKey('');
+      }
+    } catch (errInfo) {
+      console.log('Validate Failed:', errInfo);
+    }
+  };
+
+  const update = async (payload: { stops_id: number, time: number, rs_id: number, route_id: number }) => {
+    Inertia.post(route('stopsroutes.update', { rs_id: payload.rs_id }), payload, {
+      onSuccess: () => {
+        console.log('Update successful');
+      },
+      onError: (errors) => {
+        console.error('Error updating data:', errors);
+      },
+    });
+  }
+
+  const columns: EditableColumnType[] = [
+    {
+      title: 'ID',
+      dataIndex: 'rs_id',
+      width: '15%',
+      editable: false,
+    },
+    {
+      title: 'ID остановки',
+      dataIndex: 'stops_id',
+      width: '15%',
+      editable: true,
+    },
+    {
+      title: 'Время в пути (в мин.)',
+      dataIndex: 'time',
+      width: '35%',
+      editable: true,
+    },
+    {
+      title: 'ID маршрута',
+      dataIndex: 'route_id',
+      width: '15%',
+      editable: false,
+    },
+    {
+      title: '',
+      render: (_, record: DataType) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <span>
+            <Button
+              onClick={() => save(record.key)}
+              type="link"
+            >
+              Сохранить
+            </Button>
+            <Button
+              onClick={cancel}
+              type="link"
+              style={{ marginRight: 8 }}
+            >
+              Отмена
+            </Button>
+          </span>
+        ) : (
+          <Button
+            disabled={editingKey !== ''}
+            onClick={() => edit(record)}
+            type="link"
+          >
+            Изменить
+          </Button>
+        );
+      },
+    },
+  ];
+
+  const mergedColumns = columns.map((col: any) => {
+    if (!col.editable) {
+      return col;
+    }
+    return {
+      ...col,
+      onCell: (record: DataType) => ({
+        record,
+        editable: col.editable,
+        dataIndex: col.dataIndex,
+        title: col.title,
+        editing: isEditing(record),
+      }),
+    };
+  });
+
+  const onStopAdd = (values: any) => {
+    Inertia.post(route('stopsroutes.save', values))
+    form2.resetFields()
+  }
 
   useEffect(() => {
     form.setFieldsValue({
-      city_list_id: route.city_list_id,
-      destination: route.destination,
-      origin: route.origin
+      destination: route1.destination,
+      origin: route1.origin
     })
   }, [])
 
-  const onFinish = (values: any) => { 
-    values.route_id = route.route_id
+  const onFinish = (values: any) => {
+    values.route_id = route1.route_id
     Inertia.post(updateRoute, values)
     form.resetFields()
   }
@@ -84,17 +230,6 @@ const RoutesView: React.FC<Props> = ({ route }) => {
                 <Input />
               </Form.Item>
 
-              <Form.Item
-                label="Список остановок"
-                name='city_list_id'
-                rules={[{ required: true }]}
-                initialValue={route.city_list_id}
-              >
-                <Select>
-                  <Select.Option value={route.city_list_id}>{route.city_list_id}</Select.Option>
-                </Select>
-              </Form.Item>
-
               <Form.Item {...tailLayout}>
                 <Space size={18}>
                   <Button type="primary" htmlType="submit">
@@ -105,6 +240,27 @@ const RoutesView: React.FC<Props> = ({ route }) => {
               </Form.Item>
             </Form>
           </Col>
+
+          <Divider orientation="left">Остановки маршрута</Divider>
+          <div style={{marginTop: 10, marginLeft: 70}}>
+            <Form form={form2} component={false} >
+              <Table
+                size="large"
+                components={{
+                  body: {
+                    cell: EditableCell,
+                  },
+                }}
+                bordered
+                dataSource={dataSource}
+                columns={mergedColumns}
+                rowClassName="editable-row"
+                pagination={{
+                  onChange: cancel,
+                }}
+              />
+            </Form>
+          </div>
           <Divider orientation="left">Добавить рейс</Divider>
           <Col span={24}>
             <Form
@@ -120,7 +276,7 @@ const RoutesView: React.FC<Props> = ({ route }) => {
                 label="ID маршрута"
                 name="route_id"
                 rules={[{ required: true }]}
-                initialValue={route.route_id}
+                initialValue={route1.route_id}
               >
                 <Input disabled />
               </Form.Item>
@@ -131,17 +287,6 @@ const RoutesView: React.FC<Props> = ({ route }) => {
                 rules={[{ required: true }]}
               >
                 <Input />
-              </Form.Item>
-
-              <Form.Item
-                label="Список остановок"
-                name='city_list_id'
-                rules={[{ required: true }]}
-                initialValue={route.city_list_id}
-              >
-                <Select disabled>
-                  <Select.Option value={route.city_list_id}>{route.city_list_id}</Select.Option>
-                </Select>
               </Form.Item>
 
               <Form.Item

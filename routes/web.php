@@ -12,6 +12,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CurrentTravelsController;
 use App\Http\Controllers\TravelsController;
 use App\Http\Controllers\StopsController;
+use App\Http\Controllers\StopsRoutesController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 
@@ -89,6 +90,9 @@ Route::get('/', function () {
 
   Route::post('stops/update', [StopsController::class, 'update'])->name('stops.update');
   Route::post('stops', [StopsController::class, 'store'])->name('stops.save');
+
+  Route::post('stopsroutes/update', [StopsRoutesController::class, 'update'])->name('stopsroutes.update');
+  Route::post('stopsroutes', [StopsRoutesController::class, 'store'])->name('stopsroutes.save');
 
   
   Route::get('currenttrips', [CurrentTravelsController::class, 'index'])->name('currenttrips.list');

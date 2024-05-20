@@ -17,7 +17,6 @@ class RouteService{
       $route = Route::create([
         'destination' => $routeData['destination'],
         'origin' => $routeData['origin'],
-        'city_list_id' => $routeData['city_list_id'],
       ]);
       
       DB::commit();
@@ -34,7 +33,6 @@ class RouteService{
 
     $route-> destination = $routeData['destination'];
     $route-> origin = $routeData['origin'];
-    $route-> city_list_id = $routeData['city_list_id'];
 
     $route->save();
     return $route;  

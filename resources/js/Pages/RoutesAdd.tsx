@@ -57,7 +57,7 @@ const RoutesAdd: React.FC<Props> = ({ citylists }) => {
                 <Input />
               </Form.Item>
 
-              <Form.Item
+              {/* <Form.Item
                 label="Список остановок"
                 name="city_list_id"
                 rules={[{ required: true }]}
@@ -74,7 +74,7 @@ const RoutesAdd: React.FC<Props> = ({ citylists }) => {
                     })
                   }
                 </Select>
-              </Form.Item>
+              </Form.Item> */}
 
               <Form.Item {...tailLayout}>
                 <Space size={18}>

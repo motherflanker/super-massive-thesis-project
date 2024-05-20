@@ -149,7 +149,7 @@ const Cities: React.FC<Props> = ({ cities, stops }) => {
 
   const stopsTableColumns = [
     {
-      title: 'ID', dataIndex: 'stops_id', key: 'stops_id',
+      title: 'ID', dataIndex: 'stop_id', key: 'stop_id',
       sorter: (a: any, b: any) => a.stops_id - b.stops_id
     },
     {

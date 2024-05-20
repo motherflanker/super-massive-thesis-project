@@ -23,7 +23,6 @@ class RouteController extends Controller
     $this->rules = [
       'destination' => 'required|min:2|max:30',
       'origin' => 'required|min:2|max:30',
-      'city_list_id' => 'required|integer',
     ];
   }
 
@@ -32,11 +31,18 @@ class RouteController extends Controller
     return Inertia::render('RoutesAdd')->with('citylists', $citylists);
   }
 
-  public function view(Route $route) {
-    $buses = DB::table('buses')->get();
-    $data = ['buses' => $buses, 'route' => $route];
-    return Inertia::render('RoutesView')->with($data);
-  }
+  public function view(Route $route, Request $request) {
+    $stopsRoutes = DB::table('routesStops') 
+        ->where('route_id', $route->route_id)
+        ->get();
+
+    $data = [
+        'route1' => $route,
+        'routesStops' => $stopsRoutes,
+    ];
+
+    return Inertia::render('RoutesView', $data);
+}
 
   public function store(Request $request): RedirectResponse
   {
