@@ -3,6 +3,7 @@ interface IStopsRoutes {
   time: number,
   route_id: number,
   stops_id: number,
+  name: string
 }
 
 export default IStopsRoutes

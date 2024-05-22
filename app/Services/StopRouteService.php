@@ -17,6 +17,7 @@ class StopRouteService{
         'stops_id' => $stopRouteData['stops_id'],
         'route_id' => $stopRouteData['route_id'],
         'time' => $stopRouteData['time'],
+        'name' => $stopRouteData['name'],
       ]);
       
       DB::commit();
@@ -34,6 +35,7 @@ class StopRouteService{
       $stopRoute-> route_id = $stopRouteData['route_id'];
       $stopRoute-> stops_id = $stopRouteData['stops_id'];
       $stopRoute-> time = $stopRouteData['time'];
+      $stopRoute-> name = $stopRouteData['name'];
       $stopRoute->save();
       return $stopRoute;  
     }

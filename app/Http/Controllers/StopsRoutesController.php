@@ -23,8 +23,13 @@ class StopsRoutesController extends Controller
     $this->rules = [
       'route_id' => 'required|integer',
       'stops_id' => 'required|integer',
-      'time' => 'required|integer'
+      'time' => 'required|integer',
+      'name' => 'required|min:2|max:60'
     ];
+  }
+
+  public function add(){
+    return Inertia::render('RoutesStopsAdd');
   }
 
   public function store(Request $request): RedirectResponse

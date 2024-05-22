@@ -11,6 +11,7 @@ import IBus from "@/types/IBus"
 import Table, { ColumnType } from "antd/es/table"
 import IStopsRoutes from "@/types/IStopsRoutes"
 import { EditableCell } from "@/Components/EditableCell"
+import IStops from "@/types/IStops"
 
 
 
@@ -21,25 +22,29 @@ interface RouteProps {
 interface DataType extends IStopsRoutes {
   key: React.Key;
 }
-interface StopsProps {
+interface StopsRoutesProps {
   routesStops: Array<DataType>
+}
+interface StopsProps {
+  stops: Array<IStops>
 }
 
 interface EditableColumnType extends ColumnType<DataType> {
   editable?: boolean;
 }
 
-type Props = RouteProps & StopsProps
+type Props = RouteProps & StopsRoutesProps & StopsProps
 
 const updateRoute = route('routes.update');
 const backButtonRoute = route('trips.list');
 const backroute = route('trips.list')
 const createTripRoute = route('trips.save')
 
-const RoutesView: React.FC<Props> = ({ route1, routesStops }) => {
+const RoutesView: React.FC<Props> = ({ route1, routesStops, stops }) => {
   debugger
   const [form] = Form.useForm()
   const [form2] = Form.useForm()
+  const [form3] = Form.useForm()
 
   const [dataSource, setDataSource] = useState<DataType[]>(routesStops.map(routeStop => ({ ...routeStop, key: routeStop.rs_id })))
 
@@ -148,9 +153,8 @@ const RoutesView: React.FC<Props> = ({ route1, routesStops }) => {
             >
               Изменить
             </Button>
-            <Button type="link" 
-              disabled={editingKey !== ''}
-              onClick={() => edit(record)}>
+            <Button type="link"
+              disabled={editingKey !== ''}>
               <InertiaLink href={route('stopsroutes.add')}>Добавить</InertiaLink>
             </Button>
           </Flex>
@@ -175,10 +179,6 @@ const RoutesView: React.FC<Props> = ({ route1, routesStops }) => {
     };
   });
 
-  const onStopAdd = (values: any) => {
-    Inertia.post(route('stopsroutes.save', values))
-    form2.resetFields()
-  }
 
   useEffect(() => {
     form.setFieldsValue({
@@ -192,9 +192,13 @@ const RoutesView: React.FC<Props> = ({ route1, routesStops }) => {
     Inertia.post(updateRoute, values)
     form.resetFields()
   }
+  const onAddRouteStop = (values: any) => {debugger
+    Inertia.post(route('stopsroutes.save', values))
+    form.resetFields()
+  }
 
   const tailLayout = {
-    wrapperCol: { offset: 4, span: 16 }
+    wrapperCol: { offset: 3, span: 12 }
   }
 
   const onCreateTrip = (values: any) => {
@@ -212,12 +216,12 @@ const RoutesView: React.FC<Props> = ({ route1, routesStops }) => {
       >
         <Divider orientation="left">Редактировать маршрут</Divider>
         <Row>
-          <Col span={24}>
+          <Col span={24} style={{marginTop: 10}}>
             <Form
               form={form}
               name="basic"
-              labelCol={{ span: 4 }}
-              wrapperCol={{ span: 8 }}
+              labelCol={{ span: 3 }}
+              wrapperCol={{ span: 6 }}
               initialValues={{ remember: true }}
               autoComplete="off"
               onFinish={onFinish}
@@ -250,9 +254,10 @@ const RoutesView: React.FC<Props> = ({ route1, routesStops }) => {
           </Col>
 
           <Divider orientation="left">Остановки маршрута</Divider>
-          <div style={{ marginTop: 10, marginLeft: 70 }}>
+          <Flex >
             <Form form={form2} component={false} >
               <Table
+                style={{ marginTop: 10, marginLeft: 70 }}
                 size="large"
                 components={{
                   body: {
@@ -268,14 +273,76 @@ const RoutesView: React.FC<Props> = ({ route1, routesStops }) => {
                 }}
               />
             </Form>
-          </div>
+            <Col span={24} style={{ marginLeft: 80 }}>
+              <Form
+                form={form3}
+                name="basic"
+                labelCol={{ span: 3 }}
+                wrapperCol={{ span: 7 }}
+                initialValues={{ remember: true }}
+                autoComplete="off"
+                onFinish={onAddRouteStop}
+              >
+                <Form.Item
+                  label="ID маршрута"
+                  name="route_id"
+                  rules={[{ required: true, message: 'Введите название' }]}
+                  initialValue={route1.route_id}
+                >
+                  <Input disabled/>
+                </Form.Item>
+
+                <Form.Item
+                  label="ID Остановки"
+                  name="stops_id"
+                  rules={[{ required: true, message: 'Введите остановку' }]}
+                >
+                  <Select>
+                  {stops.map((stop) => (
+                    <Select.Option key={stop.stop_id} value={stop.stop_id}>
+                      {`${stop.stop_id} - ${stop.name}`}
+                    </Select.Option>
+                  ))}
+                </Select>
+                </Form.Item>
+                <Form.Item
+                  label="Название"
+                  name="name"
+                  rules={[{ required: true, message: 'Введите остановку' }]}
+                >
+                  <Select>
+                  {stops.map((stop) => (
+                    <Select.Option key={stop.stop_id} value={stop.name}>
+                      {`${stop.stop_id} - ${stop.name}`}
+                    </Select.Option>
+                  ))}
+                </Select>
+                </Form.Item>
+
+                <Form.Item
+                  label="Время"
+                  name="time"
+                  rules={[{ required: true, message: 'Введите время в пути до остановки' }]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item {...tailLayout}>
+                  <Space size={18}>
+                    <Button type="primary" htmlType="submit">
+                      Сохранить
+                    </Button>
+                  </Space>
+                </Form.Item>
+              </Form>
+            </Col>
+          </Flex>
           <Divider orientation="left">Добавить рейс</Divider>
           <Col span={24}>
             <Form
               form={form}
               name="basic"
-              labelCol={{ span: 4 }}
-              wrapperCol={{ span: 8 }}
+              labelCol={{ span: 3 }}
+              wrapperCol={{ span: 6 }}
               initialValues={{ remember: true }}
               autoComplete="off"
               onFinish={onCreateTrip}

@@ -18,5 +18,6 @@ class StopRoute extends Model{
     'route_id',
     'stops_id',
     'time',
+    'name',
   ];
 }

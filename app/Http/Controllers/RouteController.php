@@ -35,10 +35,11 @@ class RouteController extends Controller
     $stopsRoutes = DB::table('routesstops') 
         ->where('route_id', $route->route_id)
         ->get();
-
+    $stops = DB::table('stops')->get();
     $data = [
         'route1' => $route,
         'routesStops' => $stopsRoutes,
+        'stops' => $stops
     ];
 
     return Inertia::render('RoutesView', $data);
