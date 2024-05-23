@@ -98,7 +98,7 @@ Route::get('/', function () {
   
   Route::get('currenttrips', [CurrentTravelsController::class, 'index'])->name('currenttrips.list');
 
-  Route::put('buses/{id}/location', [BusController::class, 'updateLocation']);
+  Route::post('buses/{bus}/location', [BusController::class, 'updateLocation']);
   Route::get('map', [BusController:: class, 'map'])-> name('map');
 
 

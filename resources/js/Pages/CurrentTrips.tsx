@@ -194,7 +194,7 @@ const CurrentTrips: React.FC<Props> = ({ travels, buses }) => {
 
   useEffect(() => {
     const yandexMapScript = document.createElement('script');
-    yandexMapScript.src = 'https://api-maps.yandex.ru/2.1/?apikey=c62ff8a1-50b9-4ea6-8bec-bf7f9950deaa&lang=en_US';
+    yandexMapScript.src = 'https://api-maps.yandex.ru/2.1/?apikey=c62ff8a1-50b9-4ea6-8bec-bf7f9950deaa&lang=ru_RU';
     yandexMapScript.type = 'text/javascript';
     yandexMapScript.onload = () => {
       window.ymaps.ready(initMap);
@@ -215,7 +215,7 @@ const CurrentTrips: React.FC<Props> = ({ travels, buses }) => {
     buses.forEach(bus => {
       const marker = new window.ymaps.Placemark(
         [bus.latitude, bus.longitude],
-        { hintContent: `Bus ID: ${bus.bus_id}`, balloonContent: `<div>Bus ID: ${bus.bus_id}</div>` },
+        { hintContent: `Автобус: ${bus.plate_number}`, balloonContent: `<div>Автобус: ${bus.plate_number}</div>` },
         { preset: 'islands#icon', iconColor: '#0095b6' }
       );
 

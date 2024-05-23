@@ -36,14 +36,32 @@ class BusController extends Controller
     return Inertia::render('Map', ['buses' => $buses]);
   }
 
-  public function updateLocation(Request $request, $bus_id){
-    $bus = Bus::findOrFail($bus_id);
-    $bus -> update([
-      'latitude' => $request->latitude,
-      'longitude' => $request->longitude
-    ]);
+
+  public function updateLocation(Request $request, $bus_id) {
+    \Log::info('Received data:', $request->all());
+    \Log::info('Bus ID:', ['bus_id' => $bus_id]);
+    $this->busService->updateLocation($bus_id, $request->latitude, $request->longitude);
     return response()->json(['message' => 'location updated']);
-  }
+}
+
+// public function updateLocation(Request $request, $bus_id) {
+//   \Log::info('Received data:', $request->all());
+//   \Log::info('Headers:', $request->headers->all());
+//   \Log::info('Bus ID:', ['bus_id' => $bus_id]);
+
+//   $latitude = $request->input('latitude');
+//   $longitude = $request->input('longitude');
+
+//   if (is_null($latitude) || is_null($longitude)) {
+//       \Log::error('Missing latitude or longitude', ['latitude' => $latitude, 'longitude' => $longitude]);
+//       return response()->json(['message' => 'Invalid data'], 400);
+//   }
+
+//   $this->busService->updateLocation($bus_id, $latitude, $longitude);
+//   \Log::info('Location updated successfully');
+
+//   return response()->json(['message' => 'Location updated']);
+// }
 
   public function add(){
     return Inertia::render('BusesAdd');
