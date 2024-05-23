@@ -75,8 +75,8 @@ const Template: React.FC<Props> = ({ children }: any) => {
                 <InertiaLink href={route('currenttrips.list')}>Активные</InertiaLink>
               </Menu.Item>
             </Menu.SubMenu>
-            <Menu.SubMenu key={'sub4'} icon={<AreaChartOutlined />} title={'Отчеты'}>
-              {/* <Menu.Item key="buses/list">
+            {/* <Menu.SubMenu key={'sub4'} icon={<AreaChartOutlined />} title={'Отчеты'}>
+              <Menu.Item key="buses/list">
                 <InertiaLink href={route('buses.list')}>По автопарку</InertiaLink>
               </Menu.Item>
               <Menu.Item key="buses/list">
@@ -90,8 +90,8 @@ const Template: React.FC<Props> = ({ children }: any) => {
               </Menu.Item>
               <Menu.Item key="buses/list">
                 <InertiaLink href={route('buses.list')}>пункт 4</InertiaLink>
-              </Menu.Item> */}
-            </Menu.SubMenu>
+              </Menu.Item>
+            </Menu.SubMenu> */}
           </Menu>
       </Sider>
       <Layout>
