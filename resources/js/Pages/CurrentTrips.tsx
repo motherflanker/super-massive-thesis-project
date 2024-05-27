@@ -31,6 +31,8 @@ const CurrentTrips: React.FC<Props> = ({ travels, buses }) => {
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef<InputRef>(null);
 
+  const [busess, setBuses] = useState([buses]);
+
   const handleSearch = (
     selectedKeys: string[],
     confirm: FilterDropdownProps['confirm'],
@@ -192,6 +194,23 @@ const CurrentTrips: React.FC<Props> = ({ travels, buses }) => {
     }
   }
 
+  // useEffect(() => {
+  //   const fetchBusesData = async () => {
+  //     try {
+  //       const response = await fetch('buses/locations'); 
+  //       const data = await response.json();
+  //       setBuses(data);
+  //     } catch (error) {
+  //       console.error('Error fetching buses data:', error);
+  //     }
+  //   };
+
+  //   fetchBusesData();
+
+  //   const pollingInterval = setInterval(fetchBusesData, 30000);
+  //   return () => clearInterval(pollingInterval);
+  // }, []);
+
   useEffect(() => {
     const yandexMapScript = document.createElement('script');
     yandexMapScript.src = 'https://api-maps.yandex.ru/2.1/?apikey=c62ff8a1-50b9-4ea6-8bec-bf7f9950deaa&lang=ru_RU';
@@ -204,7 +223,7 @@ const CurrentTrips: React.FC<Props> = ({ travels, buses }) => {
     return () => {
       document.head.removeChild(yandexMapScript);
     };
-  }, [buses]);
+  }, [busess]);
 
   const initMap = () => {
     const map = new window.ymaps.Map('map', {

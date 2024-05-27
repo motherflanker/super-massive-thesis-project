@@ -5,7 +5,8 @@ declare global {
     interface Window {
         axios: AxiosInstance;
         initMap: () => void;
-        ymaps: any
+        ymaps: any,
+        busMap: any;
     }
 
     var route: typeof ziggyRoute;

@@ -18,7 +18,9 @@ class BusService{
         'name' => $busData['name'], 
         'plate_number' => $busData['plate_number'],
         'max_seats' => $busData['max_seats'],
-        'status' => $busData['status']
+        'status' => $busData['status'],
+        'latitude' => $busData['latitude'],
+        'longitude' => $busData['longitude']
       ]);
 
       DB::commit();
@@ -45,6 +47,8 @@ class BusService{
     $bus-> plate_number = $busData['plate_number'];
     $bus-> max_seats = $busData['max_seats'];
     $bus-> status = $busData['status'];
+    $bus-> latitude = $busData['latitude'];
+    $bus-> longitude = $busData['longitude'];
 
     $bus->save();
     return $bus;

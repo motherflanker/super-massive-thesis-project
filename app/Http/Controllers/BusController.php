@@ -74,6 +74,13 @@ class BusController extends Controller
     return Inertia::render('Buses')->with($data);
   }  
 
+  public function locations()
+  {
+    \Log::info('Entered the method');
+    $busLocations = DB::table('buses')->select('bus_id', 'latitude', 'longitude')->get();
+    return response()->json($busLocations);
+  }
+
   public function view(Bus $bus){
     $techreports = DB::table('techreports')->orderBy('created_at', 'desc')->get();
     $data = ['bus' => $bus, 'techreports' => $techreports];
