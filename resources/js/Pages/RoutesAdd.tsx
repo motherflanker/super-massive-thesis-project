@@ -57,25 +57,6 @@ const RoutesAdd: React.FC<Props> = ({ citylists }) => {
                 <Input />
               </Form.Item>
 
-              {/* <Form.Item
-                label="Список остановок"
-                name="city_list_id"
-                rules={[{ required: true }]}
-              >
-                <Select>
-                  {
-                    citylists.map((citylist) => {
-                      return <Select.Option
-                        key={citylist.city_list_id}
-                        value={citylist.city_list_id}
-                      >
-                        {citylist.city_list_id}
-                      </Select.Option>
-                    })
-                  }
-                </Select>
-              </Form.Item> */}
-
               <Form.Item {...tailLayout}>
                 <Space size={18}>
                   <Button type="primary" htmlType="submit">

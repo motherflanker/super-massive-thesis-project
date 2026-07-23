@@ -83,18 +83,6 @@ const TravelsAdd: React.FC<Props> = ({ trips, buses }) => {
                 name='origin'
                 rules={[{ required: true,  message: 'Введите пункт отправления' }]}
               >
-                {/* <Select>
-                  {
-                    trips.map((trip) => {
-                      return <Select.Option
-                        key={trip.trip_id}
-                        value={trip.origin}
-                      >
-                        {`${trip.trip_id} - ${trip.origin}`}
-                      </Select.Option>
-                    })
-                  } 
-                </Select> */}
                 <Input />
               </Form.Item>
 
@@ -103,13 +91,6 @@ const TravelsAdd: React.FC<Props> = ({ trips, buses }) => {
                 name='destination'
                 rules={[{ required: true,  message: 'Введите пункт назначения' }]}
               >
-                {/* <Select>
-                  {trips.map((trip) => (
-                    <Select.Option key={trip.trip_id} value={trip.destination}>
-                      {`${trip.trip_id} - ${trip.destination}`}
-                    </Select.Option>
-                  ))}
-                </Select> */}
                 <Input />
               </Form.Item>
 

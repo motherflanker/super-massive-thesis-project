@@ -9,6 +9,8 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
+use Carbon\Carbon;
+
 class BookingService{
   public function createBooking($bookingData) {
     try{

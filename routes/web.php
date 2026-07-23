@@ -19,20 +19,21 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 
+  Route::get('/', function () {
+    return Inertia::render('Home');
+  })->name('home');
 
-Route::get('/', function () {
-  return Inertia::render('Home');
-})->name('home');
+  Route::get('login', [LoginController::class, 'index'])->name('login');       
+  Route::post('login', [LoginController::class, 'login'])->name('do.login');
 
-// Route::get('/login', [LoginController::class, 'index'])->name('login');       //according to authenticatable its as if im not even sending anything to auth by
-// Route::post('/login', [LoginController::class, 'login'])->name('do.login');
-
+  Route::get('bookings/statistics', [BookingController::class, 'statistics'])->name('bookings.statistics');
   Route::get('bookings', [BookingController::class, 'index'])->name('bookings.list');
   Route::get('bookings/add', [BookingController::class, 'add'])->name('bookings.add');
-  Route::post('bookings', [BookingController::class, 'store'])->name('bookings.save');
+  Route::post('bookings/save', [BookingController::class, 'store'])->name('bookings.save');
   Route::get('bookings/{booking}', [BookingController::class, 'view'])->name('bookings.view');
   Route::post('bookings/update', [BookingController::class, 'update'])->name('bookings.update');
   Route::post('bookings/delete', [BookingController::class, 'destroy'])->name('bookings.delete');
+
 
 
   Route::get('buses', [BusController::class, 'index'])->name('buses.list');
@@ -72,15 +73,6 @@ Route::get('/', function () {
   Route::post('cities/update', [CityController::class, 'update'])->name('cities.update');
   Route::post('cities/delete', [CityController::class, 'destroy'])->name('cities.delete');
 
-
-  Route::get('citylists', [CityListController::class, 'index'])->name('citylists.list');
-  Route::get('citylists/add', [CityListController::class, 'add'])->name('citylists.add');
-  Route::post('citylists', [CityListController::class, 'store'])->name('citylists.save');
-  Route::get('citylists/{citylist}', [CityListController::class, 'view'])->name('citylists.view');
-  Route::post('citylists/update', [CityListController::class, 'update'])->name('citylists.update');
-  Route::post('citylists/delete', [CityListController::class, 'destroy'])->name('citylists.delete');
-
-
   Route::get('travels', [TravelsController::class, 'index'])->name('travels.list');
   Route::get('travels/add', [TravelsController::class, 'add'])->name('travels.add');
   Route::post('travels', [TravelsController::class, 'store'])->name('travels.save');
@@ -103,15 +95,33 @@ Route::get('/', function () {
   Route::get('map', [BusController:: class, 'map'])-> name('map');
 
 
+
+  
+
+
+
   // Route::get('/test-stop', function() {
   //   $stop = \App\Models\Stop::find(1);
   //   dd($stop);
   // });
 
+
+
 // Route::group(['middleware' => ['auth']], function () {
-    
   
+//   \Log::info('auth middleware entry');
 
+//   Route::get('/', function () {
+//     return Inertia::render('Home');
+//   })->name('home');
+
+//   Route::group(['middleware' => ['role:manager']], function () {
+//     \Log::info('role manager entry');
+//     Route::get('bookings', [BookingController::class, 'index'])->name('bookings.list');
+//     Route::get('bookings/add', [BookingController::class, 'add'])->name('bookings.add');
+//     Route::post('bookings', [BookingController::class, 'store'])->name('bookings.save');
+//     Route::get('bookings/{booking}', [BookingController::class, 'view'])->name('bookings.view');
+//     Route::post('bookings/update', [BookingController::class, 'update'])->name('bookings.update');
+//     Route::post('bookings/delete', [BookingController::class, 'destroy'])->name('bookings.delete');
+//   });
 // });
-
-

@@ -30,6 +30,7 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+      \Log::info('Handling Inertia Request for URL: ' . $request->url());
         return [
             ...parent::share($request),
             'auth' => [

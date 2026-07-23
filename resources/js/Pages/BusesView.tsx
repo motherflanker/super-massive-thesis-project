@@ -43,11 +43,11 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
   }, [])
 
   const tailLayout1 = {
-    wrapperCol: { offset: 18, span: 4 }
+    wrapperCol: { offset: 15, span: 4 }
   }
 
   const tailLayout2 = {
-    wrapperCol: { offset: 19, span: 5 }
+    wrapperCol: { offset: 18, span: 6 }
   }
 
   const onFinish = (values: any) => {
@@ -71,7 +71,7 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
         className="site-layout-background"
         style={{ padding: 4, minHeight: 560 }}
       >
-        <Divider orientation="left">Edit bus</Divider>
+        <Divider orientation="left">Редактировать</Divider>
         <Flex wrap="wrap" justify="space-around">
           <Form
             form={form1}
@@ -84,7 +84,7 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
             style={{ width: 400 }}
           >
             <Form.Item
-              label="Name"
+              label="Название"
               name="name"
               rules={[{ required: true, message: 'Enter the name' }]}
             >
@@ -92,7 +92,7 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
             </Form.Item>
 
             <Form.Item
-              label="Plate"
+              label="Номер"
               name="plate_number"
               rules={[{ required: true, message: 'Enter the plate number' }]}
             >
@@ -100,7 +100,7 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
             </Form.Item>
 
             <Form.Item
-              label="Seats"
+              label="Места"
               name="max_seats"
               rules={[{ required: true, message: 'Enter the amount of seats' }]}
             >
@@ -108,23 +108,23 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
             </Form.Item>
 
             <Form.Item
-              label="Status"
+              label="Статус"
               name='status'
               rules={[{ required: true }]}
             >
               <Select>
-                <Select.Option value={'available'}>{'available'}</Select.Option>
-                <Select.Option value={'taken'}>{'taken'}</Select.Option>
-                <Select.Option value={'inService'}>{'inService'}</Select.Option>
-                <Select.Option value={'forMaintenance'}>{'forMaintenance'}</Select.Option>
+                <Select.Option value={'available'}>{'Свободен'}</Select.Option>
+                <Select.Option value={'taken'}>{'Занят'}</Select.Option>
+                <Select.Option value={'inService'}>{'В сервисе'}</Select.Option>
+                <Select.Option value={'forMaintenance'}>{'Сломан'}</Select.Option>
               </Select>
             </Form.Item>
 
             <Form.Item {...tailLayout1}>
               <Space size={10}>
-                <InertiaLink href={route('buses.list')}>Back</InertiaLink>
+                <InertiaLink href={route('buses.list')}>Назад</InertiaLink>
                 <Button type="primary" htmlType="submit">
-                  Save
+                  Сохранить
                 </Button>
               </Space>
             </Form.Item>
@@ -140,7 +140,7 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
             style={{ width: 400 }}
           >
             <Form.Item
-              label="BusID"
+              label="ID авто"
               name="bus_id"
               rules={[{ required: true }]}
             >
@@ -148,7 +148,7 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
             </Form.Item>
 
             <Form.Item
-              label="Text"
+              label="Отчет"
               name="text"
               rules={[{ required: true, message: 'Enter text' }]}
             >
@@ -156,7 +156,7 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
             </Form.Item>
 
             <Form.Item
-              label="Price"
+              label="Цена"
               name="price"
               rules={[{ required: true, message: 'Enter the price' }]}
             >
@@ -194,7 +194,7 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
             </Form.Item>
 
             <Form.Item
-              label="isDone"
+              label="Окончен"
               name="isDone"
               rules={[{ required: true }]}
             >
@@ -203,15 +203,15 @@ const BusesView: React.FC<BusProps & ReportProps> = ({ bus, techreports }) => {
 
             <Form.Item {...tailLayout2}>
               <Space >
-                <Button style={{ width: 82 }} type="primary" htmlType="submit">
-                  Add
+                <Button style={{ width:100 }} type="primary" htmlType="submit">
+                  Добавить
                 </Button>
               </Space>
             </Form.Item>
           </Form>
         </Flex>
         <Row>
-          <Divider orientation="left">Feed</Divider>
+          <Divider orientation="left">Отчеты</Divider>
           {
             <Flex wrap="wrap" gap={'large'}>
               {

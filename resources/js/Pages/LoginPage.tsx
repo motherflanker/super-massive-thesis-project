@@ -8,7 +8,8 @@ import {route} from 'ziggy-js';
 
 
 const LoginPage = () => {
-  const handleLogin = (values: { email: string; password: string }) => {
+  const handleLogin = (values: { email: string; password: string }) => {debugger
+    console.log('Password being sent:', values.password)
     Inertia.post(route('do.login'), {
       email: values.email,
       password: values.password,
